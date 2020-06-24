@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="create-users" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="more_user_create_more_role" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -11,37 +11,23 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
-        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments"/>
-        </elementProp>
-        <stringProp name="HTTPSampler.domain">sandbox2-master.sigsus.cn</stringProp>
-        <stringProp name="HTTPSampler.port">52080</stringProp>
-        <stringProp name="HTTPSampler.protocol">http</stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-        <stringProp name="HTTPSampler.path"></stringProp>
-        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
-        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-        <stringProp name="HTTPSampler.response_timeout"></stringProp>
-      </ConfigTestElement>
-      <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="resources_folder" elementType="Argument">
             <stringProp name="Argument.name">resources_folder</stringProp>
-            <stringProp name="Argument.value">${__P(resources/, ../resources)}</stringProp>
+            <stringProp name="Argument.value">resources/accounts.csv</stringProp>
             <stringProp name="Argument.desc">Change this value to folder containing your CSV files</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">sandbox2-master.sigsus.cn</stringProp>
+            <stringProp name="Argument.value">sandbox03-master</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Change this value to jmeter.apache.org</stringProp>
           </elementProp>
           <elementProp name="Threads" elementType="Argument">
             <stringProp name="Argument.name">Threads</stringProp>
-            <stringProp name="Argument.value">1000</stringProp>
+            <stringProp name="Argument.value">50</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="RampUp" elementType="Argument">
@@ -74,8 +60,32 @@
             <stringProp name="Argument.value">&quot;&quot;</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="domain" elementType="Argument">
+            <stringProp name="Argument.name">domain</stringProp>
+            <stringProp name="Argument.value">sandbox03-master.sigsus.cn</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="domainPort" elementType="Argument">
+            <stringProp name="Argument.name">domainPort</stringProp>
+            <stringProp name="Argument.value">52010</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">${domain}</stringProp>
+        <stringProp name="HTTPSampler.port">${domainPort}</stringProp>
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
       <hashTree/>
       <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
         <collectionProp name="CookieManager.cookies"/>
@@ -87,7 +97,7 @@
         <stringProp name="TestPlan.comments">CSV file that must contains rows with 2 columns separated by comma, first column will be mapped to login, second one to password</stringProp>
         <stringProp name="delimiter">,</stringProp>
         <stringProp name="fileEncoding">UTF-8</stringProp>
-        <stringProp name="filename">${resources_folder}/accounts.csv</stringProp>
+        <stringProp name="filename">${resources_folder}</stringProp>
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
         <stringProp name="shareMode">shareMode.all</stringProp>
@@ -234,7 +244,7 @@
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Referer" elementType="Header">
                 <stringProp name="Header.name">Referer</stringProp>
-                <stringProp name="Header.value">http://sandbox2-master.sigsus.cn:52080/custom-user-dashboard/user/login?redirect=http%3A%2F%2Fsandbox2-master.sigsus.cn%3A52080%2Fcustom-user-dashboard</stringProp>
+                <stringProp name="Header.value">http://${domain}:${domainPort}/custom-user-dashboard/user/login?redirect=http%3A%2F%2F${domain}%3A${domainPort}%2Fcustom-user-dashboard</stringProp>
               </elementProp>
               <elementProp name="Accept-Language" elementType="Header">
                 <stringProp name="Header.name">Accept-Language</stringProp>
@@ -242,7 +252,7 @@
               </elementProp>
               <elementProp name="Origin" elementType="Header">
                 <stringProp name="Header.name">Origin</stringProp>
-                <stringProp name="Header.value">http://sandbox2-master.sigsus.cn:52080</stringProp>
+                <stringProp name="Header.value">http://${domain}:${domainPort}</stringProp>
               </elementProp>
               <elementProp name="Content-Type" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
@@ -295,7 +305,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&quot;name&quot;:&quot;test_user_role_${__threadNum}&quot;,&quot;note&quot;:&quot;perf测试_${__threadNum} ======================================&quot;,&quot;permissions&quot;:[&quot;DLWORKSPACE&quot;,&quot;SUBMIT_TRAINING_JOB&quot;,&quot;MANAGE_VC&quot;,&quot;VIEW_VC&quot;,&quot;VIEW_ALL_USER_JOB&quot;,&quot;VIEW_AND_MANAGE_ALL_USERS_JOB&quot;,&quot;VIEW_CLUSTER_STATUS&quot;,&quot;MANAGE_USER&quot;]}</stringProp>
+                <stringProp name="Argument.value">{&quot;name&quot;:&quot;test_user_role_${__threadNum}&quot;,&quot;note&quot;:&quot;perf_${__threadNum}:SUBMIT_JOB,MANAGE_ALL_JOB,MANAGE_USER&quot;,&quot;permissions&quot;:[&quot;DLWORKSPACE&quot;,&quot;SUBMIT_TRAINING_JOB&quot;,&quot;MANAGE_VC&quot;,&quot;VIEW_VC&quot;,&quot;VIEW_ALL_USER_JOB&quot;,&quot;VIEW_AND_MANAGE_ALL_USERS_JOB&quot;,&quot;VIEW_CLUSTER_STATUS&quot;,&quot;MANAGE_USER&quot;]}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -319,7 +329,7 @@
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Referer" elementType="Header">
                 <stringProp name="Header.name">Referer</stringProp>
-                <stringProp name="Header.value">http://sandbox2-master.sigsus.cn:52080/custom-user-dashboard/admin/role/add</stringProp>
+                <stringProp name="Header.value">http://${domain}:${domainPort}/custom-user-dashboard/admin/role/add</stringProp>
               </elementProp>
               <elementProp name="Accept-Language" elementType="Header">
                 <stringProp name="Header.name">Accept-Language</stringProp>
@@ -327,7 +337,7 @@
               </elementProp>
               <elementProp name="Origin" elementType="Header">
                 <stringProp name="Header.name">Origin</stringProp>
-                <stringProp name="Header.value">http://sandbox2-master.sigsus.cn:52080</stringProp>
+                <stringProp name="Header.value">http://${domain}:${domainPort}</stringProp>
               </elementProp>
               <elementProp name="Pragma" elementType="Header">
                 <stringProp name="Header.name">Pragma</stringProp>
@@ -396,7 +406,7 @@
               </elementProp>
               <elementProp name="Referer" elementType="Header">
                 <stringProp name="Header.name">Referer</stringProp>
-                <stringProp name="Header.value">http://${host}:52080/custom-user-dashboard/admin/group/list</stringProp>
+                <stringProp name="Header.value">http://${domain}:${domainPort}/custom-user-dashboard/admin/group/list</stringProp>
               </elementProp>
               <elementProp name="Accept-Language" elementType="Header">
                 <stringProp name="Header.name">Accept-Language</stringProp>
@@ -588,7 +598,7 @@
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Referer" elementType="Header">
                 <stringProp name="Header.name">Referer</stringProp>
-                <stringProp name="Header.value">http://sandbox2-master.sigsus.cn:52080/custom-user-dashboard</stringProp>
+                <stringProp name="Header.value">http://${domain}:${domainPort}/custom-user-dashboard</stringProp>
               </elementProp>
               <elementProp name="Accept-Language" elementType="Header">
                 <stringProp name="Header.name">Accept-Language</stringProp>

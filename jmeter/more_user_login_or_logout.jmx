@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="create-users" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="more_user_login_and_logout" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -29,7 +29,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="resources_folder" elementType="Argument">
             <stringProp name="Argument.name">resources_folder</stringProp>
-            <stringProp name="Argument.value">${__P(resources/, ../resources)}</stringProp>
+            <stringProp name="Argument.value">resources/accounts.csv</stringProp>
             <stringProp name="Argument.desc">Change this value to folder containing your CSV files</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -127,7 +127,7 @@
         <stringProp name="TestPlan.comments">CSV file that must contains rows with 2 columns separated by comma, first column will be mapped to login, second one to password</stringProp>
         <stringProp name="delimiter">,</stringProp>
         <stringProp name="fileEncoding">UTF-8</stringProp>
-        <stringProp name="filename">${resources_folder}/accounts.csv</stringProp>
+        <stringProp name="filename">${resources_folder}</stringProp>
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
         <stringProp name="shareMode">shareMode.all</stringProp>
