@@ -21,13 +21,13 @@
           </elementProp>
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">sandbox03-master</stringProp>
+            <stringProp name="Argument.value">apulis-atlas01</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Change this value to jmeter.apache.org</stringProp>
           </elementProp>
           <elementProp name="Threads" elementType="Argument">
             <stringProp name="Argument.name">Threads</stringProp>
-            <stringProp name="Argument.value">100</stringProp>
+            <stringProp name="Argument.value">1000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="RampUp" elementType="Argument">
@@ -47,12 +47,12 @@
           </elementProp>
           <elementProp name="LoopThinkTimer" elementType="Argument">
             <stringProp name="Argument.name">LoopThinkTimer</stringProp>
-            <stringProp name="Argument.value">5000</stringProp>
+            <stringProp name="Argument.value">1000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="GlobalThinkTimer" elementType="Argument">
             <stringProp name="Argument.name">GlobalThinkTimer</stringProp>
-            <stringProp name="Argument.value">15000</stringProp>
+            <stringProp name="Argument.value">5000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="token" elementType="Argument">
@@ -62,12 +62,12 @@
           </elementProp>
           <elementProp name="domainPort" elementType="Argument">
             <stringProp name="Argument.name">domainPort</stringProp>
-            <stringProp name="Argument.value">52010</stringProp>
+            <stringProp name="Argument.value"></stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="domain" elementType="Argument">
             <stringProp name="Argument.name">domain</stringProp>
-            <stringProp name="Argument.value">sandbox03-master.sigsus.cn</stringProp>
+            <stringProp name="Argument.value">atlas01.sigsus.cn</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>

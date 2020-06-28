@@ -62,7 +62,7 @@
           </elementProp>
           <elementProp name="jobSleep" elementType="Argument">
             <stringProp name="Argument.name">jobSleep</stringProp>
-            <stringProp name="Argument.value">15</stringProp>
+            <stringProp name="Argument.value">5</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="GlobalThinkTime" elementType="Argument">
@@ -88,7 +88,7 @@
           </elementProp>
           <elementProp name="Threads" elementType="Argument">
             <stringProp name="Argument.name">Threads</stringProp>
-            <stringProp name="Argument.value">100</stringProp>
+            <stringProp name="Argument.value">200</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="RampUP" elementType="Argument">
@@ -103,7 +103,7 @@
           </elementProp>
           <elementProp name="numpsworker" elementType="Argument">
             <stringProp name="Argument.name">numpsworker</stringProp>
-            <stringProp name="Argument.value">2</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="resourcegpu" elementType="Argument">
@@ -118,7 +118,7 @@
           </elementProp>
           <elementProp name="VcName" elementType="Argument">
             <stringProp name="Argument.name">VcName</stringProp>
-            <stringProp name="Argument.value">atlas01</stringProp>
+            <stringProp name="Argument.value">VcPerf_sample1_${__threadNum}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="domain" elementType="Argument">
@@ -322,7 +322,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;userName&quot;:&quot;${username}&quot;,&quot;jobType&quot;:&quot;training&quot;,&quot;gpuType&quot;:&quot;${gpuType}&quot;,&quot;vcName&quot;:&quot;${vcName}&quot;,&quot;containerUserId&quot;:0,&quot;jobName&quot;:&quot;${__jexl3(&quot;gpu_distirbuted_test&quot;+&quot;_&quot;+&quot;${username}&quot;+&quot;_&quot;+&quot;${__jm__LoopSubmit__idx}&quot;)}&quot;,&quot;jobtrainingtype&quot;:&quot;PSDistJob&quot;,&quot;preemptionAllowed&quot;:&quot;${preemptionAllowed}&quot;,&quot;image&quot;:&quot;apulistech/cuda:10.0&quot;,&quot;cmd&quot;:&quot;sudo bash -c \&quot;source /root/anaconda3/bin/deactivate &amp;&amp; conda activate open-mmlab &amp;&amp; cd /root/pytorch_samples/mnist/ &amp;&amp; python main.py --epochs ${jobSleep}\&quot;&quot;,&quot;workPath&quot;:&quot;./&quot;,&quot;enableworkpath&quot;:true,&quot;dataPath&quot;:&quot;./&quot;,&quot;enabledatapath&quot;:true,&quot;jobPath&quot;:&quot;./&quot;,&quot;enablejobpath&quot;:true,&quot;env&quot;:[],&quot;hostNetwork&quot;:true,&quot;isPrivileged&quot;:true,&quot;interactivePorts&quot;:&quot;&quot;,&quot;plugins&quot;:{&quot;blobfuse&quot;:[{&quot;accountName&quot;:&quot;&quot;,&quot;accountKey&quot;:&quot;&quot;,&quot;containerName&quot;:&quot;&quot;,&quot;mountPath&quot;:&quot;&quot;,&quot;mountOptions&quot;:&quot;&quot;}],&quot;imagePull&quot;:[{&quot;registry&quot;:&quot;&quot;,&quot;username&quot;:&quot;&quot;,&quot;password&quot;:&quot;&quot;}]},&quot;numps&quot;:1,&quot;resourcegpu&quot;:${resourcegpu},&quot;numpsworker&quot;:${numpsworker}}</stringProp>
+                  <stringProp name="Argument.value">{&quot;userName&quot;:&quot;${username}&quot;,&quot;jobType&quot;:&quot;training&quot;,&quot;gpuType&quot;:&quot;${gpuType}&quot;,&quot;vcName&quot;:&quot;VcPerf_sample${__threadNum}_1&quot;,&quot;containerUserId&quot;:0,&quot;jobName&quot;:&quot;${__jexl3(&quot;gpu_distirbuted_test&quot;+&quot;_&quot;+&quot;${username}&quot;+&quot;_&quot;+&quot;${__jm__LoopSubmit__idx}&quot;)}&quot;,&quot;jobtrainingtype&quot;:&quot;PSDistJob&quot;,&quot;preemptionAllowed&quot;:&quot;${preemptionAllowed}&quot;,&quot;image&quot;:&quot;apulistech/cuda:10.0&quot;,&quot;cmd&quot;:&quot;sudo bash -c \&quot;source /root/anaconda3/bin/deactivate &amp;&amp; conda activate open-mmlab &amp;&amp; cd /root/pytorch_samples/mnist/ &amp;&amp; python main.py --epochs ${jobSleep}\&quot;&quot;,&quot;workPath&quot;:&quot;./&quot;,&quot;enableworkpath&quot;:true,&quot;dataPath&quot;:&quot;./&quot;,&quot;enabledatapath&quot;:true,&quot;jobPath&quot;:&quot;./&quot;,&quot;enablejobpath&quot;:true,&quot;env&quot;:[],&quot;hostNetwork&quot;:true,&quot;isPrivileged&quot;:true,&quot;interactivePorts&quot;:&quot;&quot;,&quot;plugins&quot;:{&quot;blobfuse&quot;:[{&quot;accountName&quot;:&quot;&quot;,&quot;accountKey&quot;:&quot;&quot;,&quot;containerName&quot;:&quot;&quot;,&quot;mountPath&quot;:&quot;&quot;,&quot;mountOptions&quot;:&quot;&quot;}],&quot;imagePull&quot;:[{&quot;registry&quot;:&quot;&quot;,&quot;username&quot;:&quot;&quot;,&quot;password&quot;:&quot;&quot;}]},&quot;numps&quot;:1,&quot;resourcegpu&quot;:${resourcegpu},&quot;numpsworker&quot;:${numpsworker}}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>

@@ -21,13 +21,13 @@
           </elementProp>
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">sandbox2-master</stringProp>
+            <stringProp name="Argument.value">apulis-atlas01</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Change this value to jmeter.apache.org</stringProp>
           </elementProp>
           <elementProp name="Threads" elementType="Argument">
             <stringProp name="Argument.name">Threads</stringProp>
-            <stringProp name="Argument.value">500</stringProp>
+            <stringProp name="Argument.value">15000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="RampUp" elementType="Argument">
@@ -47,22 +47,27 @@
           </elementProp>
           <elementProp name="adminName" elementType="Argument">
             <stringProp name="Argument.name">adminName</stringProp>
-            <stringProp name="Argument.value">yunxia.chu</stringProp>
+            <stringProp name="Argument.value">sample0</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="adminPasswd" elementType="Argument">
             <stringProp name="Argument.name">adminPasswd</stringProp>
-            <stringProp name="Argument.value">e10adc3949ba59abbe56e057f20f883e</stringProp>
+            <stringProp name="Argument.value">25d55ad283aa400af464c76d713c07ad</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="domain" elementType="Argument">
             <stringProp name="Argument.name">domain</stringProp>
-            <stringProp name="Argument.value">sandbox2-master.sigsus.cn</stringProp>
+            <stringProp name="Argument.value">atlas01.sigsus.cn</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="domainPort" elementType="Argument">
             <stringProp name="Argument.name">domainPort</stringProp>
-            <stringProp name="Argument.value">52080</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="GlobalThinkTime" elementType="Argument">
+            <stringProp name="Argument.name">GlobalThinkTime</stringProp>
+            <stringProp name="Argument.value">1000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -339,7 +344,7 @@
         <TestAction guiclass="TestActionGui" testclass="TestAction" testname="ThinkTime" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">500</stringProp>
+          <stringProp name="ActionProcessor.duration">${GlobalThinkTime}</stringProp>
         </TestAction>
         <hashTree>
           <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="URT" enabled="true">
