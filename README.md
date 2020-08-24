@@ -1,59 +1,51 @@
 PerfBoard
 ============================================================================
 
-稳定性和性能测试脚本集
+Apulis 稳定性和性能测试套件
 
 
-安装环境说明
-----------------------------------------------------------------------------
-windows 10 1909
-Python 3.8
-locust 1.0.3
-JDK 1.8.0_251
-Jmeter 5.3 
-
-目录说明
-----------------------------------------------------------------------------
-```
-   /- jmeter     # jmeter 脚本库
-    - locust     # locust 脚本库
-    - resources  # 常用文件或数据备份
-    - tools      # python 或其他语言写辅助脚本
-    - testsuites # 测试计划（关联的脚本配置）
-
-```
-
-命名规范【主谓/动宾表】
+快速使用
 ----------------------------------------------------------------------------
 
-* 脚本命名规范
- 
-    **主体_操作_属性_实体_环境**
+* [Jmeter常用方法](./docs/jmeter脚本常用配置方法.md)
+* [Locust常用方法]()
+* [测试套件设计](./docs/测试【表情】套件设计.md)
 
-    - jmeter 脚本命名示例：
-
-      more_user_submit_more_CPU_job.jmx
-
-* 代码命名规范
-
-    * 代码文件， 函数命名：小写单词 + "_" 
-
-        ```get_job_name``
-
-    * 变量命名： 双驼峰 
-
-        ```TestList```
-    
-    * 常量，特殊标记： 全大写
-
-        ```WAITTIME```
-
-测试集设计
+安装说明
 ----------------------------------------------------------------------------
-* 全集
 
-* baseline
+|组件         |版本|
+|:------------|:------------|
+|windows 10   | 1909        |
+|Python       |3.8          |
+|locust       |1.0.3        |
+|JDK          |1.8.0_251    |
+|Jmeter       |5.3          |
 
-* core line
+### 参考文档
 
-* addon plugin
+有关安装指南、教程和API的更多详细信息，请参阅[Diamod wiki](https://github.com/apulis/Diamond/wiki)
+
+
+### 发布
+
+* [0.5-gpu-jmeter-perf](https://github.com/apulis/PerfBoard/releases/tag/v0.5)
+
+    版本说明详情请参阅[RELEASE](./RELEASE.md)。
+
+### 贡献
+
+
+* [编码规范](./docs/编码规范.md)
+
+    欢迎参与贡献。更多详情，请参阅我们的[贡献者Wiki](./CONTRIBUTING.md)。
+
+### 许可证
+
+
+[Mozilla Public License 2.0](LICENSE)
+
+### 联系我们
+
+
+[Apulis QA&OPS Team](http://www.apulis.cn/index.php?s=/sys/cate/5.html)
