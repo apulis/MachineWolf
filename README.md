@@ -11,6 +11,17 @@ Apulis 稳定性和性能测试套件
 * [Locust常用方法]()
 * [测试套件设计](./docs/测试【表情】套件设计.md)
 
+模块说明
+----------------------------------------------------------------------------
+
+[Apulis TestOps Team](http://www.apulis.cn/index.php?s=/sys/cate/5.html)
+
+* `bugs_board`: 同步issues
+
+    + 将apulis platform开放库的新问题同步到禅道
+    + 将禅道已知问题同步到apulis platform开放库的issues
+
+
 安装说明
 ----------------------------------------------------------------------------
 
@@ -48,4 +59,4 @@ Apulis 稳定性和性能测试套件
 ### 联系我们
 
 
-[Apulis QA&OPS Team](http://www.apulis.cn/index.php?s=/sys/cate/5.html)
+
