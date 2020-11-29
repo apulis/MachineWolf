@@ -1,0 +1,31 @@
+job_info:
+  backup_path: /mnt/local
+  cluster: atlas
+  work_path: /mntdlws/work/
+  data_path: /mntdlws/storage/
+  jobfiles_path: /mntdlws/jobfiles/
+
+job_template:
+  - template_Name: tf115_npu_mp_rc1
+    ai_platform: tensorflow 1.15
+    node_num: 1
+    device_type: npu
+    device_num: 8
+    image: apulistech/tf:1.15-arm-rc1
+    Cmd: sudo -E bash -c 'source /pod.env && cp -r /data/Resnet50_HC /tmp/ && cd /tmp/Resnet50_HC/  && ./run_apulis_rc1.sh && sleep infinity'
+    
+  - template_Name: ms050_npu_mp_rc1
+    ai_platform: mindspore 0.5.0
+    node_num: 1
+    image: apulistech/ms:050-rc1
+    device_type: npu
+    device_num: 8
+    cmd: sudo -E bash -c 'source /pod.env && cd /data/resnet50_050/scripts/ && mkdir -p /var/log/npu/conf/slog/ && mkdir -p /var/log/npu/slog && cp slog.conf /var/log/npu/conf/slog/ && ./run_single.sh &&sleep infinity'
+  
+  - template_Name: Horovod_GPU
+    ai_platform: pytorch
+    node_num: 1
+    device_type: cpu
+    device_num: 0
+    image: apulistech/horovod:0.19.2-tf2.2.0-torch1.5.0-py3.6.9-gpu
+    Cmd: cd ~ && mkdir -p ~/checkpoints && horovodrun -np 16 -hostfile /home/${DLWS_USER_NAME}/ib_config -p $DLWS_SD_worker0_SSH_PORT --network-interface ib0 python /examples/tensorflow2_keras_mnist.py ~/checkpoints/ ~/tensorboard/${DLWS_JOB_ID}/logs/ && sleep infinity
