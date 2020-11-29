@@ -1,0 +1,42 @@
+# This workflow will directly sync addon_custom_user_group_dashboard/backend repo updates to public repo
+# Notice: the branch 'master' is the main branch for public updates
+# Editor haiyuan
+# Update time: 2020-09-07
+
+name: sync_public_when_pushed
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  sync-repo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+    - name: sync local
+      run: |
+        git branch
+        ls -al
+        
+    - name: repo-sync to github apulis_platform
+      uses: wei/git-sync@v2
+      with:
+        source_repo: "https://banrieen:18209188642git@github.com/apulis/addon_custom_user_group_dashboard.git"
+        source_branch: "master"
+        destination_repo: "https://banrieen:18209188642git@github.com/apulis/user-dashboard-frontend.git"
+        destination_branch: "master"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: repo-sync to gitee apulis_platform
+      uses: wei/git-sync@v2
+      with:
+        source_repo: "https://banrieen:18209188642git@github.com/apulis/addon_custom_user_group_dashboard.git"
+        source_branch: "master" 
+        destination_repo: "https://banrieen:18209188642git@gitee.com/apulis/user-dashboard-frontend.git"
+        destination_branch: "master"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
