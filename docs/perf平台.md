@@ -1,6 +1,17 @@
 性能测试服务器初始化
 ================================================================
 
+0. 集群配置
+
+
+|网络设备   |角色    |访问链接                                                 |业务账号       |管理IP        |管理账号       |
+|:--------:|:------:|:------------------------------------------------------:|:------------:|:------------:|-------------:|
+|PC        |master  | sshpass -p apulis@2025 ssh -p 22 root@192.168.1.204    |root/Aiops@18c|192.168.1.17  |ADMIN/apulis18c|
+|VM/Docker |worker01| sshpass -p apulis@2025 ssh -p 22 root@192.168.1.217    |root/Aiops@18c|192.168.1.21  |默认 |
+|VM/Docker |worker02| sshpass -p apulis@2025 ssh -p 22 root@119.147.212.162  |root/Aiops@18c|192.168.1.15  |默认 |
+
+* Remote Desktop: ssh Admin@192.168.1
+
 1. 系统安装和配置
 
    * 安装 15.2 lTS 
@@ -178,10 +189,7 @@ When it is desired or required to set a proxy configuration for a single user, p
 
 kubeadm init --pod-network-cidr=10.244.14.0/16 --ignore-preflight-errors=all --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
@@ -257,8 +265,6 @@ kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/
     199.232.28.133 raw.githubusercontent.com
 
 * 参考： https://www.jianshu.com/p/5c1a352ba242
-
-
 
 
 **附：**
