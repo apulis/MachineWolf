@@ -13,7 +13,8 @@
 
 1. frp 服务器，客户端配置
 
-分别在公网服务器和私网终端下载[frp包](https://github.com/fatedier/frp/releases)，
+分别在公网服务器和私网终端下载[frp包](https://github.com/fatedier/frp/releases)，根据如下配置server,client。
+
 这个示例通过简单配置 TCP 类型的代理让用户访问到内网的服务器。
 
 **通过 SSH 访问内网机器: **
@@ -159,3 +160,4 @@ remote_port = 7002
 3. [systemd example](https://www.jianshu.com/p/ea7dec93ee92)
 4. [systemd example2](https://zhuanlan.zhihu.com/p/80908971)
 5. [frpc.ini example](https://sspai.com/post/52523)
+6. [Opensuse Systemd service](https://zh.opensuse.org/openSUSE:How_to_write_a_systemd_service)
