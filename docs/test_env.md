@@ -24,27 +24,25 @@
 ```
 
 * 集群配置
-|device name| role     | IP                                                | account        | ssh port |
-|:---------:|:--------:|:-------------------------------------------------:|:--------------:|:--------:|
+|device name| role     | IP                                                  | account        | ssh port |
+|:---------:|:--------:|:---------------------------------------------------:|:--------------:|:--------:|
 |master     | master   | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.113 | root,apulis123 | 22       |
 |worker01   | worker01 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.183 | root,pulis123  | 22       |
 |worker02   | worker02 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.107 | root,apulis123 | 22       |
-
 
 * 数据和存储 
 - nfs （master  HDD）
 - DB   (master Mysql)
 
-n
 * 算力
 {
-    "host": "worker01",                        
-    "gpuType": "gpu",                           
+    "host": "worker01",
+    "gpuType": "gpu",
     "vendor": "nvidia"
 }，
 {
-    "host": "worker02",                        
-    "gpuType": "gpu",                           
+    "host": "worker02",
+    "gpuType": "gpu",
     "vendor": "nvidia"
 }
 
@@ -52,7 +50,7 @@ n
 
     # 重置集群
     kubeadm reset 
-    rm -rf  /etc/cni/net.d && rm -rf /root/.kube/config
+    rm -rf  /etc/cni/net.d && rm -rf /root/.kube/configkubeadm
 
 
 参考公共服务
@@ -136,8 +134,6 @@ DLWS_HOME="/home/dlwsadmin"
     sed -i s'/Defaults requiretty/#Defaults requiretty'/g /etc/sudoers
 ```
 
-
-
 4、同步集群各节点的ssh秘钥
 
 5、拷贝docker harbor证书到新的机器上
@@ -152,7 +148,6 @@ scp -r /etc/docker/certs.d/ root@worker04:/etc/docker
 ```
 docker login harbor.sigsus.cn:8443
 ```
-
 
 
 7、到新机器上docker pull k8s的基础镜像
