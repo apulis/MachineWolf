@@ -1,5 +1,9 @@
 
 # sync init script 
+
+
+# change docker registry mirror
+
 scp -P 6022 .\init_k8s.sh root@122.51.195.199:/home/thomas/perf_k8s
 
 kubeadm config images list
@@ -41,5 +45,12 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl get pods -n kube-system
 
 # 加入节点
-
+echo " "
 kubeadm join 192.168.1.204:6443 --token ktlnom.duug23bsytv0mmyv --discovery-token-ca-cert-hash sha256:73df83dd79f4b0007ca88dcf84ddf75afddf8b0f2351b212651e2d73a980bfc8
+
+# To deploy the Metrics Server
+kubectl apply -f kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.4.0/components.yaml
+
+# Deploy the Kubernetes dashboard
+
+kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.1.0/aio/deploy/recommended.yaml
