@@ -232,7 +232,7 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="user-login" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="user-login" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -298,7 +298,7 @@
           </JSONPostProcessor>
           <hashTree/>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="ThinkTime" enabled="true">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="ThinkTime" enabled="false">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">${GlobalThinkTime}</stringProp>
@@ -310,7 +310,7 @@
           </UniformRandomTimer>
           <hashTree/>
         </hashTree>
-        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="true"/>
+        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="false"/>
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="NPU_Jobs" enabled="false"/>
         <hashTree>
@@ -4805,7 +4805,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Authorization" elementType="Header">
                   <stringProp name="Header.name">Authorization</stringProp>
-                  <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDAxLCJ1c2VyTmFtZSI6ImFkbWluIiwiZXhwIjoxNjEyMjAwNTc5LCJpYXQiOjE2MTIwMjc3Nzl9.LhZ34u9ZOAqXIao9ey5QXJ6Tk9Tig4nkVhcqQJv_nUI</stringProp>
+                  <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDA0LCJ1c2VyTmFtZSI6ImFwdWxpc29wcyIsImV4cCI6MTYxMjM0ODk5OSwiaWF0IjoxNjEyMTc2MTk5fQ.PWmEUxdB6uSW1ksAjMVY8-PYqYEEIkKIjwttK2LzQy8</stringProp>
                 </elementProp>
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
@@ -4841,7 +4841,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;1px-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;/home/admin/STRESS_POD_USAGE.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;1px-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;./STRESS_POD_USAGE.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -4865,7 +4865,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Authorization" elementType="Header">
                   <stringProp name="Header.name">Authorization</stringProp>
-                  <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDAxLCJ1c2VyTmFtZSI6ImFkbWluIiwiZXhwIjoxNjEyMjAwNTc5LCJpYXQiOjE2MTIwMjc3Nzl9.LhZ34u9ZOAqXIao9ey5QXJ6Tk9Tig4nkVhcqQJv_nUI</stringProp>
+                  <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDA0LCJ1c2VyTmFtZSI6ImFwdWxpc29wcyIsImV4cCI6MTYxMjM0ODk5OSwiaWF0IjoxNjEyMTc2MTk5fQ.PWmEUxdB6uSW1ksAjMVY8-PYqYEEIkKIjwttK2LzQy8</stringProp>
                 </elementProp>
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
@@ -4905,7 +4905,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;1px-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;/home/admin/STRESS_POD_USAGE.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;1px-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;./STRESS_POD_USAGE.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -4929,7 +4929,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Authorization" elementType="Header">
                   <stringProp name="Header.name">Authorization</stringProp>
-                  <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDAxLCJ1c2VyTmFtZSI6ImFkbWluIiwiZXhwIjoxNjEyMjAwNTc5LCJpYXQiOjE2MTIwMjc3Nzl9.LhZ34u9ZOAqXIao9ey5QXJ6Tk9Tig4nkVhcqQJv_nUI</stringProp>
+                  <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDA0LCJ1c2VyTmFtZSI6ImFwdWxpc29wcyIsImV4cCI6MTYxMjM0ODk5OSwiaWF0IjoxNjEyMTc2MTk5fQ.PWmEUxdB6uSW1ksAjMVY8-PYqYEEIkKIjwttK2LzQy8</stringProp>
                 </elementProp>
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
@@ -5001,7 +5001,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Authorization" elementType="Header">
                   <stringProp name="Header.name">Authorization</stringProp>
-                  <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDAxLCJ1c2VyTmFtZSI6ImFkbWluIiwiZXhwIjoxNjEyMjAwNTc5LCJpYXQiOjE2MTIwMjc3Nzl9.LhZ34u9ZOAqXIao9ey5QXJ6Tk9Tig4nkVhcqQJv_nUI</stringProp>
+                  <stringProp name="Header.value">Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMwMDA0LCJ1c2VyTmFtZSI6ImFwdWxpc29wcyIsImV4cCI6MTYxMjM0ODk5OSwiaWF0IjoxNjEyMTc2MTk5fQ.PWmEUxdB6uSW1ksAjMVY8-PYqYEEIkKIjwttK2LzQy8</stringProp>
                 </elementProp>
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
@@ -6538,7 +6538,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="1x_train_npu_perf" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="1x_train_npu_perf" enabled="false"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/ai_arts/api/trainings/-43" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -6696,12 +6696,14 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
                   <stringProp name="Argument.name">jobType</stringProp>
                   <stringProp name="Argument.value">artsTraining</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
                 <elementProp name="vcName" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.name">vcName</stringProp>
                   <stringProp name="Argument.value">platform</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
@@ -7050,7 +7052,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;2x-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;/home/admin/stress_run.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;2x-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;./model-gallery/models/npu/testcase/distributed/test_distributed.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -7114,7 +7116,7 @@ list&lt;char&gt;&#x1d;&#x0;&#x1;&#x1;&#x15;&#xd;&#x0;&#x1;&#x1;&#x10;&#x88;î&#x
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;2x-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;/home/admin/stress_run.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;2x-tf-${__jexl3(${__threadNum})}&quot;,&quot;desc&quot;:&quot;单卡示例&quot;,&quot;jobTrainingType&quot;:&quot;RegularJob&quot;,&quot;engine&quot;:&quot;apulistech/pytorch-npu:1.5.0-20.2-arm&quot;,&quot;startupFile&quot;:&quot;./model-gallery/models/npu/testcase/distributed/test_distributed.sh&quot;,&quot;datasetPath&quot;:&quot;/data/dataset/storage/minst&quot;,&quot;deviceType&quot;:&quot;huawei_npu_arm64&quot;,&quot;deviceNum&quot;:1,&quot;isPrivileged&quot;:false,&quot;params&quot;:{},&quot;private&quot;:true,&quot;frameworkType&quot;:&quot;pytorch&quot;,&quot;vcName&quot;:&quot;platform&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
