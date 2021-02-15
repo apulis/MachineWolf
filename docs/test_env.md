@@ -1,4 +1,3 @@
-
 新能测试调试环境基础信息
 --------------------------------------------------------------------------------------------
 
@@ -26,7 +25,7 @@
 * 集群配置
 |device name| role     | IP                                                  | account        | ssh port |
 |:---------:|:--------:|:---------------------------------------------------:|:--------------:|:--------:|
-|master     | master   | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.113 | root,apulis123 | 22       |
+|master     | master   | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.198 | root,apulis123 | 22       |
 |worker01   | worker01 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.183 | root,pulis123  | 22       |
 |worker02   | worker02 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.107 | root,apulis123 | 22       |
 
