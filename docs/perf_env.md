@@ -316,6 +316,22 @@ kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/
 
 * 参考： https://www.jianshu.com/p/5c1a352ba242
 
+* 安装 argocli
+VERSION=$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+echo $VERSION
+v1.8.3
+curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-darwin-amd64
+
+https://github.com/argoproj/argo-cd/releases/download/v1.8.3/argocd-darwin-amd64
+
+
+* Install helm
+
+```bash
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+```
 
 **附：**
 ---
