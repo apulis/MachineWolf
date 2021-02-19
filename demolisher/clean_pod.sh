@@ -1,4 +1,3 @@
-
 # 循环遍历清理Evicted的pod
 #!/bin/bash
 namespace=("default" "kube-system"  "knative-serving"  "volcano-system", "istio-system")

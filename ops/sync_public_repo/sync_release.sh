@@ -64,6 +64,7 @@ cd NewObjectLabel
 git remote add github https://banrieen:18209188642git@github.com/apulis/image-label-frontend.git
 git remote add gitee  https://banrieen:18209188642git@gitee.com/apulisplatform/image-label-frontend.git
 git pull
+git remote -v
 git push github
 git push gitee
 cd ..
