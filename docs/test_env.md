@@ -27,8 +27,8 @@
 |device name| role     | IP                                                  | account        | ssh port |
 |:---------:|:--------:|:---------------------------------------------------:|:--------------:|:--------:|
 |master     | master   | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.198 | root,apulis123 | 22       |
-|worker01   | worker01 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.183 | root,pulis123  | 22       |
-|worker02   | worker02 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.107 | root,apulis123 | 22       |
+|worker01   | worker01 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.196 | root,pulis123  | 22       |
+|worker02   | worker02 | sshpass -p Aiperf@2025 ssh -p 22 root@192.168.1.235 | root,apulis123 | 22       |
 
 * 数据和存储 
 - nfs （master  HDD）
@@ -205,3 +205,87 @@ mkdir /mntdlws
 12、npu使用情况收集：
 
 ./deploy.py --background --sudo runscriptonall scripts/npu/npu_info_gen.py
+
+13. kube-dashboard login token
+ kubectl get svc -n kubernetes-dashboard
+
+Name:         weave-net-token-s6k6f
+Namespace:    kube-system
+Labels:       <none>
+Annotations:  kubernetes.io/service-account.name: weave-net
+              kubernetes.io/service-account.uid: 91aacc42-e94e-4b23-a9ae-ba56ffcd2797
+
+Type:  kubernetes.io/service-account-token
+
+Data
+====
+ca.crt:     1350 bytes
+namespace:  11 bytes
+token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IlZ6UzJaWEtScFYxYTBmZ2o3bW0yZDdtWWZNTVJuX0w5TXMwRWxsc0ZvMkUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJ3ZWF2ZS1uZXQtdG9rZW4tczZrNmYiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoid2VhdmUtbmV0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiOTFhYWNjNDItZTk0ZS00YjIzLWE5YWUtYmE1NmZmY2QyNzk3Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOndlYXZlLW5ldCJ9.o0m-U3Ur0nxxdjj8l3Wu7vLSHU9iJQsi3_vYysq3NyOURjoC-IiEOMu4vgp3ITClsh-i6dxFrURdis-wH2bFwP31Bnz5UScor6iNCHSFwaZ7f_oGlkcgqCXBNvvhX2kuVZgs12UT0jHXxhKvRNXzUEVYoS0XnmiGY04ICHFPxdo0tnclI4pb20cGl1bTGHXh0HcZkaN-UJIwHRxt7jNd7OoOeXL4hE9BY1TAIkPKt4a9Uz7Bg-kWnp3V87czZwv38eyy76oqr7HVjuRvOiDEsHwi4jyU76Nd-Plhl6bIxHZpIolTfYRBgMqQG6e3mDTrp6oK3A6bSS_DxiRE2tNxqA
+
+
+* 更新模块镜像
+docker pull harbor.apulis.cn:8443/release/apulistech/user_backend/amd64:v1.5.0-rc6-ci
+docker pull harbor.apulis.cn:8443/release/apulistech/user_fronted/amd64:v1.5.0-rc6-ci
+docker pull harbor.apulis.cn:8443/release/apulistech/aiarts-frontend/amd64:v1.5.0
+docker pull harbor.apulis.cn:8443/release/apulistech/aiarts-backend/amd64:v1.5.0-rc7-ci
+docker pull harbor.apulis.cn:8443/release/apulistech/dlworkspace-restfulapi2/amd64:v1.5.0-rc7-ci
+docker pull harbor.apulis.cn:8443/release/apulistech/dlworkspace-webui3/amd64:v1.5.0-rc7-ci
+
+
+docker tag harbor.apulis.cn:8443/release/apulistech/user_backend/amd64:v1.5.0-rc6-ci             harbor.sigsus.cn:8443/aiarts/apulistech/custom-user-dashboard-backend:v1.5.0-rc6
+docker tag harbor.apulis.cn:8443/release/apulistech/user_fronted/amd64:v1.5.0-rc6-ci             harbor.sigsus.cn:8443/aiarts/apulistech/custom-user-dashboard-frontend:v1.5.0-rc6
+docker tag harbor.apulis.cn:8443/release/apulistech/aiarts-frontend/amd64:v1.5.0                 harbor.sigsus.cn:8443/aiarts/apulistech/dlworkspace_aiarts-frontend:v1.5.0-rc6
+docker tag harbor.apulis.cn:8443/release/apulistech/aiarts-backend/amd64:v1.5.0-rc7-ci           harbor.sigsus.cn:8443/aiarts/apulistech/aiarts-backend:v1.5.0-rc6
+docker tag harbor.apulis.cn:8443/release/apulistech/dlworkspace-restfulapi2/amd64:v1.5.0-rc7-ci  harbor.sigsus.cn:8443/aiarts/apulistech/dlworkspace-restfulapi2:v1.5.0-rc6
+docker tag harbor.apulis.cn:8443/release/apulistech/dlworkspace-webui3/amd64:v1.5.0-rc7-ci       harbor.sigsus.cn:8443/aiarts/apulistech/dlworkspace-webui3:v1.5.0-rc6
+
+docker push harbor.sigsus.cn:8443/aiarts/apulistech/custom-user-dashboard-backend:v1.5.0-rc6
+docker push harbor.sigsus.cn:8443/aiarts/apulistech/custom-user-dashboard-frontend:v1.5.0-rc6
+docker push harbor.sigsus.cn:8443/aiarts/apulistech/dlworkspace_aiarts-frontend:v1.5.0-rc6
+docker push harbor.sigsus.cn:8443/aiarts/apulistech/aiarts-backend:v1.5.0-rc6
+docker push harbor.sigsus.cn:8443/aiarts/apulistech/dlworkspace-restfulapi2:v1.5.0-rc6
+docker push harbor.sigsus.cn:8443/aiarts/apulistech/dlworkspace-webui3:v1.5.0-rc6
+
+
+harbor.singapore.cn:8443/hz_openlab/apulistech/dlworkspace_openresty:v1.5.0
+
+* 资源限制
+```bash
+resource_limit:
+  huawei_npu_arm64:  # device_type
+    cpu:    2
+    memory: 400Mi
+
+./service_ctl.sh restart restfulapi2
+./service_ctl.sh restart jobmanager2
+
+cat /root/build/restfulapi2/config.yaml 
+resource_limit: {"huawei_npu_arm64": {"cpu": 22, "memory": "80Gi"}}
+```
+
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey |   sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list |   sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+
+curl -s -L https://nvidia.github.io/libnvidia-container/gpgkey |   sudo apt-key add -
+curl -s -L https://nvidia.github.io/libnvidia-container/$DIST/libnvidia-container.list |   sudo tee /etc/apt/sources.list.d/libnvidia-container.list
+sudo apt-get update
+sudo apt-get install nvidia-container-toolkit
+
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+
+  /var/log/nvidia-installer.log                                                                OK
+
+                                                                  OK
+* 增加镜像列表
+```sql
+insert into images (image_type, image_full_name, details) values ('tensorflow', 'apulistech/horovod:0.2.0', '{"desc":"描述信息","category":"normal","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');
+insert into images (image_type, image_full_name, details) values ('mindspore', 'apulistech/mindspore:1.1.0', '{"desc":"描述信息","category":"normal","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');
+insert into images (image_type, image_full_name, details) values ('tensorflow', 'apulistech/horovod:0.2.0', '{"desc":"描述信息","category":"hyperparameters","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');
+insert into images (image_type, image_full_name, details) values ('mindspore', 'apulistech/mindspore:1.1.0', '{"desc":"描述信息","category":"hyperparameters","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');
+select * from public.images;
+delete from public.images where image_full_name like '%npu%';
+```

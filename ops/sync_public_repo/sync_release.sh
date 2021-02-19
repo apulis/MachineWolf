@@ -29,6 +29,7 @@ git clone -b $version https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apu
 cd addon_custom_user_dashboard_backend
 git remote add github https://banrieen:18209188642git@github.com/apulis/user-dashboard-backend.git
 git remote add gitee  https://banrieen:18209188642git@gitee.com/apulisplatform/user-dashboard-backend.git
+git pull
 git push github
 git push gitee
 cd ..
@@ -39,6 +40,7 @@ git clone -b $version https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apu
 cd AIArts
 git remote add github https://banrieen:18209188642git@github.com/apulis/AIArts-Frontend.git
 git remote add gitee  https://banrieen:18209188642git@gitee.com/apulisplatform/aiarts-frontend.git
+git pull
 git push github
 git push gitee
 cd ..
@@ -49,6 +51,8 @@ git clone -b $version https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apu
 cd AIArtsBackend
 git remote add github https://banrieen:18209188642git@github.com/apulis/AIArts-Backend.git
 git remote add gitee  https://banrieen:18209188642git@gitee.com/apulisplatform/aiarts-backend.git
+git pull
+git remote -v
 git push github
 git push gitee
 cd ..
@@ -59,6 +63,7 @@ git clone -b $version https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apu
 cd NewObjectLabel
 git remote add github https://banrieen:18209188642git@github.com/apulis/image-label-frontend.git
 git remote add gitee  https://banrieen:18209188642git@gitee.com/apulisplatform/image-label-frontend.git
+git pull
 git push github
 git push gitee
 cd ..
