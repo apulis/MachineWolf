@@ -18,9 +18,8 @@ def huawei(pageNo):
     models=[]
     requestUrl='https://ascend.huawei.com/turing/model/queryResourceList'
     header={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
-            'token':'[object Object]'
-            }
-    pay_load={"type": "1", "pageNo": pageNo, "pageSize": 12, "modelType": "", "modelName": "", "lang": "zh", "frame": "4"}
+            'token':'[object Object]'}
+    pay_load = {"type":"1","pageNo":1,"pageSize":16,"modelType":"","modelName":"","lang":"zh","applicationArea":"87","frame":"","categoriesId":""}
 
     content=requests.post(requestUrl,json=pay_load,headers=header,verify=False,allow_redirects=False)
     content=content.__dict__

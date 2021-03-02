@@ -1,0 +1,18 @@
+# 公共的模型库和数据集
+
+model_hub:
+    modelzoo: 
+        entrance_url: "https://ascend.huawei.com/zh/#/software/modelzoo"
+        BasicsList: "https://ascend.huawei.com/ascendgateway/ascendservice/model/queryBasicsList?lang=zh&parentId=81&isRecommended="
+        ResourceList: "https://ascend.huawei.com/ascendgateway/ascendservice/model/queryResourceList"
+        request_data: {"type":"1","pageNo":1,"pageSize":16,"modelType":"","modelName":"","lang":"zh","applicationArea":"87","frame":"","categoriesId":""}
+        request_header: {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36","x-requested-with": "XMLHttpRequest","accept": "application/json, text/plain, */*","accept-encoding": "gzip, deflate, br","accept-language": "en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7","content-length": 131,"content-type": "application/json;charset=UTF-8","origin": "https://ascend.huawei.com"}
+
+    pytorch_hub: "https://pytorch.org/hub/"
+    tensorFlow_Hub: "https://tensorflow.google.cn/hub/"
+
+dateset_hub:
+    graviti: "https://www.graviti.cn/open-datasets"
+    kesci: "https://www.kesci.com/home/dataset"
+    datafountain: "https://www.datafountain.cn/datasets"
+
