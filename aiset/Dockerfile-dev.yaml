@@ -1,0 +1,16 @@
+FROM opensuse/leap:15.2
+
+RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/repos.d/repo_bak/                          && \
+    zypper ar -fcg https://mirrors.huaweicloud.com/opensuse/distribution/leap/15.2/repo/oss HuaWeiCloud:15.2:OSS         && \
+    zypper ar -fcg https://mirrors.huaweicloud.com/opensuse/distribution/leap/15.2/repo/non-oss HuaWeiCloud:15.2:NON-OSS && \
+#    zypper ar -fcg https://mirrors.huaweicloud.com/opensuse/update/leap/15.2/oss HuaWeiCloud:15.2:UPDATE-OSS             && \
+    zypper ar -fcg https://mirrors.huaweicloud.com/opensuse/update/leap/15.2/non-oss HuaWeiCloud:15.2:UPDATE-NON-OS
+    zypper ref && zypper update      
+
+RUN  && zypper install -y curl python3                                                        &&\
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py && zypper install -y ansible helm openssh
+
+# Install tools
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple && pip install paddlepaddle==1.8.5 -i https://mirror.baidu.com/pypi/simple && pip install tensorflow tensorboard numpy  decorator sympy==1.4 sympy==1.4 cffi==1.12.3  pyyaml   pathlib2  grpcio  grpcio-tools  protobuf  scipy  requests  jupyterlab  sympy  Cython
+RUN pip install torch===1.7.1 torchvision===0.8.2 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+RUN pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/cpu/windows_x64/mindspore-1.1.0-cp37-cp37m-win_amd64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
