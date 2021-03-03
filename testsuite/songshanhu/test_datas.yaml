@@ -1,0 +1,17 @@
+# 松山湖-A3010推理性能测试环境和数据
+
+PLATFORM_VERSION: "v1.0.0"
+TEST_TAG: "rc0"
+ENV: 
+  INFO: "office_test_lab: 3010推理集群"
+  WEB_LINK: "http://192.168.1.198/"
+  ROOT_PASSWD: "Aiperf@2025"
+  ADMIN_PASSWD: "d5Wx1n"
+  CONF_PATH: "/home/InstallationYTung"
+
+TEST_DATAS:
+  MODELSETS: ""
+  DATASETS: 
+    test: ""
+    huawei: "待定"
+  IMAGESETS: 
