@@ -63,11 +63,12 @@ def _(environment, **kw):
         environment.process_exit_code = 0
 
 
-class InferencePerf(TaskSet):
-    """ 推理压力testsuite
-    10. 1000次/s的HTTP推理请求失败率
-    11. 1000次/s的HTTP推理结果请求失败率（上传到平台数据库）
-    12. 1/1000不良率的告警响应测试
+class EnduranceStress(TaskSet):
+    """ 业务（负载）稳定性testsuite
+    3. 100批量数据标注、图像预览响应测试
+    7. 10x32x6个分布式推理任务调度的稳定性
+    8. 64mpbs，128Mbps图片流量的负载测试
+    9. 测试（客户）环境rabbitmq的吞吐量和响应延时
     """
     
     @events.test_start.add_listener
@@ -85,7 +86,6 @@ class InferencePerf(TaskSet):
             rst = json.loads(responses.text, strict=False)
             if rst['success'] == '200':
                 responses.success() 
-
     @task
     def test_userlogin(self):
         """ testcase 
@@ -104,56 +104,6 @@ class InferencePerf(TaskSet):
             responses.failure('status_code：%s' % responses.status_code)
 
 
-    @task
-    def test_post_inference(self):
-        """ testcase 
-        1000次/s的HTTP推理请求失败率
-         """
-        self.user_token = ""
-        responses = self.client.post(url=TEST_DATAS["RESTFULAPI"]["inference"]["path"], headers=TEST_DATAS["RESTFULAPI"]["header"], data=TEST_DATAS["RESTFULAPI"]["admin"])
-        if responses.status_code == 200:
-            rst = json.loads(responses.text, strict=False)
-            if rst['success'] == '200':
-                responses.success() 
-                user_token =  rst['token']
-            else:
-                responses.failure('code：%s ErrorMsg：%s' % (rst['code'], rst['errorMsg']))
-        else:
-            responses.failure('status_code：%s' % responses.status_code)
-
-    @task
-    def test_post_result(self):
-        """ testcase 
-        1000次/s的HTTP推理结果请求失败率
-         """
-        self.user_token = ""
-        responses = self.client.post(url=TEST_DATAS["RESTFULAPI"]["result"]["path"], headers=TEST_DATAS["RESTFULAPI"]["header"], data=TEST_DATAS["RESTFULAPI"]["admin"])
-        if responses.status_code == 200:
-            rst = json.loads(responses.text, strict=False)
-            if rst['success'] == '200':
-                responses.success() 
-                user_token =  rst['token']
-            else:
-                responses.failure('code：%s ErrorMsg：%s' % (rst['code'], rst['errorMsg']))
-        else:
-            responses.failure('status_code：%s' % responses.status_code)
-
-    @task
-    def test_post_alert(self):
-        """ testcase 
-        1/1000不良率的告警响应测试
-         """
-        self.user_token = ""
-        responses = self.client.post(url=TEST_DATAS["RESTFULAPI"]["alert"]["path"], headers=TEST_DATAS["RESTFULAPI"]["header"], data=TEST_DATAS["RESTFULAPI"]["admin"])
-        if responses.status_code == 200:
-            rst = json.loads(responses.text, strict=False)
-            if rst['success'] == '200':
-                responses.success() 
-                user_token =  rst['token']
-            else:
-                responses.failure('code：%s ErrorMsg：%s' % (rst['code'], rst['errorMsg']))
-        else:
-            responses.failure('status_code：%s' % responses.status_code)
 
 class WebsiteUser(FastHttpUser):
     global TEST_DATAS 

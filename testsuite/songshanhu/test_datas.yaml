@@ -14,4 +14,16 @@ TEST_DATAS:
   DATASETS: 
     test: ""
     huawei: "待定"
-  IMAGESETS: 
+  IMAGESETS: ""
+  
+RESTFULAPI:
+  homepage: "/"
+  login: 
+    mothed: "post" 
+    path: "/custom-user-dashboard-backend/auth/login"
+  logout: 
+    mothed: "get" 
+    path: "/custom-user-dashboard-backend/auth/logout"
+  admin: {"userName":"admin","password":"71628a98d40b6d01cdb4a3be10545612"}
+  header: {"Content-Type":"application/json;charset=UTF-8","Accept-Encoding":"gzip, deflate","Accept":"application/json","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"}
+  token: ""
