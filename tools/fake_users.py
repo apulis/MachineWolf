@@ -12,3 +12,4 @@ from faker import Faker
 
 class FakeUser:
     def __init__(self):
+        pass

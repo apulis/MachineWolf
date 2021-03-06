@@ -1,0 +1,51 @@
+# Ascend-NPU Model Matching Status
+# Matainer: haiyuan
+# Info: About Tensorflow 1.15 version
+# Update Datetime: 2020-11-16
+# License: MIT
+
+
+framework:
+  tensorflow:
+    version: 1.15
+    models: [
+      {
+        model_name: ResNet-50,
+        publisheer: huawei,
+        application: "Classification",
+        processor: 昇腾910,
+        precision: Mixed,
+        level: official,
+        version: 1.3,
+        update: 2020-10-14,
+        matching_npu: yes,
+        matching_gpu: no,
+        matching_platform: no
+      },
+      {
+        model_name: MobileNetV2, 
+        publisheer: huawei,
+        application: "Classification",
+        processor: 昇腾910,
+        precision: Mixed,
+        level: official,
+        version: 1.2,
+        update: 2020-10-14,
+        matching_npu: yes,
+        matching_gpu: no,
+        matching_platform: no
+      },  
+       {
+        model_name: YOLOv3,
+        publisheer: huawei,
+        application: "Object Detection",
+        processor: 昇腾910,
+        precision: Mixed,
+        level: official,
+        version: 1.3,
+        update: 2020-10-14,
+        matching_npu: yes,
+        matching_gpu: no,
+        matching_platform: no
+      },  
+    ]
