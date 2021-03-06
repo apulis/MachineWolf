@@ -111,6 +111,8 @@ env.bak/
 venv.bak/
 .pytest_cache
 .pytest_cache/
+.vscode
+.vscode/
 
 # Spyder project settings
 .spyderproject
