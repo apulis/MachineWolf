@@ -107,7 +107,7 @@ class EnduranceStress(TaskSet):
 
 class WebsiteUser(FastHttpUser):
     global TEST_DATAS 
-    task_set = PostInference
+    task_set = EnduranceStress
     wait_time = between(0.5, 5)  # 等待时间,单位为s，任务执行间隔时间
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
     # pdb.set_trace()

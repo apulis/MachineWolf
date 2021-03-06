@@ -1,22 +1,14 @@
 
-""" 测试单（场景）
+""" 高可用性测试单（场景）
 
-松山湖AI制造业推理平台性能测试SLI/SLO
+各客户环境下的高可用性
 
-    1. 通过HTTP接口推送原始数据集和推理脚本（具体数量、频次待定）
-    2. 平台将数据写入nfs/ceph、数据库的读写性能测试（以及IOPS）
-    3. 100批量数据标注、图像预览响应测试
-    4. 数据集、模型的增删改查的接口响应（暂定32x6个模型、数据集）
-    5. 模型转换测试（暂定32x6个模型、数据集）
-    6. 数据集转换测试（暂定32x6个模型、数据集）
-    7. 10x32x6个分布式推理任务调度的稳定性
-    8. 64mpbs，128Mbps图片流量的负载测试
-    9. 测试（客户）环境rabbitmq的吞吐量和响应延时
-    10. 1000次/s的HTTP推理请求失败率
-    11. 1000次/s的HTTP推理结果请求失败率（上传到平台数据库）
-    12. 1/1000不良率的告警响应测试
-    13. master节点在模型转换、数据集转换时IO,CPU,MEM的使用率
-    14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
+1. 基础电路、网络路由、机器故障等因素导致的节点故障
+2. 系统OS,k8s，数据库和存储组件服务异常导致的业务故障
+3. 用户数据或任务处理（如训练脚本有死循环、内存泄漏）出现僵死导致的平台故障
+4. 存储空间（驱动、组件日志和缓存）、MEM，CPU使用量超过负载导致的平台故障
+5. 多个用户多次更新驱动日志配置或清理公共存储目录导致的平台故障
+6. 批量的反复使用相同字符串注册、注销用户导致的平台数据被破坏的故障
 
 # ScriptType：performance test 
 # UpdateDate: 2021.03-4
@@ -63,53 +55,49 @@ def _(environment, **kw):
         environment.process_exit_code = 0
 
 
-class Datasets(TaskSet):
+class HA(TaskSet):
     """ testsuite
-    1. 通过HTTP接口推送原始数据集和推理脚本（具体数量、频次待定）
-    2. 平台将数据写入nfs/ceph、数据库的读写性能测试（以及IOPS）
-    4. 数据集、模型的增删改查的接口响应（暂定32x6个模型、数据集）
-    5. 模型转换测试（暂定32x6个模型、数据集）
-    6. 数据集转换测试（暂定32x6个模型、数据集）
-    13. master节点在模型转换、数据集转换时IO,CPU,MEM的使用率
-    14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
+    2. 系统OS,k8s，数据库和存储组件服务异常导致的业务故障
+    3. 用户数据或任务处理（如训练脚本有死循环、内存泄漏）出现僵死导致的平台故障
+    4. 存储空间（驱动、组件日志和缓存）、MEM，CPU使用量超过负载导致的平台故障
     """
-    
+    global TEST_DATAS
     @events.test_start.add_listener
     def on_test_start_get_homepage(self, environment, **kwargs):
         print("A new test is starting, user will login")
         # pdb.set_trace()
         # print("+++++++++++++++++++++++", TEST_DATAS["RESTFULAPI"]["homepage"])
-        self.client.get(TEST_DATAS["RESTFULAPI"]["homepage"])
+        self.client.get(TEST_DATAS["RESTFULAPI"]["Homepage"])
 
     @events.test_stop.add_listener
     def on_test_stop_logout(self, environment, **kwargs):
         print("A  test is ending, user will logout !")
-        responses = self.client.get(url=TEST_DATAS["RESTFULAPI"]["logout"]["path"])
+        responses = self.client.get(url=TEST_DATAS["RESTFULAPI"]["Logout"]["path"])
         if responses.status_code == 200:
             rst = json.loads(responses.text, strict=False)
             if rst['success'] == '200':
                 responses.success() 
+
     @task
-    def test_userlogin(self):
+    def test_sys_idle(self):
         """ testcase 
-        10 ~ 100 用户登录
+        
          """
-        self.user_token = ""
-        responses = self.client.post(url=TEST_DATAS["RESTFULAPI"]["login"]["path"], headers=TEST_DATAS["RESTFULAPI"]["header"], data=TEST_DATAS["RESTFULAPI"]["admin"])
-        if responses.status_code == 200:
-            rst = json.loads(responses.text, strict=False)
-            if rst['success'] == '200':
-                responses.success() 
-                user_token =  rst['token']
-            else:
-                responses.failure('code：%s ErrorMsg：%s' % (rst['code'], rst['errorMsg']))
-        else:
-            responses.failure('status_code：%s' % responses.status_code)
+        pass
+
+
+    @task
+    def test_service_idle(self):
+        """ testcase 
+        1000次/s的HTTP推理请求失败率
+         """
+        pass
+
 
 
 class WebsiteUser(FastHttpUser):
     global TEST_DATAS 
-    task_set = Datasets
+    task_set = HA
     wait_time = between(0.5, 5)  # 等待时间,单位为s，任务执行间隔时间
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
     # pdb.set_trace()

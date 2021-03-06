@@ -1,22 +1,11 @@
 
 """ 测试单（场景）
 
-松山湖AI制造业推理平台性能测试SLI/SLO
-
-    1. 通过HTTP接口推送原始数据集和推理脚本（具体数量、频次待定）
-    2. 平台将数据写入nfs/ceph、数据库的读写性能测试（以及IOPS）
-    3. 100批量数据标注、图像预览响应测试
-    4. 数据集、模型的增删改查的接口响应（暂定32x6个模型、数据集）
-    5. 模型转换测试（暂定32x6个模型、数据集）
-    6. 数据集转换测试（暂定32x6个模型、数据集）
-    7. 10x32x6个分布式推理任务调度的稳定性
-    8. 64mpbs，128Mbps图片流量的负载测试
-    9. 测试（客户）环境rabbitmq的吞吐量和响应延时
-    10. 1000次/s的HTTP推理请求失败率
-    11. 1000次/s的HTTP推理结果请求失败率（上传到平台数据库）
-    12. 1/1000不良率的告警响应测试
-    13. master节点在模型转换、数据集转换时IO,CPU,MEM的使用率
-    14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
+nni 在主机下的SLI/SLO
+6. 使用nni直接在系统环境下创建训练任务对平台的影响
+7. 使用nni执行神经网络结构搜索（NAS）的对比分析
+8. 使用nni执行超参调优算法的对比分析
+9. 使用nni执行模型压缩算法的对比分析
 
 # ScriptType：performance test 
 # UpdateDate: 2021.03-4
@@ -63,15 +52,12 @@ def _(environment, **kw):
         environment.process_exit_code = 0
 
 
-class Datasets(TaskSet):
-    """ testsuite
-    1. 通过HTTP接口推送原始数据集和推理脚本（具体数量、频次待定）
-    2. 平台将数据写入nfs/ceph、数据库的读写性能测试（以及IOPS）
-    4. 数据集、模型的增删改查的接口响应（暂定32x6个模型、数据集）
-    5. 模型转换测试（暂定32x6个模型、数据集）
-    6. 数据集转换测试（暂定32x6个模型、数据集）
-    13. master节点在模型转换、数据集转换时IO,CPU,MEM的使用率
-    14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
+class NniLocal(TaskSet):
+    """ 业务（负载）稳定性testsuite
+    3. 100批量数据标注、图像预览响应测试
+    7. 10x32x6个分布式推理任务调度的稳定性
+    8. 64mpbs，128Mbps图片流量的负载测试
+    9. 测试（客户）环境rabbitmq的吞吐量和响应延时
     """
     
     @events.test_start.add_listener
@@ -107,9 +93,10 @@ class Datasets(TaskSet):
             responses.failure('status_code：%s' % responses.status_code)
 
 
+
 class WebsiteUser(FastHttpUser):
     global TEST_DATAS 
-    task_set = Datasets
+    task_set = NniLocal
     wait_time = between(0.5, 5)  # 等待时间,单位为s，任务执行间隔时间
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
     # pdb.set_trace()

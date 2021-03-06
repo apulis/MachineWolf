@@ -1,22 +1,15 @@
 
 """ 测试单（场景）
 
-松山湖AI制造业推理平台性能测试SLI/SLO
+任务调度，任务sechdule、nni SLI/SLO
 
-    1. 通过HTTP接口推送原始数据集和推理脚本（具体数量、频次待定）
-    2. 平台将数据写入nfs/ceph、数据库的读写性能测试（以及IOPS）
-    3. 100批量数据标注、图像预览响应测试
-    4. 数据集、模型的增删改查的接口响应（暂定32x6个模型、数据集）
-    5. 模型转换测试（暂定32x6个模型、数据集）
-    6. 数据集转换测试（暂定32x6个模型、数据集）
-    7. 10x32x6个分布式推理任务调度的稳定性
-    8. 64mpbs，128Mbps图片流量的负载测试
-    9. 测试（客户）环境rabbitmq的吞吐量和响应延时
-    10. 1000次/s的HTTP推理请求失败率
-    11. 1000次/s的HTTP推理结果请求失败率（上传到平台数据库）
-    12. 1/1000不良率的告警响应测试
-    13. master节点在模型转换、数据集转换时IO,CPU,MEM的使用率
-    14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
+3. 使用nni通过restfulapi创建大规模的训练任务的稳定性
+4. 使用nni通过restfulapi创建不同框架模型的训练任务的稳定性
+5. 使用nni通过restfulapi创建不同规模数据集的训练任务的稳定性
+7. 使用nni执行神经网络结构搜索（NAS）的对比分析
+8. 使用nni执行超参调优算法的对比分析
+9. 使用nni执行模型压缩算法的对比分析
+
 
 # ScriptType：performance test 
 # UpdateDate: 2021.03-4
@@ -63,7 +56,7 @@ def _(environment, **kw):
         environment.process_exit_code = 0
 
 
-class InferencePerf(TaskSet):
+class NniRestfulapi(TaskSet):
     """ 推理压力testsuite
     10. 1000次/s的HTTP推理请求失败率
     11. 1000次/s的HTTP推理结果请求失败率（上传到平台数据库）
@@ -92,7 +85,7 @@ class InferencePerf(TaskSet):
         10 ~ 100 用户登录
          """
         self.user_token = ""
-        responses = self.client.post(url=TEST_DATAS["RESTFULAPI"]["Login"]["path"], headers=TEST_DATAS["RESTFULAPI"]["header"], data=TEST_DATAS["RESTFULAPI"]["admin"])
+        responses = self.client.post(url=TEST_DATAS["RESTFULAPI"]["Login"]["path"], headers=TEST_DATAS["RESTFULAPI"]["header"], data=json.dumps(TEST_DATAS["RESTFULAPI"]["admin"]))
         if responses.status_code == 200:
             rst = json.loads(responses.text, strict=False)
             if rst['success'] == '200':
