@@ -7,6 +7,17 @@ Apulis AiOps平台
 快速使用
 ----------------------------------------------------------------------------
 
+使用locust执行并发测试脚本
+
+```bash
+cd example
+ locust -f ./example/test_http.py --conf ./example/host.conf
+```
+
+使用 pytest 执行测试计划
+
+
+
 * [Jmeter常用方法](./docs/jmeter脚本常用配置方法.md)
 * [Locust常用方法]()
 * [测试套件设计](./docs/测试【表情】套件设计.md)
