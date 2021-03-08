@@ -7,6 +7,21 @@ Apulis AiOps平台
 快速使用
 ----------------------------------------------------------------------------
 
+* 在本使用locust执行并发测试脚本
+
+```bash
+sudo chmod +x init_dev.sh
+bash ./init_dev.sh
+cd example
+locust -f ./example/test_http.py --conf ./example/host.conf
+```
+
+* [使用 docker 或 k8s 执行测试](https://docs.locust.io/en/stable/running-locust-docker.html)
+
+使用 pytest 执行测试计划
+
+
+
 * [Jmeter常用方法](./docs/jmeter脚本常用配置方法.md)
 * [Locust常用方法]()
 * [测试套件设计](./docs/测试【表情】套件设计.md)

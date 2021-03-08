@@ -57,3 +57,5 @@ Locust压力测试方法
 * 使用配置文件
 
     `locust -f example.py --config ./locust.conf`
+
+* [Response Methods – Python requests](https://www.geeksforgeeks.org/response-methods-python-requests/)
