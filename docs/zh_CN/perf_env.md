@@ -352,6 +352,15 @@ node/tomas untainted
     argo version
     ```
 
+
+### 创建 ConfigMap
+
+    ConfigMap 允许你将配置文件与镜像文件分离，以使容器化的应用程序具有可移植性。
+
+    ```bash
+    kubectl create configmap <map-name> <data-source>
+    ```
+
 **附：**
 ---
 
