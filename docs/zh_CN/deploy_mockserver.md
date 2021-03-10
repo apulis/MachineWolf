@@ -82,7 +82,7 @@ mockserver.enableCORSForAllResponses=true
 [
   {
     "httpRequest": {
-      "path": "/firstExampleExpectation"
+      "path": "/json"
     },
     "httpResponse": {
       "body": "some response"
