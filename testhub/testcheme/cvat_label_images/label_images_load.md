@@ -5,17 +5,20 @@
 
 |属性  |信息  |
 |---------|---------|
-|产品版本  |Apulis Platform v1.5.0-rc8|
-|更新时间  |2021-03-01         |
+|产品版本  |Apulis Platform v1.6.0-rcx|
+|更新时间  |2021-03-10         |
 |创建者    | thomas        |
 
 ---
 
 ## 测试需求
 
-验证制造业终端流水线上，平台业务的时延、吞吐量、上下行链路、可用性和弹性、可靠性。
+客户现场可能至少有20人左右的并行/发标注数据集的压力场景；综合考虑对影响到平台响应的接口做100人的并发压力测试。如果标注员是人通过Internet访问平台，则还需对经Internet的请求的时延、吞吐量进行验证。
 
-* 平台在制造业流水线上运行有2个阶段
+数据（图片）标注，标注操作主要在用户本地完成，对平台的影响在于客户端向平台请求，主要有跳转cvat,创建任务，拉取数据集(图片),上传手工/半自动标注数据集，自动标注数据集，推送到AI平台的接口请求。
+
+
+* 数据标注的业务流
 
     :::image type="content" source="./img/inference.png" alt-text="流程图":::
 
@@ -86,12 +89,14 @@
 
     :::image type="content" source="./img/weixin_upload_images.png" alt-text="微信优化图片参考数据":::
 
-## 测试方案
+## 并发压力测试方案
+
+了解到数据（图片）标注，标注操作主要在用户本地完成，对平台的影响在于客户端向平台请求，主要有跳转cvat,创建任务，拉取数据集(图片),上传手工/半自动标注数据集，自动标注数据集，推送到AI平台的接口请求。
 
 * 测试场景或用例
 
-    1. 存储性能测试（预置模型，数据集上传和下载）
-    2. 通过HTTP接口推送原始数据集和推理脚本
+    1. 由平台跳转cvat
+    2. 在cvat创建任务
     3. 批量数据标注测试
     4. 数据集、模型的增（创建）删改查
     5. 模型转换测试
@@ -108,7 +113,7 @@
 * 测试环境
 
     + 办公室 1*x86Master + 2*x86-GPU 测试环境
-    + atlas500(3010)推理集群
+    + 松山湖环境
 
     1. 1x86 Master + 1xStorage
 
@@ -130,38 +135,25 @@
     |系统盘     |   1TB SSDB      |
     |存储盘     |   500T HDD      |
 
-    2. 3x86 Master HA + 3xStorage Ceph
-
-    * Master
-
-    |资源  |规格  |
-    |---------|---------|
-    |CPU     |  64核       |
-    |内存     |  128GB       |
-    |系统盘     |   1TB SSDB      |
-    |存储盘     |   10T HDD      |
-
-    * Storage
-
-    |资源  |规格  |
-    |---------|---------|
-    |CPU     |  64核       |
-    |内存     |  64GB       |
-    |系统盘     |   1TB SSDB      |
-    |存储盘     |   256T HDD      |
-
 * 测试数据
 
-    + 数据集：华为提供的原始数据集， 第三方PCB检测数据集
+    + 数据集：为标注的图片数据集
     + 模型：待定
+    + 数据标注格式：
+    • 文本检测: ICDAR2013，样例见附件
+    • 文字识别: mjsynth，样例见附件
+    • 图像分类: imagenet
+    • 目标检测: coco
+    • 语义分割: ISBI格式：即xx_image.png, xx_mask.png，image为原图，mask为像素级标注图片，mask矩阵大小与image一致。
+
 
 * 测试流或计划
 
     |任务         |预估时间       |备注     |
     |-------------|--------------|---------|
-    |原型测试      | 5人/天       |调试脚本和定位适配问题 |
-    |迭代测试      | 3人/天       |例行测试  |
-    |发布验收测试  | 2人/天       |问题回归  |
+    |原型测试      | 2人/天       |调试脚本和定位适配问题 |
+    |迭代测试      | 0.5人/天       |例行测试  |
+    |发布验收测试  | 0.5人/天       |问题回归  |
 
 
 * 风险预估和待定事项
@@ -174,7 +166,6 @@
 ## 测试用例和脚本（待完善）
 
    `perfboard/testsuites/songshanhu_inference/`
-
 
 
 ## 理论性能指标分析
@@ -191,13 +182,9 @@
 7. 任务分布：流水线串行多步操作，10个流水线并行，每个流水线一个推理终端
 8. 主机资源和磁盘IO： we went with the i3en.2xlarge (with 8 vCores, 64 GB RAM, 2 x 2,500 GB NVMe SSDs) for its high 25 Gbps network transfer limit that ensures that the test setup is not network bound. This means that the tests measure the respective maximum server performance measures, not simply how fast the network is. i3en.2xlarge instances support up to ~655 MB/s of write throughput across two disks, which is plenty to stress the servers. See the full instance type definition for details. Per the general recommendation and also per the original OMB setup, Pulsar uses one of the disks for journaling and one for ledger storage. No changes were made to the disk setups of Kafka and RabbitMQ.
 
-
 ## 附录（参考）
 
 *相关参考：*
 1. [AI助力中国智造白皮书.pdf](./refer/AI助力中国智造白皮书.pdf)
 2. [5G边缘计算安全白皮书.pdf](./refer/5G边缘计算安全白皮书.pdf)
 3. [RabbitMQ Best Practice for High Performance (High Throughput)](https://www.cloudamqp.com/blog/2018-01-08-part2-rabbitmq-best-practice-for-high-performance.html)
-4. [Archive for the ‘Performance’ Category](https://www.rabbitmq.com/blog/category/performance-2/)
-5. [Monitoring with Prometheus vs Grafana: Understanding the Difference](https://www.sumologic.com/blog/prometheus-vs-grafana/)
-1. [choosing-alert-management-prometheus-versus-grafana-versus-zabbix-or-ftw-use-all-three](https://medium.com/@texasdave2/choosing-alert-management-prometheus-versus-grafana-versus-zabbix-or-ftw-use-all-three-9bb7a918ed91)

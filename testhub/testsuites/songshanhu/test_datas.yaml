@@ -33,10 +33,30 @@ RESTFULAPI:
   PostInferenceJob:
     mothed: "post"
     path: "/ai_arts/api/inferences/PostInferenceJob"
-    datas: {"framework":"tensorflow","version":"1.15.0","jobName":"tf_lenet-model","model_base_path":"~/tf_lenet-model/export","params":{},"gpuType":"nvidia_gpu_amd64","resourcegpu":1,"vcName":"platform"}
+    datas: {"machineld":"None",
+            "ProductCode":"None",
+            "TableName":"AI_Test",
+            "ProjectName":"5G_aoi",
+            "TaskName":"assm1-2",
+            "Flag":"OK",
+            "ImageName":"None_AI_Test_5g_aoi_assm1-2_201210222192400571_None_OK.jpg",
+            "ImageRawData": "svg_string",
+            "TaskType":"Detection",
+            "Label":{"version":"3.16.7","flags":{},"shapes":[]},
+            "GenerateDateTime": "2021-01-22 19:24:03",
+            "Version":"V1.0"}
   PostInferenceResult:
     mothed: "post"
     path: "/ai_arts/api/inferences/PostInferenceJob"
-    datas: {"framework":"tensorflow","version":"1.15.0","jobName":"tf_lenet-model","model_base_path":"~/tf_lenet-model/export","params":{},"gpuType":"nvidia_gpu_amd64","resourcegpu":1,"vcName":"platform"}
-
-
+    datas: {"machineld":"None",
+            "ProductCode":"None",
+            "TableName":"AI_Test",
+            "ProjectName":"5G_aoi",
+            "TaskName":"assm1-2",
+            "Flag":"OK",
+            "ImageName":"None_AI_Test_5g_aoi_assm1-2_201210222192400571_None_OK.jpg",
+            "ImageRawData": "svg_string",
+            "TaskType":"Class",
+            "Label":{"version":"3.16.7","flags":{},"shapes":[]},
+            "GenerateDateTime": "2021-01-22 19:24:03",
+            "Version":"V1.0"}

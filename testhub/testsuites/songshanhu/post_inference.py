@@ -170,4 +170,21 @@ if __name__ == "__main__":
     # locust -f ./testsuite/songshanhu/inference_perf.py --conf ./testsuite/songshanhu/songshanhu.conf
 
 
+""" api example
+接口描述： （1）
+接口：http post, http://10.101.xxx.xxx:port/json
+（2）payload，json格式：
+设备ID：MachineId	//工控机ID产品编码：
+ProductCode	//当前生产的产品编码（330暂不解析）
+数据库表名：TableName	//线体
+项目名称：ProjectName	//工位
+任务名称：TaskName		//工序
+OK/NG标记：Flag		//推理结果
+图像名：ImageName		//图像名
+图像数据：ImageRawData	//图像数据
+任务类型：TaskType		//任务类型：检测、分类…
+label集合：Labels		//推理标签	
+数据生成时间：GenerateDateTime//生成时间
+版本：Version		//接口版本
 
+ """
