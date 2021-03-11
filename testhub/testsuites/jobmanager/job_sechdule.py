@@ -91,3 +91,20 @@ if __name__ == "__main__":
 
 
 
+""" 接口详情
+inferInfo.json
+{
+         "status":
+         {
+                   "AIServer":"running/failed",
+         },
+       "datetime":"year-month-day hh:mm:ss",
+}
+
+
+{2021-03-03 22:54:28} {INFO} {ai_server.py} {/infer} {POST} {{"INFO": "Inference finished"}} {image_name:16117973292.jpeg} {model_name:lightcnn} {type_name:cls1} {model_config:{"model_name": "lightcnn", "type_name": "cls1", "config_path": "config/models/lightcnn/cls1/1/params.config", "infer_scene": "classification"}} {time_used:0.020795822143554688} {model_result:{"class0": ["0", 0.999511719]}}
+
+
+{2021-01-21 03:12:28} {INFO} {ai_server.py} {/infer} {POST} {{"INFO": "Inference finished"}} {image_name:016b4c52-9e2e-11ea-b131-0242c0a81f1d_AITest_5G_line10_bm_5g_aoi_assm6_20200525101730__NG.jpg} {model_name:ssd_vgg16} {type_name:det1} {model_config:{"model_name": "ssd_vgg16", "type_name": "det1", "config_path": "config/models/ssd_vgg16/det1/1/params.config", "infer_scene": "detection", "default_device_id": 0}} {time_used:0.18546605110168457} {model_result:{"det0": ["attach2", "[1474, 3398, 2828, 3535]", 1], "det1": ["attach3", "[684, 1357, 2743, 3206]", 1], "det2": ["attach3", "[3500, 4312, 2971, 3423]", 1], "det3": ["attach4", "[1715, 3259, 1311, 2579]", 1], "det4": ["attach5", "[1368, 2444, 1107, 2864]", 0.999511719], "det5": ["attach6", "[2356, 3462, 1111, 2862]", 0.994628906]}}
+
+ """

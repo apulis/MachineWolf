@@ -1,4 +1,4 @@
-数据集管理与推理性能专项测试（简案）
+数据标注（CVAT）并发压力测试方案
 --------------------------------------------------------------------
 
 * 文档说明
@@ -13,54 +13,48 @@
 
 ## 测试需求
 
-客户现场可能至少有20人左右的并行/发标注数据集的压力场景；综合考虑对影响到平台响应的接口做100人的并发压力测试。如果标注员是人通过Internet访问平台，则还需对经Internet的请求的时延、吞吐量进行验证。
+客户现场可能至少有20人的并行/发标注数据集的压力场景；综合考虑对影响到平台响应的接口做100人的并发压力测试。如果标注员是通过Internet访问平台，则还需对经客户环境Internet请求的时延、吞吐量进行验证。
 
-数据（图片）标注，标注操作主要在用户本地完成，对平台的影响在于客户端向平台请求，主要有跳转cvat,创建任务，拉取数据集(图片),上传手工/半自动标注数据集，自动标注数据集，推送到AI平台的接口请求。
+数据（图片）标注，标注操作主要在用户本地完成，对平台的影响在于客户端向平台请求，主要有跳转cvat,创建任务，拉取数据集(图片),上传手工/半自动标注数据集，自动标注数据集，推送到AI平台等接口请求。
 
 
 * 数据标注的业务流
 
-    :::image type="content" source="./img/inference.png" alt-text="流程图":::
+    *其中橙色节点都有向平台、DB、存储的请求；操作频繁但数据块小的是手工或半自动预览图片；不太频繁但数据比较大的是上传数据集和导出请求。*
 
-## 相关调研(部分可参考)
+    :::image type="content" source="./img/label_images.png" alt-text="流程图":::
+
+## CVAT测试调研
 
 * 主要参考链接
-1. [5G+AI 智能工业视觉解决方案白皮书 V1.0](https://www-file.huawei.com/-/media/corporate/pdf/news/5g-ai-intelligent-cloudvision-whitepaper.pdf?la=zh)
-2. [微信活动小程序性能优化实践](https://cloud.tencent.com/developer/article/1629081)
-3. [Benchmarking Apache Kafka, Apache Pulsar, and RabbitMQ: Which is the Fastest?](https://www.confluent.io/blog/kafka-fastest-messaging-system/?utm_medium=sem&utm_source=google&utm_campaign=ch.sem_br.nonbrand_tp.prs_tgt.dsa_mt.dsa_rgn.namer_lng.eng_dv.all_con.blog&utm_term=&creative=&device=c&placement=&gclid=CjwKCAiAm-2BBhANEiwAe7eyFNv7Ypyy-CJ5S0BgvGYt7bYCym80TpdGqgE1rfBk8alpXB_I79mbthoCyOMQAvD_BwE)
+1. [cvat-test](https://github.com/openvinotoolkit/cvat/tree/develop/tests)
+2. [cvat-action-nightly](https://github.com/openvinotoolkit/cvat/runs/2081412856?check_suite_focus=true)
+3. [cvat-gitter](https://gitter.im/opencv-cvat/public?at=5c85a33f1c597e5db6b80a86)
+4. [cvat-issues]()
 
 
-* 5G 3C 行业PCB案例数据
-    以一条典型的 3C 产线为例，可能会包括以下涉及工业视觉检测的应用：
-    + SPI 视觉检测：SPI(Solder Paste Inspection) 锡膏测厚仪，用于测量 PCB 板上锡膏的厚度、长度、体积、截面积等，统计分析以进行工艺控制；
-    + AOI 视觉检测：AOI(Automated Optical Inspection) 系统对 PCB 进行图像采集，然后与预存的标准 PCB 图像进行比较，通过分析、处理和判断，发现缺陷并进行位置提示；
-    + 产品装配检测：基于 IPC 工业相机，通过视觉检测方法，自动识别人工装配过程中的工序是否正确，对错误操作实时进行报警提示，防止不合规操作发生；
-    + 整机产品视觉检测：使用工业视觉系统对产品表面瑕疵、污点、Logo 等检测，发现产品缺陷并及时处理；
+* Annotations Format Supported
 
-        :::image type="content" source="./img/3C_flow_pcb.png" alt-text="3C_check":::
 
-    如上图所示，假设在一个工厂中部署 3 条相同 36m 长，4m 宽的 SMT 产线，其中每条产线中包含了 4 类 5 个工业
-    视觉应用需求，采用 5G+AI 解决方案来实现，以达到降低端侧成本、提升检测成功率、降低操作维护成本及支持后续灵
-    活扩展等目标，基于此假设条件进行分析。
 
-    在产线上不同工位不同应用场景的生产节拍、所使用的工业相机参数、检测精度要求等都不相同，假设各应用参数
-    如下：
-        :::image type="content" source="./img/vision_images.png" alt-text="vision_images":::
+Annotation format	Import	Export
+CVAT for images	X	X
+CVAT for a video	X	X
+Datumaro	 	X
+PASCAL VOC	X	X
+Segmentation masks from PASCAL VOC	X	X
+YOLO	X	X
+MS COCO Object Detection	X	X
+TFrecord	X	X
+MOT	X	X
+LabelMe 3.0	X	X
 
-    基于以上应用参数，分析各具体应用对 5G 网络的带宽诉求及可采用的方案分析如下：
+* Github CI testsuites
 
-    :::image type="content" source="./img/facory_images.png" alt-text="facory_images":::
+* Open issues
 
-    端侧实现推理的架构，需要通过 5G 网络传输的数据包括上行回传用于 AI 视觉云平台进行的图像及下行接收新模型，都为非时延敏感类型数据，正确回传即可；回传图像的数据量与具体实现有关，一般采用 JPEG 75% 质量压缩图像，占总的图像采集量的 1~10%；下行模型的数据量更小；边缘云实现推理的架构，需要实时回传图像 / 视频数据，数据量取决于像素、帧率、压缩率、允许传输时长等参数，需要根据实际参数进行计算。以如下场景为例，根据各应用所采用的方案，对 5G 网络总带宽需求如下：
-    + 3D 结构光检测：端侧推理时，上传传云端用于训练的数据量假设为 10 倍压缩率的 JPEG 图像，且占总的图像数目的 5%，则上行速率要求约为 3.2Mbps；
-    + AOI 炉前 / 炉后检测：端侧推理，上传传云端用于训练的数据量假设为 10 倍压缩率的 JPEG 图像，且占总的图像数目的 5%，上行速率要求约为 1.2Mbps；
-    + 装配动作 IPC 摄像机检测：边缘云侧推理，典型上行速率 6Mbps;
-    + 产品表面瑕疵检测：边缘云推理，10 倍 JPEG 压缩图像，上行速率要求约 30Mbps；
+* Thirdpart conminute instance performance
 
-    **则在覆盖 3 条 SMT 产线，区域面积为 40mx15m 的范围内，5G 网络需提供约为（30+6+3.2+1.2+1.2）*3≈124.8Mbps的上行带宽速率，下行带宽速率一般满足 2Mbps**
-
-    在 3GPP 中定义了对工厂自动化（22.104 A2.2 Factory automation）及过程自动化（22.261 D.3 Process automation）场景的描述，工业视觉对 5G 网络可用度的要求应该大于 99.9999%。
-    :::image type="content" source="./img/3GPP_Performance.png" alt-text="3GPP_Performance":::
 
 > [!IMPORTANT]
 > * 5G+AI 工业视觉应用 SLA 
@@ -70,24 +64,7 @@
 为：1-1/(3406*10000)≈ 0.9999999。
 
 > [!TIP]
-> 《5G+AI 智能工业视觉解决方案白皮书 V1.0》虽然是华为和百度合作出的，但是从百度《AI助力中国智造白皮书.pdf》来看他只是出了概念设想；实际数据是华为5G IOT的测试数据。
-
-* RabbitMQ 比较大的message如version 3.8最大支持512M，但社区反馈不建议超过128m。
-
-    ```
-    While the theoretical message size limit in RabbitMQ is 2GB up to 3.7.0, we don't recommend sending messages larger than 128MB, which is also the new max size limit in 3.8.0 and onward. Large messages are especially problematic when using mirrored queues in HA clusters and can cause memory and performance issues.
-
-    References:
-    https://github.com/rabbitmq/rabbitmq-server/issues/147#issuecomment-470882099
-    https://github.com/rabbitmq/rabbitmq-common/pull/289.
-    ```
-    + Rabbitmq Throughput（仅部分结果，详细请查看相关链接）
-     
-        :::image type="content" source="./img/kafra_rabbitMQ.png" alt-text="流程图":::    
-
-* 微信小程序上传图片优化过程：可以将单张图片优化到**600k**, 9张图片打包上传时间优化到**851ms**。
-
-    :::image type="content" source="./img/weixin_upload_images.png" alt-text="微信优化图片参考数据":::
+> 《5G+AI 智能工业视觉解决方案白皮书 V1.0》虽然是华为和百度合作出的，但是从百度《AI助力中国智造白皮书.pdf》来看他只是出了概念设想；实际数据是华为
 
 ## 并发压力测试方案
 
@@ -112,7 +89,7 @@
 
 * 测试环境
 
-    + 办公室 1*x86Master + 2*x86-GPU 测试环境
+    + 办公室 1*x86Master + 2*x86-GPU 测试环境(192.168.1.18:admin/Cbmt9Y)
     + 松山湖环境
 
     1. 1x86 Master + 1xStorage
@@ -140,11 +117,11 @@
     + 数据集：为标注的图片数据集
     + 模型：待定
     + 数据标注格式：
-    • 文本检测: ICDAR2013，样例见附件
-    • 文字识别: mjsynth，样例见附件
-    • 图像分类: imagenet
-    • 目标检测: coco
-    • 语义分割: ISBI格式：即xx_image.png, xx_mask.png，image为原图，mask为像素级标注图片，mask矩阵大小与image一致。
+        - 文本检测: ICDAR2013，样例见附件
+        - 文字识别: mjsynth，样例见附件
+        - 图像分类: imagenet
+        - 目标检测: coco
+        - 语义分割: ISBI格式：即xx_image.png, xx_mask.png，image为原图，mask为像素级标注图片，mask矩阵大小与image一致。
 
 
 * 测试流或计划
@@ -161,12 +138,11 @@
     + 平台遗留上传数据和下载数据的问题，只能采用SCP上传到存储目录，但HTTP方式下载5G以上文件任存在中断风险
     + 中心推理没有实现过分布式pod，可能不支持多流水线，多终端的场景
     + 办公室测试环境与客户环境差异较大，需要协调客户环境验证
-    + 客户环境是5G 或光纤网络待定
+    + 客户环境是5G 
 
 ## 测试用例和脚本（待完善）
 
-   `perfboard/testsuites/songshanhu_inference/`
-
+   `perfboard/testhub/testsuites/label_images/`
 
 ## 理论性能指标分析
 
