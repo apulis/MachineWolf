@@ -63,7 +63,7 @@
 
 * **松山湖项目的数据集要求： coco、voc、imagenet、 txt+jpg**
 
-### Limitations:
+### CVAT Limitations:
 
 + **No more than 10 tasks per user**
 + **Uploaded data is limited to 500Mb**
@@ -104,7 +104,7 @@
 
     Hey all I'm new to CVAT and using Docker. I have a question about space usage. I uploaded and labelled some videos, but when I tried to download the dataset, I got an error that there wasn't enough space. I increased my docker space available (from 60Gb to 103Gb). I also tried deleting some tasks I didn't need to work on immediately. The deleted tasks didn't free up any space at all, even though they were originally >1Gb each. I successfully exported one dataset, which made a zip file over 35Gb. However, it increased my docker space the same amount and I'm again getting the out of space error. When I do "docker system df -v" the volume cvat_cvat_data has over 50Gb on it. How do I clear out my deleted and temp files from CVAT? I've tried docker pruning and restarting the programs. Happy to provide more details.
 
-* 通过挂载目录共享大数据集
+* 由于500M限制，可以通过挂载目录共享大数据集
 
     I want to upload many images to a task and possible the size of the images is big (some GB). what is the best way to do that? I guess doing it from the web app is not optimal.. can you do that using the REST API ?? is it possible to create a symlink to a folder outside the docker linking to the task folder ?
 
@@ -165,7 +165,7 @@
 
 * 测试环境
 
-    + 办公室 1*x86Master + 2*x86-GPU 测试环境(192.168.1.18:admin/Cbmt9Y)
+    + 办公室 1*x86Master + 2*x86-GPU 
     + 机房单个atlas测试环境
 
     + 松山湖环境
@@ -213,7 +213,7 @@
 * 风险预估和待定事项
 
     + cvat还在集成验证中
-    + 测试所有数据集较小，与生产环境有较大差别
+    + 测试所用数据集较小，与生产环境有较大差别
     + 待确认标注员在内网环境还是Internet
 
 ### 测试用例和脚本（待完善）
@@ -221,7 +221,9 @@
    `perfboard/testhub/testsuites/label_images/`
 
 ### SLO/SLI预估
+
 SLI(Service Level indicators)：服务等级指标，其实就是我们选择哪些指标(qps，响应时间，准确性)来衡量我们的稳定性
+
 SLO(Service Level Objectives)：服务等级目标，指的就是我们设定的稳定性目标，比如“qps几个 9,响应时间10ms”这样的目标
 
 |SLI |SLO  |
