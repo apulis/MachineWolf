@@ -1,60 +1,45 @@
 # coding=UTF-8
-""" FAKE_USER
-# 连接和管理Postgres Server
+""" Postgres_client
+# INFO:    连接和管理Postgres Server
 # VERSION: 0.0.1
-# EDITOR:  haiyuan
+# EDITOR:  thomas
 # TIMER:   2020-06-10
-
-"""
-""" 
-use `DLWSCluster-a8534d24-4316-43ed-bd2d-62c3d54cb3a8`;
-SELECT * FROM `DLWSCluster-a8534d24-4316-43ed-bd2d-62c3d54cb3a8`.account;
-INSERT INTO account  values ("30004", "yunxia@apulis.com", "Microsoft", "yunxia.chu", "yunxia.chu", "tryme2020", "","", 1, 1,"2020-06-11 08:57:18");
- """
-
-"""configuration example database.ini
-[postgresql]
-host=localhost
-database=suppliers
-user=postgres
-password=SecurePas$1
 """
 
-#!/usr/bin/python
 import psycopg2
-from config import config
+from psycopg2 import Error
 
-def psg_connect():
-    """ Connect to the PostgreSQL database server """
-    conn = None
-    try:
-        # read connection parameters
-        params = config()
 
-        # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(**params)
-		
-        # create a cursor
-        cur = conn.cursor()
-        
-	# execute a statement
-        print('PostgreSQL database version:')
-        cur.execute('SELECT version()')
+class PostgresClient:
+    connection = ""
+    cursor = ""
+    def psg_connect(self, user="postgres",password="aN2RXC7WXOl27BT5",host="192.168.1.18",port="5432",database="postgres"):
+        """ Connect to the PostgreSQL database server """
+        try:
+            self.connection = psycopg2.connect(user=user, 
+                                                password=password, 
+                                                host=host, 
+                                                port=port, 
+                                                database=database)
+            self.cursor = self.connection.cursor()
+            # Print PostgreSQL details
+            print("PostgreSQL server information: ",self.connection.get_dsn_parameters(), "\n")
+            self.cursor.execute("SELECT version();")
+            record = self.cursor.fetchone()
+            print("You are connected to - ", record, "\n")
 
-        # display the PostgreSQL database server version
-        db_version = cur.fetchone()
-        print(db_version)
-       
-	# close the communication with the PostgreSQL
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print('Database connection closed.')
+        except (Exception, Error) as error:
+            print("Error while connecting to PostgreSQL", error)
+        finally:
+            return self.cursor
 
+    def close(self):
+        if (self.connection):
+            self.cursor.close()
+            self.connection.close()
+            print("PostgreSQL connection is closed")
 
 if __name__ == '__main__':
-    psg_connect()
+    pc = PostgresClient()
+    pc.psg_connect()
+    pc.close()

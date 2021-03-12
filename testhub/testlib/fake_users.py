@@ -1,10 +1,9 @@
 # coding=UTF-8
 """ FAKE_USER
-# 创建虚拟测试用户信息
+# INFO:    创建虚拟测试用户信息
 # VERSION: 0.0.1
-# EDITOR:  haiyuan
+# EDITOR:  thomas
 # TIMER:   2020-06-10
-
 """
 
 import random
@@ -16,7 +15,7 @@ Faker.seed(2025)
 location = ["en-US", "zh_CN"]
 
 class SystemRole(BaseProvider):
-    # create new provider class for apulis ai platform 
+    # create new provider class for apulis ai platform user roles
     Role = ["System Admin", "User", "Annotation Person" ]
     def role(self):
         return random.choice(self.Role)
