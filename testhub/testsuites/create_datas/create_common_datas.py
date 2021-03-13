@@ -129,7 +129,10 @@ class LocustUser(FastHttpUser):
     global TEST_DATAS  
     sock = None
     wait_time = between(0.5, 5) 
-    TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
+    TEST_DATAS = read_test_datas(conf_file=
+    
+    
+    )
     tasks = [BasicalDatas]
 
 if __name__ == "__main__":
