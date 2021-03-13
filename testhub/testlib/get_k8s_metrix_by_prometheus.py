@@ -2,9 +2,10 @@
 # -*- coding:utf-8 -*-
 """ prometheus_client
 # INFO:    获取虚拟环境的CPU,MEM,storage
-# VERSION: 0.0.1
+# VERSION: 2.0.0
 # EDITOR:  thomas
 # TIMER:   2021-03-11
+# STATUS: Debug
 """
 
 # apulis ai platform prometheus config 

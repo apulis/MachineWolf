@@ -1,12 +1,5 @@
 
-""" 测试单（场景）
-
-nni 在主机下的SLI/SLO
-6. 使用nni直接在系统环境下创建训练任务对平台的影响
-7. 使用nni执行神经网络结构搜索（NAS）的对比分析
-8. 使用nni执行超参调优算法的对比分析
-9. 使用nni执行模型压缩算法的对比分析
-
+""" 
 # ScriptType：performance test 
 # UpdateDate: 2021.03-4
 # Matainer: thomas
@@ -59,7 +52,16 @@ class NniLocal(TaskSet):
     8. 64mpbs，128Mbps图片流量的负载测试
     9. 测试（客户）环境rabbitmq的吞吐量和响应延时
     """
-    
+    """ 
+    nni 在主机下的SLI/SLO
+    6. 使用nni直接在系统环境下创建训练任务对平台的影响
+    7. 使用nni执行神经网络结构搜索（NAS）的对比分析
+    8. 使用nni执行超参调优算法的对比分析
+    9. 使用nni执行模型压缩算法的对比分析
+     """
+
+
+
     @events.test_start.add_listener
     def on_test_start_get_homepage(self, environment, **kwargs):
         print("A new test is starting, user will login")

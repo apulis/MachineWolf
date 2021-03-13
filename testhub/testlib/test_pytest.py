@@ -1,4 +1,4 @@
-# content of test_class.py
+# content of pytest example
 class TestClass:
     def test_one(self):
         x = "this"
