@@ -73,7 +73,7 @@ class BasicalActions(TaskSet):
     @events.test_stop.add_listener
     def on_test_stop_logout(self, environment, **kwargs):
         print("======================= A  test is ending, user will logout! =======================")
-        responses = self.client.get(url=TEST_DATAS["RESTFULAPI"]["logout"]["path"])
+        responses = self.client.get(url=self.testdatas["RESTFULAPI"]["logout"]["path"])
         if responses.status_code == 200:
             rst = json.loads(responses.text, strict=False)
             if rst['success'] == '200':
@@ -415,6 +415,4 @@ if __name__ == "__main__":
     os.system(cmd)
     # Run in cmd
     # locust -f ./testhub/testsuites/annotations_cvat/test_cvat_actions.py --conf ./testhub/testsuites/annotations_cvat/host.conf
-
-
 

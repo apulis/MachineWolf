@@ -18,9 +18,13 @@ location = ["en-US", "zh_CN"]
 
 class SystemRole(BaseProvider):
     # create new provider class for apulis ai platform user roles
-    Role = ["System Admin", "User", "Annotation Person" ]
+    # {"System Admin":1, "User":2, "Annotation Person":3 }
+    Role = [1,2,3 ]
+
     def role(self):
-        return random.choice(self.Role)
+        random.shuffle(self.Role)
+        # return self.Role[:2] # 随机返回2个role
+        return [1,2]
 
 class ChinesePhone(BaseProvider):
     # create new provider class for chinese mainland cellphone numbers 
@@ -36,14 +40,14 @@ class ChinesePhone(BaseProvider):
         return ''.join([self.PhoneChinaPrefix[random.randint(0, len(self.PhoneChinaPrefix) - 1)],''.join(random.sample(string.digits, 8))])
 
 
-def new_fake_user():
+def new_user():
     DataFactory = Faker(location=["en-US", "zh_CN"])
     Nickname = DataFactory.name()
     DataFactory = Faker(location=["en-US"])
     Username = DataFactory.first_name_nonbinary()
     Firstname = DataFactory.first_name()
     Lastname = DataFactory.last_name()
-    Passwd = "1234567890"
+    Passwd = "123456"
     Md5Passwd = hashlib.md5()
     Md5Passwd.update(Passwd.encode("utf-8"))
     SecurityPasswd = (Md5Passwd.hexdigest()).lower()
@@ -51,19 +55,39 @@ def new_fake_user():
     Phone = DataFactory.MainlandCellPhone()
     Email = DataFactory.ascii_free_email()
     Description = DataFactory.job()
-    DataFactory.add_provider(SystemRole)
-    Role = DataFactory.role()  
-    return {"Nickname":Nickname,
-            "Username":Username,
-            "Firstname":Firstname,
-            "Lastname":Lastname,
-            "passwd":SecurityPasswd,
-            "Phone":Phone,
-            "Email":Email,
-            "Description":Description,
-            "Role":Role
+    return {"nickName":Nickname,
+            "userName":Username,
+            "password":SecurityPasswd,
+            "phone":Phone,
+            "email":Email,
+            "note":Description,
             }
 
+def new_group():
+    DataFactory = Faker(location=["en-US", "zh_CN"])
+    Groupnote = DataFactory.job()
+    DataFactory = Faker(location=["en-US"])
+    Groupname = DataFactory.first_name_nonbinary()
+    DataFactory.add_provider(SystemRole)
+    Role = DataFactory.role()  
+    return {"name":Groupname,
+            "note":Groupnote,
+            "role":Role
+            }
+
+def new_role():
+    DataFactory = Faker(location=["en-US", "zh_CN"])
+    Rolenote = DataFactory.job()
+    DataFactory = Faker(location=["en-US"])
+    Rolename = DataFactory.first_name_nonbinary()
+    DataFactory.add_provider(SystemRole)
+    Role = DataFactory.role()  
+    return {"name":Rolename,
+            "note":Rolenote,
+            "permissions":Role   
+            }
 
 if __name__ == "__main__":
-    print(new_fake_user())
+    # print(new_user())
+    # print(new_group())
+    print(new_role())
