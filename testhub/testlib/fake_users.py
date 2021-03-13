@@ -1,15 +1,17 @@
 # coding=UTF-8
 """ FAKE_USER
 # INFO:    创建虚拟测试用户信息
-# VERSION: 0.0.1
+# VERSION: 2.0
 # EDITOR:  thomas
-# TIMER:   2020-06-10
+# TIMER:   2021-03-09
 """
 
 import random
 import string
 from faker import Faker
 from faker.providers import BaseProvider
+import hashlib
+
 
 Faker.seed(2025)
 location = ["en-US", "zh_CN"]
@@ -41,6 +43,10 @@ def new_fake_user():
     Username = DataFactory.first_name_nonbinary()
     Firstname = DataFactory.first_name()
     Lastname = DataFactory.last_name()
+    Passwd = "1234567890"
+    Md5Passwd = hashlib.md5()
+    Md5Passwd.update(Passwd.encode("utf-8"))
+    SecurityPasswd = (Md5Passwd.hexdigest()).lower()
     DataFactory.add_provider(ChinesePhone)
     Phone = DataFactory.MainlandCellPhone()
     Email = DataFactory.ascii_free_email()
@@ -51,6 +57,7 @@ def new_fake_user():
             "Username":Username,
             "Firstname":Firstname,
             "Lastname":Lastname,
+            "passwd":SecurityPasswd,
             "Phone":Phone,
             "Email":Email,
             "Description":Description,
