@@ -1,6 +1,6 @@
 """
 # ScriptType：support tools 
-# UpdateDate: 2021.03-4
+# UpdateDate: 2021.03-10
 # Matainer: thomas
 # Env: Win10 64bit, python3.8
  """
@@ -17,8 +17,11 @@ def csv_reader_as_json(csv_path="",length=100):
             if num <= length:
                 account = re.split('([\t])', row[0] )  
                 output.append({"account":account[0],"passwd":account[2],"md5pwd":account[4],})
-    return output
-
+            elif not num:
+                output.append({"account":account[0],"passwd":account[2],"md5pwd":account[4],})
+            else:
+                return output
+    return  output
 
 def csv_writer():
     pass
