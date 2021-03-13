@@ -23,8 +23,16 @@ def csv_reader_as_json(csv_path="",length=100):
                 return output
     return  output
 
-def csv_writer():
-    pass
+def csv_writer(csv_path="",datas="json"):
+    with open(csv_path, 'w', newline='') as csvfile: 
+        spamwriter  = csv.writer(csvfile, 
+                                newline='',
+                                delimiter=' ',
+                                quotechar='|', 
+                                quoting=csv.QUOTE_MINIMAL) 
+        for Spam in datas.items():
+            spamwriter.writerow(Spam)
+    return True
 
 
 if __name__ == "__main__":
