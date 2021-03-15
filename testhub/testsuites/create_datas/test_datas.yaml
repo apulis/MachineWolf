@@ -4,15 +4,18 @@ PLATFORM_VERSION: "v1.0.0"
 TEST_TAG: "rc0"
 ENV: 
   INFO: "office_test_lab: 3010推理集群"
-  WEB_LINK: "http://192.168.1.18"
-  WEB_ADMIN_PASSWD: "Cbmt9Y"
-  SSH_ROOT_PASSWD: "apulis123"
+  HOST: "http://192.168.1.198"
   Prometheus_Client: http://192.168.1.18:9091
   CONF_PATH: "/home/InstallationYTung"
 
 ACCOUNT:
-  admin: {"userName":"admin","password":"b6c8c54e0947e2532cd7888df9b0c4c8"}
-  testuser: {"userName":"thomas","password":"99e261ecc3ae5435b4860d8add7bdf4"}
+  web_admin: {"userName":"admin","password":"d5Wx1n"}
+  testuser: {"userName":"thomas","password":"apulis@2025"}
+  ssh_root: {"userName":"root","password":"Aiperf@2025"}
+  token: ""
+  user_id: 1
+  currentRole_id: 1
+  permissionList: ['SUBMIT_TRAINING_JOB', 'VIEW_ALL_USER_JOB', 'VIEW_AND_MANAGE_ALL_USERS_JOB', 'VIEW_CLUSTER_STATUS', 'MANAGE_USER', 'AI_ARTS_ALL', 'LABELING_IMAGE', 'DISPATCH_LABELING_TASK',  'REVIEW_LABELING_TASK', 'MANAGE_VC', 'MANAGE_JOBS', 'MANAGE_PRIVILEGE_JOB', 'SUBMIT_PRIVILEGE_JOB', 'VIEW_VC']
 
 TEST_DATAS:
   MODELSETS: ""
@@ -22,8 +25,8 @@ TEST_DATAS:
   IMAGESETS: ""
   
 RESTFULAPI:
-  header:   {"Content-Type":"application/json;charset=UTF-8","Accept-Encoding":"gzip, deflate","Accept":"application/json","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"}
-  token:    ""
+  header:   {"Content-Type":"application/json;charset=UTF-8", "Accept-Language":"en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7",  "Accept-Encoding":"gzip, deflate",  "Accept":"application/json",  "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"}
+  cookie:    ""
   homepage: "/"
   login: 
     mothed: "post" 
@@ -33,134 +36,24 @@ RESTFULAPI:
     mothed: "get" 
     path:   "/custom-user-dashboard-backend/auth/logout"
     Response: 200
-  redirect_cvat:
-    mothed: "get"
-    path:   "/annotations/api/v1/server/annotation/formats"
-    datas:  {"framework":"tensorflow","version":"1.15.0","jobName":"tf_lenet-model","model_base_path":"~/tf_lenet-model/export","params":{},"gpuType":"nvidia_gpu_amd64","resourcegpu":1,"vcName":"platform"}
-    Response: 200
-  projects_list:
-    mothed: "get"
-    path:   "/ai_arts/api/annotations/projects?page=1&size=10&name="
-    datas:  {"code":0,"msg":"success","data":{"projects":[{"projectId":"84FC3DEC-CCA6-43DF-A9BA-929810AA04FE","name":"cyh","info":"12345678910","role":"admin","creator":""}],"totalCount":1}}
-    Response: 200
-  create_task:
+  create_user:
+    mothed: "post"
+    path:   "/custom-user-dashboard-backend/users"
+    datas:  {"userMessage":[{"nickName":"guesttest1","userName":"guesttest1","password":"e10adc3949ba59abbe56e057f20f883e","phone":"13760119809","email":"tomas@163.com","note":"guesttest1"}],"userRole":[1,2]}
+    Response: {"success": true, "message": "ok"}
+  create_user:
+    mothed: "delete"
+    path:   "/custom-user-dashboard-backend/users"
+    datas:  {"userMessage":[{"nickName":"guesttest1","userName":"guesttest1","password":"e10adc3949ba59abbe56e057f20f883e","phone":"13760119809","email":"tomas@163.com","note":"guesttest1"}],"userRole":[1,2]}
+    Response: {"success": true, "message": "ok"}  
+  create_group:
+    mothed: "post"
+    path:   "/custom-user-dashboard-backend/group"
+    datas:  {"name":"guesttest","note":"guesttestguesttestv","role":[1,2,3]}
+    Response: {"success":true,"message":"success"}
+  create_role:
     mothed:  "post"
-    path:    "/annotations/api/v1/server/share?directory=%2F "
-    datas:   {"name":"peprf01","info":"peprf01peprf01peprf01peprf01"}
+    path:    "/custom-user-dashboard-backend/role"
+    datas:   {"name":"guest","note":"guestroleguestroleguestroleguestrole","permissions":[]}
     Referer: "/annotations/tasks/create"
-    Response: 200
-    # [{"name":"model","type":"DIR"},{"name":"cifar10","type":"DIR"},{"name":"dataset","type":"DIR"},{"name":"cvat","type":"DIR"},{"name":"model-gallery","type":"DIR"}]
-  upload_task_label:
-    mothed:  "get"
-    path:    "/annotations/api/v1/tasks"
-    datas:   {"name":"tf_lenet_tomas","labels":[{"name":"dogs","attributes":[]}]}
-    Referer: None
-    Response: 200
-  upload_task_data:
-    mothed:  "get"
-    path:    "/annotations/api/v1/tasks/{30}/data"
-    datas:   {image_quality=70,use_zip_chunks=true,use_cache=true}
-    Referer: None
-    Response: 200 
-  get_task_status:
-    mothed:  "get"
-    path:    "/annotations/api/v1/tasks/{30}/status"
-    datas:   None
-    Referer: None 
-    Response: 200
-  get_task_list:
-    mothed:  "get"
-    path:    /annotations/api/v1/tasks   
-    datas:   {page_size=10,page=1}
-    Referer: None
-    Response: 200
-  auto_annotations:
-    mothed:  "post"
-    path:    "/annotations/api/v1/lambda/requests"
-    datas:   {"mapping":{"bicycle":"text"},"cleanup":false,"task":28,"function":"mask-rcnn-inception-resnet-v2-atrous-coco"}
-    Response: 200
-  open_task:
-    mothed:  "get"
-    path:    /annotations/git/repository/get/{28}
-    datas:   None
-    Response: 200
-  open_job:
-    mothed:  "get" 
-    path:    "/annotations/git/repository/get/{28}"
-    datas:   None
-    Response: 200
-  open_job_meta:  
-    mothed:  "get" 
-    path:    "/annotations/api/v1/tasks/{28}/data/meta"
-    datas:    None
-    Response: 200
-  open_job_logs:
-    mothed:  "post"
-    path:    "/annotations/api/v1/server/logs"
-    datas:   [{"name":"Send user activity","time":"2021-03-12T14:14:27.558Z","client_id":"773715","is_active":true,"payload":{"working_time":118848}}]
-    Response: 200
-  open_job_data:
-    mothed:  "get"
-    path:    "/annotations/api/v1/tasks/{28}/data"
-    datas:   {type=chunk,number=0,quality=compressed}
-    Response: 200
-  open_job_annotations:
-    mothed:  "get" 
-    path:    "/annotations/api/v1/jobs/{25}/annotations"
-    datas:    None
-    Response: 200
-  save_job:
-    mothed:  "get" 
-    path:    "/d"
-    datas:   {dn=eccd224ab00f980dd732887d3c96d17,id=2,ttl=1,clientip=1,type=a}
-    Response: 200
-  save_job_create_annotations:
-    mothed:  "patch" 
-    path:    "/annotations/api/v1/jobs/{25}/annotations?action=create"
-    datas:   {"shapes":[],"tracks":[{"frame":0,"label_id":48,"group":0,"source":"manual","attributes":[{"spec_id":"6","value":""}],"shapes":[{"type":"rectangle","occluded":false,"z_order":0,"points":[10.2998046875,3.6005859375,85.99980926513672,26.6005859375],"outside":false,"attributes":[],"frame":0}]}],"tags":[],"version":0}
-    Response: 200
-  save_job_update_annotations:
-    mothed:  "patch" 
-    path:    "/annotations/api/v1/jobs/{25}/annotations?action=update"
-    datas:   {"shapes":[],"tracks":[],"tags":[],"version":1}
-    Response: 200
-  save_job_delete_annotations:
-    mothed:  "patch"
-    path:    "/annotations/api/v1/jobs/{25}/annotations?action=delete"
-    datas:   {"shapes":[],"tracks":[],"tags":[],"version":2}
-    Response: 200
-  save_job_logs:
-    mothed:  "post"
-    path:    "/annotations/api/v1/server/logs" 
-    datas:   [{"name":"Load job","time":"2021-03-12T14:14:27.558Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"duration":1685,"frame count":15,"track count":0,"object count":0,"box count":0,"polygon count":0,"polyline count":0,"points count":0,"cuboids count":0,"tag count":0}},{"name":"Fit image","time":"2021-03-12T14:14:29.246Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Draw object","time":"2021-03-12T14:15:58.498Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"count":1,"duration":3119}},{"name":"Save job","time":"2021-03-12T14:18:52.279Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"duration":459}},{"name":"Send task info","time":"2021-03-12T14:18:52.738Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"frame count":15,"track count":1,"object count":15,"box count":1,"polygon count":0,"polyline count":0,"points count":0,"cuboids count":0,"tag count":0}},{"name":"Send user activity","time":"2021-03-12T14:18:52.738Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"working_time":91354}}]
-    Response: 200
-  save_job_loader:
-    mothed:  "post" 
-    path:    "/api/v2/strategy/loader"
-    datas:   {"cts_token":"9FySQZLTHlhz6XKjYVKbBfQym0Cghk4orC1q6eXdf7AD73p3cBCZiRG0","en_basedata":"3zjQeYWoCkRJpBSmDSGTCuxT2wK6kVxU5HIx4/bMEehXtRAnJ3bS0Qq3BnKsAgOLOESNniJD5ap1wCv18/Dx/W6XFYPp41bGjSB9zRXdjFVvq8HtgfdV8tOQAt9w/rVlhfOwe1dEyg5QkON9ja5T9UnTMatOSpr81Xr2XjDIM+DH7dDg0gExYD9lGNLE1fLFZfrVfokrrruyVMcdu4O0fjpydix2vPT5DRGCez93Ouj7qKqKIkv58E94gA64p6+/63e2xm4qRQcJ1/xMBPaBGhT8ieJfTDNH6kqoBqg6FE+8s4mk8krs4ZlRzcC1t/Ux7kKMFXbcyp4/ucIOx1pYgndZx5yxtGjW2C0=","en_data":"3zjHe/jkTWZ8/C39bi39Gu5GmEeom1ApsC1mpLvAa+hYqTwvJUr/zVPnQUaPaRmJJFfa2XkX7blli3654PqzvHjKX8euuwrO3Hg+zRDmyg40q9f+x7QcovmQCtxmqO4ry4D8YUkElV4lw7xk6A==","key_id":"1"}
-    Response: 200
-  reback_task:
-    mothed:  "post"
-    path:    "/annotations/api/v1/server/logs"
-    datas:   [{"name":"Change frame","time":"2021-03-12T14:22:14.947Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":0,"to":1}},{"name":"Fit image","time":"2021-03-12T14:22:14.982Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:16.425Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":1,"to":11}},{"name":"Fit image","time":"2021-03-12T14:22:16.453Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:20.347Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":11,"to":14}},{"name":"Fit image","time":"2021-03-12T14:22:20.376Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:21.388Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":14,"to":4}},{"name":"Fit image","time":"2021-03-12T14:22:21.411Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:22.034Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":4,"to":3}},{"name":"Fit image","time":"2021-03-12T14:22:22.056Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:23.757Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":3,"to":13}},{"name":"Fit image","time":"2021-03-12T14:22:23.777Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:25.011Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":13,"to":14}},{"name":"Fit image","time":"2021-03-12T14:22:25.032Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:31.822Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":14,"to":13}},{"name":"Fit image","time":"2021-03-12T14:22:31.845Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:33.529Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":13,"to":3}},{"name":"Fit image","time":"2021-03-12T14:22:33.554Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Change frame","time":"2021-03-12T14:22:39.480Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{"from":3,"to":13}},{"name":"Fit image","time":"2021-03-12T14:22:39.500Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Zoom image","time":"2021-03-12T14:22:42.222Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Zoom image","time":"2021-03-12T14:22:43.229Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Zoom image","time":"2021-03-12T14:22:48.701Z","client_id":"773715","job_id":25,"task_id":28,"is_active":true,"payload":{}},{"name":"Send user activity","time":"2021-03-12T14:22:50.783Z","client_id":"773"}]
-    Response: 200
-  upload_anotaion:
-    mothed:  "put" 
-    paths:   "/annotations/api/v1/tasks/{19}/annotations?format=COCO%201.0"
-    datas:   None
-    Response: 200
-  push_to_ai_platform:
-    mothed:  "get"
-    paths:   "/annotations/api/v1/tasks/{25}/save_to_platform"
-    datas:   {format=COCO%201.0}
-    Response: 200
-  dump_anotation:
-    mothed:  "get"
-    paths:   "/annotations/api/v1/tasks/{19}/annotations?format={COCO%201.0}"
-    datas:   {format=COCO%201.0,text/plain=true}
-    Response: 200
-  delect_task:
-    mothed:  "delete"
-    path:    "/annotations/api/v1/tasks/{28}"
-    datas:   None
-    Response: 200
+    Response: {"success":true,"message":"success"}

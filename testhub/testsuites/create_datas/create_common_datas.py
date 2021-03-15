@@ -7,20 +7,19 @@
 """
 
 from testhub.testlib import fake_users
-import locust.stats
-locust.stats.CONSOLE_STATS_INTERVAL_SEC = 3
-
-from locust import TaskSet, task, between, User
+from locust import HttpUser, TaskSet, task, between
 from locust.contrib.fasthttp import FastHttpUser
 from locust import events
+from locust.clients import HttpSession
 import logging
 import json
 import os
 import yaml
 import pdb
+import hashlib
 
- 
 TEST_CONF = os.path.join(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep  ), "test_datas.yaml")
+TEST_DATAS = {}
 
 def read_test_datas(conf_file=TEST_CONF):
     stream = {}
@@ -29,21 +28,49 @@ def read_test_datas(conf_file=TEST_CONF):
     conf = yaml.safe_load(stream)
     return conf
 
-# @events.quitting.add_listener
-# def _(environment, **kw):
-#     if environment.stats.total.fail_ratio > 0.001:
-#         logging.error("Test failed due to failure ratio > 1%")
-#         environment.process_exit_code = 1
-#     elif environment.stats.total.avg_response_time > 200:
-#         logging.error("Test failed due to average response time ratio > 200 ms")
-#         environment.process_exit_code = 2
-#     elif environment.stats.total.get_response_time_percentile(0.99) > 800:
-#         logging.error("Test failed due to 95th percentile response time > 800 ms")
-#         environment.process_exit_code = 3
-#     else:
-#         environment.process_exit_code = 0
+class CreateDatas(TaskSet):
+    global TEST_DATAS
+    def on_start(self):
+        print("======================= A new test is starting, user will login {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
+        self.client.get(TEST_DATAS["RESTFULAPI"]["homepage"])
+        self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
+        data=TEST_DATAS["ACCOUNT"]["testuser"]
+        data["password"] = fake_users.security_passwd(data["password"])
+        response = self.client.post(url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=data)
+        result = response.json()
+        # pdb.set_trace()
+        try:
+            if result["success"]:
+                TEST_DATAS["ACCOUNT"]["token"] = result["token"]
+                TEST_DATAS["ACCOUNT"]["currentRole_id"] = result["currentRole"][0]["id"]
+                TEST_DATAS["RESTFULAPI"]["header"]["Authorization"] = {"Authorization":"Bearer " + TEST_DATAS["ACCOUNT"]["token"]}
+                TEST_DATAS["RESTFULAPI"]["header"]["cookie"] = {"cookie":"language=en-US;token={}".format(result["token"])}
+                # TEST_DATAS["RESTFULAPI"]["Authorization"] = "Bearer " + result["token"]
+                # TEST_DATAS["RESTFULAPI"]["cookie"] = "language=en-US;token={token}".format(result["token"])
+                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ header {} ".format(TEST_DATAS["RESTFULAPI"]["header"]))
+        except KeyError: 
+            response.raise_for_status()
 
-class BasicalDatas(FastHttpUser):
+    def on_stop(self):
+        print("======================= A  test is ending, user will logout! ")
+        response = self.client.get(TEST_DATAS["RESTFULAPI"]["logout"]["path"])
+        # self.admin_client = HttpSession(base_url=self.client.base_url)
+        # self.admin_client.delete( TEST_DATAS["RESTFULAPI"]["login"]["path"]) # , auth=(self.adminUserName, self.adminUserName)
+
+
+    @task(1)
+    def test_create_user(self):
+        # global TEST_DATAS
+        user_datas = TEST_DATAS["RESTFULAPI"]["create_user"]["datas"]
+        user_datas["userMessage"][0] = fake_users.new_user()
+        user_datas["userRole"] = fake_users.new_role()
+        self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
+        # self.client.cookie = TEST_DATAS["RESTFULAPI"]["cookie"]
+        print("======================= test_create_user {} ++++++ {}".format(user_datas,self.client.header))
+        # response = self.client.post(TEST_DATAS["RESTFULAPI"]["create_user"]["path"], data=user_datas, headers=TEST_DATAS["RESTFULAPI"]["header"])
+        response = self.client.post(TEST_DATAS["RESTFULAPI"]["create_user"]["path"], data=user_datas)
+
+class BasicalDatas(HttpUser):
     """ 
     创建基础测试数据
 
@@ -53,56 +80,26 @@ class BasicalDatas(FastHttpUser):
         4. 读取初始系统存储空间和内存、CPU使用状态
         5. 单机多卡，多机多卡，场景project等模板
     """
-
+    global TEST_DATAS
     sock = None
-    wait_time = between(0.5, 5) 
-    testdatas = read_test_datas(conf_file=TEST_CONF)
+    wait_time = between(0.5, 2) 
+    TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
+    host = TEST_DATAS["ENV"]["HOST"]
+    tasks = [CreateDatas]
 
-    print("======================= {} =======================".format(testdatas))
-
-    @events.test_start.add_listener
-    def on_test_start(self, environment, **kwargs):
-        print("======================= A new test is starting, user will login! =======================")
-        pdb.set_trace()
-        FastHttpUser.client.get(self.testdatas["RESTFULAPI"]["homepage"])
-        print("======================= {} =======================".format(TEST_DATAS))
-        with FastHttpUser.client.post(path=self.testdatas["RESTFULAPI"]["login"]["path"], 
-                                headers=self.testdatas["RESTFULAPI"]["header"], 
-                                data=json.dumps(self.testdatas["ACCOUNT"]["admin"])) as response:
-            if response.status_code == 200:
-                token = response.json["token"]
-                self.testdatas["token"] = token
-                response.success()
-
-    @events.test_stop.add_listener
-    def on_test_stop(self, environment, **kwargs):
-        print("======================= A  test is ending, user will logout! =======================")
-        responses = FastHttpUser.client.get(url=self.testdatas["RESTFULAPI"]["logout"]["path"])
-        if responses.status_code == 200:
-            rst = json.loads(responses.text, strict=False)
-            if rst['success'] == '200':
-                responses.success() 
-
-    @task(1)
-    def test_create_user(self):
-        user_datas = self.testdatas["RESTFULAPI"]["create_user"]["datas"]
-        user_datas["userMessage"][0] = fake_users.new_user()
-        user_datas["userRole"] = fake_users.new_role()
-        with self.client.get(path=self.testdatas["RESTFULAPI"]["create_user"]["path"], 
-                              headers=self.testdatas["RESTFULAPI"]["header"], 
-                              params=json.dumps(self.testdatas["RESTFULAPI"]["create_user"]["datas"])) as response:
-            if response.status_code == 200:
-                response.success()
-            elif response.status_code == 401:
-                print("account error")
-            else:
-                response.raise_for_status()
-
+        # result = response.json()
+        # if result["success"]:
+        #     pass
+        # elif response.status_code == 401:
+        #     print("account error")
+        # else:
+        #     response.raise_for_status()
+"""
     @task(1)
     def test_create_group(self):
         group_datas = fake_users.new_group()
-        with self.client.get(path=self.testdatas["RESTFULAPI"]["create_group"]["path"], 
-                            headers=self.testdatas["RESTFULAPI"]["header"], 
+        with self.client.post(self.TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
+                            headers=self.TEST_DATAS["RESTFULAPI"]["header"], 
                             params=json.dumps(group_datas)) as response:
             if response.status_code == 200:
                 response.success()
@@ -114,8 +111,8 @@ class BasicalDatas(FastHttpUser):
     @task(1)
     def test_create_role(self):
         role_datas = fake_users.new_role()
-        with self.client.get(path=self.testdatas["RESTFULAPI"]["create_role"]["path"], 
-                            headers=self.testdatas["RESTFULAPI"]["header"], 
+        with self.client.post(self.TEST_DATAS["RESTFULAPI"]["create_role"]["path"], 
+                            headers=self.TEST_DATAS["RESTFULAPI"]["header"], 
                             params=json.dumps(role_datas)) as response:
             if response.status_code == 200:
                 response.success()
@@ -123,10 +120,9 @@ class BasicalDatas(FastHttpUser):
                 print("account error")
             else:
                 response.raise_for_status()
-
+"""
 if __name__ == "__main__":
-    cmd = 'locust -f locust_demo.py'
-    os.system(cmd)
+    pass
     # Run in cmd
     # locust -f ./testhub/testsuites/create_datas/create_common_datas.py --conf ./testhub/testsuites/create_datas/host.conf
 

@@ -15,6 +15,7 @@ import hashlib
 
 Faker.seed(2025)
 location = ["en-US", "zh_CN"]
+PASSWORD_DEFAULT = "123456"
 
 class SystemRole(BaseProvider):
     # create new provider class for apulis ai platform user roles
@@ -40,6 +41,12 @@ class ChinesePhone(BaseProvider):
         return ''.join([self.PhoneChinaPrefix[random.randint(0, len(self.PhoneChinaPrefix) - 1)],''.join(random.sample(string.digits, 8))])
 
 
+def security_passwd(passwd=PASSWORD_DEFAULT):
+    Md5Passwd = hashlib.md5()
+    Md5Passwd.update(passwd.encode("utf-8"))
+    SecurityPasswd = (Md5Passwd.hexdigest()).lower()
+    return SecurityPasswd
+
 def new_user():
     DataFactory = Faker(location=["en-US", "zh_CN"])
     Nickname = DataFactory.name()
@@ -47,10 +54,8 @@ def new_user():
     Username = DataFactory.first_name_nonbinary()
     Firstname = DataFactory.first_name()
     Lastname = DataFactory.last_name()
-    Passwd = "123456"
-    Md5Passwd = hashlib.md5()
-    Md5Passwd.update(Passwd.encode("utf-8"))
-    SecurityPasswd = (Md5Passwd.hexdigest()).lower()
+    Passwd = PASSWORD_DEFAULT
+    SecurityPasswd = security_passwd()
     DataFactory.add_provider(ChinesePhone)
     Phone = DataFactory.MainlandCellPhone()
     Email = DataFactory.ascii_free_email()
@@ -88,6 +93,7 @@ def new_role():
             }
 
 if __name__ == "__main__":
-    # print(new_user())
+    print(new_user())
     # print(new_group())
-    print(new_role())
+    # print(new_role())
+    pass
