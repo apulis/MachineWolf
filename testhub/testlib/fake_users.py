@@ -52,6 +52,8 @@ def new_user():
     Nickname = DataFactory.name()
     DataFactory = Faker(location=["en-US"])
     Username = DataFactory.first_name_nonbinary()
+    if len(Username) <6:
+        Username = Username + "_" + ''.join(random.sample(string.ascii_letters + string.digits, 6)) 
     Firstname = DataFactory.first_name()
     Lastname = DataFactory.last_name()
     Passwd = PASSWORD_DEFAULT
