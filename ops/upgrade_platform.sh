@@ -9,18 +9,25 @@
 #=========================================================================================================================
 
 # 待升级集群master主机IP, 账号
-update_host=119.147.212.162
-update_host_port=50018
+update_host=192.168.1.198
+update_host_port=22
 update_host_name=root
-update_host_passwd=Aiops@18c
-update_host_deployment_path=/home/dlwsadmin/DLWorkspace/YTung/src/ClusterBootstrap
+update_host_passwd=Aiperf@2025
+update_host_deployment_path=/home/
 
 platform_compile=$HOME/platform_compile
 images_save=$HOME/images_save
 remote_images_path=/tmp/
+update_date=`date +%s`
+# Update Installation tools
 
+cd $update_host_deployment_path
+mv InstallationYTung InstallationYTung_bat_$update_date
+git clone -b v2.0.0  https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apulis/InstallationYTung.git
+cd InstallationYTung
 # 同步最新代码版本号
-update_version=v1.3.0
+update_version=v2.0.0
+update_tag=""
 # 创建repo更新目录: platform_compile
 mkdir -p $platform_compile
 # 创建镜像保存目录: images_save
@@ -29,6 +36,7 @@ mkdir -p $images_save
 models=("AIArts" "AIArtsBackend" "addon_custom_user_group_dashboard" "addon_custom_user_dashboard_backend" "webui3" "restfulapi2" "init-container"  "job-exporter"  "gpu-reporter" "watchdog"  "repairmanager2" "image-label-backend" "image-label-frontend")
 # 需要更新的代码库,其中NewObjectLabel没有同步更新
 repos=("AIArts" "AIArtsBackend" "addon_custom_user_group_dashboard" "addon_custom_user_dashboard_backend" "DLWorkspace")
+
 
 cd $platform_compile
 

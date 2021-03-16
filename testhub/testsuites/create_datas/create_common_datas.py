@@ -32,49 +32,69 @@ class CreateDatas(TaskSet):
     global TEST_DATAS
     def on_start(self):
         print("======================= A new test is starting, user will login {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
-        self.client.get(TEST_DATAS["RESTFULAPI"]["homepage"])
+        self.client.request("get",TEST_DATAS["RESTFULAPI"]["homepage"])
         self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
-        data=TEST_DATAS["ACCOUNT"]["testuser"]
+        data=TEST_DATAS["ACCOUNT"]["web_admin"]
         data["password"] = fake_users.security_passwd(data["password"])
-        response = self.client.post(url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=data)
+        response = self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=data)
         result = response.json()
         # pdb.set_trace()
         try:
             if result["success"]:
                 TEST_DATAS["ACCOUNT"]["token"] = result["token"]
                 TEST_DATAS["ACCOUNT"]["currentRole_id"] = result["currentRole"][0]["id"]
-                TEST_DATAS["RESTFULAPI"]["header"]["Authorization"] = {"Authorization":"Bearer " + TEST_DATAS["ACCOUNT"]["token"]}
-                TEST_DATAS["RESTFULAPI"]["header"]["cookie"] = {"cookie":"language=en-US;token={}".format(result["token"])}
-                # TEST_DATAS["RESTFULAPI"]["Authorization"] = "Bearer " + result["token"]
-                # TEST_DATAS["RESTFULAPI"]["cookie"] = "language=en-US;token={token}".format(result["token"])
-                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ header {} ".format(TEST_DATAS["RESTFULAPI"]["header"]))
+                TEST_DATAS["RESTFULAPI"]["header"]["Authorization"] = "Bearer " + TEST_DATAS["ACCOUNT"]["token"]
+                TEST_DATAS["RESTFULAPI"]["cookie"] = response.cookies
         except KeyError: 
             response.raise_for_status()
 
     def on_stop(self):
-        print("======================= A  test is ending, user will logout! ")
-        response = self.client.get(TEST_DATAS["RESTFULAPI"]["logout"]["path"])
+        print("======================= A  test is ending, user will logout {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
+        response = self.client.request("get", url=TEST_DATAS["RESTFULAPI"]["logout"]["path"])
         # self.admin_client = HttpSession(base_url=self.client.base_url)
         # self.admin_client.delete( TEST_DATAS["RESTFULAPI"]["login"]["path"]) # , auth=(self.adminUserName, self.adminUserName)
 
 
-    @task(1)
+    @task(10)
     def test_create_user(self):
-        # global TEST_DATAS
-        user_datas = TEST_DATAS["RESTFULAPI"]["create_user"]["datas"]
-        user_datas["userMessage"][0] = fake_users.new_user()
-        user_datas["userRole"] = fake_users.new_role()
-        self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
-        # self.client.cookie = TEST_DATAS["RESTFULAPI"]["cookie"]
-        print("======================= test_create_user {} ++++++ {}".format(user_datas,self.client.header))
-        # response = self.client.post(TEST_DATAS["RESTFULAPI"]["create_user"]["path"], data=user_datas, headers=TEST_DATAS["RESTFULAPI"]["header"])
-        response = self.client.post(TEST_DATAS["RESTFULAPI"]["create_user"]["path"], data=user_datas)
+        """ testcase
+        1. 注册300个用户
+         """
+        user_datas = fake_users.new_user()
+        print("======================= test_create_user DATAS: {} ".format(user_datas))
+        print("======================= test_create_user HEADER: {}".format(self.client.header))
+        print("======================= test_create_user COOKIES: {} ".format(TEST_DATAS["RESTFULAPI"]["cookie"]))
+        self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["create_user"]["path"], 
+                                                headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                                json=user_datas, 
+                                                cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
+    @task(2)
+    def test_create_group(self):
+        """ testcases
+        2. 注册70个用户组
+         """
+        group_datas = fake_users.new_group()
+        self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
+                            headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                            json=group_datas)
+    @task(2)
+    def test_create_role(self):
+        """ 
+        3. 注册70个其他role
+         """
+        role_datas = fake_users.new_role()
+        self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_role"]["path"], 
+                            headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                            json=role_datas)
+
 
 class BasicalDatas(HttpUser):
     """ 
     创建基础测试数据
 
-        1. 注册1000个用户、10个用户组、10个其他role
+        1. 注册300个用户
+        2. 注册70个用户组
+        3. 注册70个其他role
         2. 上传10个模型和数据集
         3. 创建10条全流程示例
         4. 读取初始系统存储空间和内存、CPU使用状态
@@ -87,40 +107,6 @@ class BasicalDatas(HttpUser):
     host = TEST_DATAS["ENV"]["HOST"]
     tasks = [CreateDatas]
 
-        # result = response.json()
-        # if result["success"]:
-        #     pass
-        # elif response.status_code == 401:
-        #     print("account error")
-        # else:
-        #     response.raise_for_status()
-"""
-    @task(1)
-    def test_create_group(self):
-        group_datas = fake_users.new_group()
-        with self.client.post(self.TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
-                            headers=self.TEST_DATAS["RESTFULAPI"]["header"], 
-                            params=json.dumps(group_datas)) as response:
-            if response.status_code == 200:
-                response.success()
-            elif response.status_code == 401:
-                print("account error")
-            else:
-                response.raise_for_status()
-
-    @task(1)
-    def test_create_role(self):
-        role_datas = fake_users.new_role()
-        with self.client.post(self.TEST_DATAS["RESTFULAPI"]["create_role"]["path"], 
-                            headers=self.TEST_DATAS["RESTFULAPI"]["header"], 
-                            params=json.dumps(role_datas)) as response:
-            if response.status_code == 200:
-                response.success()
-            elif response.status_code == 401:
-                print("account error")
-            else:
-                response.raise_for_status()
-"""
 if __name__ == "__main__":
     pass
     # Run in cmd
