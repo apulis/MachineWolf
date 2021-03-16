@@ -62,13 +62,15 @@ def new_user():
     Phone = DataFactory.MainlandCellPhone()
     Email = DataFactory.ascii_free_email()
     Description = DataFactory.job()
-    return {"nickName":Nickname,
-            "userName":Username,
-            "password":SecurityPasswd,
-            "phone":Phone,
-            "email":Email,
-            "note":Description,
-            }
+    DataFactory.add_provider(SystemRole)
+    Role = DataFactory.role()      
+    return {"userMessage":[{"nickName":Nickname,
+                            "userName":Username,
+                            "password":SecurityPasswd,
+                            "phone":Phone,
+                            "email":Email,
+                            "note":Description}],
+            "userRole":Role}
 
 def new_group():
     DataFactory = Faker(location=["en-US", "zh_CN"])
