@@ -70,7 +70,7 @@ if __name__ == "__main__":
     cmd = 'locust -f locust_demo.py'
     os.system(cmd)
     # Run in cmd
-    # locust -f ./example/test_http.py --conf ./example/host.conf
+    # locust -f ./example/locust/test_http.py --conf ./example/locust/host.conf
 
 
 

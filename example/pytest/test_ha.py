@@ -1,10 +1,10 @@
 # content of pytest example
 class TestClass:
-    def test_one(self):
+    def test_assert_os(self):
         x = "this"
         assert "h" in x
 
-    def test_two(self):
+    def test_assert_gpu_driver(self):
         x = "hello"
         assert hasattr(x, "check")
 
@@ -18,5 +18,6 @@ class TestClassDemoInstance:
 def test_needsfiles(tmpdir):
     print(tmpdir)
     assert 0
+
 
 
