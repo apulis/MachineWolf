@@ -4,6 +4,9 @@
 
 thomas haiyuan.bian@apulis.com
 
+[使用 docker 或 k8s 执行测试](https://docs.locust.io/en/stable/running-locust-docker.html)
+
+
 0. 集群配置
 
 

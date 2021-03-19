@@ -18,7 +18,7 @@ import yaml
 import pdb
 import hashlib
 
-TEST_CONF = os.path.join(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep  ), "test_datas.yaml")
+TEST_CONF = os.path.join(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep  ), "datas.yaml")
 TEST_DATAS = {}
 
 def read_test_datas(conf_file=TEST_CONF):
