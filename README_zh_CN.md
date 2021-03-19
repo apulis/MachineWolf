@@ -53,7 +53,7 @@ locust -f ./example/test_http.py --conf ./example/host.conf
 | Feature     | 开自Master分支，主要用于开发新功能和专项测试集，根据负责模块自行维护；命名规范为：feature/#...，每一个功能都应对应一个issue，...即为issue号. |
 | Hotfix      |	开自Master分支，主要用于修复当前已发布版本的已知bug；解决bug时注意事项参考Bugfix。命名规范为：hotfix/#... |
 | Release	  | 开自Master分支，主要用于发布版本，一旦develop分支上有了做一次发布（或者说快到了既定的发布日）的足够功能，就从develop分支上fork一个发布分支。新建的分支用于开始发布循环，这个分支只应该做Bug修复、文档生成和其它面向发布任务。一旦对外发布的工作都完成了，执行以下三个操作：合并Release分支到Master； 给Master打上对应版本的标签tag； Release回归，这些从新建发布分支以来的做的修改要合并回Master分支。 命名规范为：release/...，...为版本号|
-| ngihtly     |  CI at every nightly for itself.|
+| ngihtly     |
 
 > [!IMPORTANT]
 > Master tag 为测试代码库自身的版本号
