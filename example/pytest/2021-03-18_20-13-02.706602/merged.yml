@@ -1,6 +1,0 @@
----
-execution:
-- executor: jmeter
-  scenario:
-    script: example/jmeter/trace_user_footprint.jmx
-

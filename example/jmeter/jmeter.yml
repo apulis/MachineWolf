@@ -1,0 +1,18 @@
+modules:
+  blazemeter:
+    token: 'a5ba1e4e2d9afc743a481d9f:433cd60a89dda9e400497a8b5b04f0ba5dc988ba1319ea9d0d5c836d8610bbf9cf188ba6'
+reporting:
+- module: console
+- module: final-stats
+  summary: true
+  percentiles: true 
+  failed-labels: false
+  test-duration: true
+  dump-csv: TaurusResult/perf_result_csv.csv
+- module: junit-xml
+  data-source: pass-fail
+  filename: TaurusResult/junit-result.xml
+- module: blazemeter
+  report-name: Taurus test report
+  test: Taurus test
+  project: Taurus test project

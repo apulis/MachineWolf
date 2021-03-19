@@ -4,12 +4,12 @@ PLATFORM_VERSION: "v1.0.0"
 TEST_TAG: "rc0"
 ENV: 
   INFO: "office_test_lab: 3010推理集群"
-  HOST: "http://192.168.1.18"
-  Prometheus_Client: http://192.168.1.18:9091
+  HOST: "http://192.168.1.198"
+  Prometheus_Client: http://192.168.1.198:9091
   CONF_PATH: "/home/InstallationYTung"
 
 ACCOUNT:
-  web_admin: {"userName":"admin","password":"Cbmt9Y"}
+  web_admin: {"userName":"admin","password":"d5Wx1n"}
   testuser: {"userName":"thomas","password":"apulis@2025"}
   ssh_root: {"userName":"root","password":"Aiperf@2025"}
   token: ""
