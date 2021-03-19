@@ -55,11 +55,11 @@
 
 **测试报告示例**
 
-:::image type="content" source="docs/img/locust_report.png" alt-text="locust-http-response":::
+![locust-http-response](docs/img/locust_report.png)
 
 **CLI看板示例**
 
-:::image type="content" source="docs/img/taurus_report.png" alt-text="taurus-status":::
+![taurus-status](docs/img/taurus_report.png)
 
 **导出测试报告**
 
