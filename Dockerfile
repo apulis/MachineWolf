@@ -9,7 +9,7 @@
 
 ARG PYTHON="3.7.5"
 FROM opensuse/leap:15.2
-ENV TESTSUITES_PATH="/home/workspace"
+ENV PYTHONUNBUFFERED=1
 WORKDIR /hoem/workspace
 
 RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/repos.d/repo_bak/  \
@@ -22,7 +22,7 @@ RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/re
     && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/non-oss                  openSUSE-Aliyun-UPDATE-NON-OSS  \
     && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/oss                      openSUSE-Aliyun-UPDATE-OSS  \
     && zypper -q ref   \  
-    && zypper update -y && zypper install -y git sudo python3 vim curl  wget  \
+    && zypper update -y && zypper install -y git sudo python3 vim curl  wget  python3-devel  \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
     && python3 get-pip.py   \
     && pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple   
