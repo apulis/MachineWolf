@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="docs/img/perfboard_logo.png" width="250"/>
+<img src="docs/img/perfboard_logo.png" width="150"/>
 </p>
 
 -----------
@@ -33,11 +33,12 @@
 
     2. 执行docker
     
-    `docker run -d -p 8008:8008  perfboard:latest`
+    ```bash
+    docker run --name perfboard -d -p 8088:8088  perfboard:latest
+    http://<xxx.xxx.xxx.xxx>:8088 # 打开jupyterlab
+    ```
 
-    `http://<xxx.xxx.xxx.xxx>:8008 # 打开jupyterlab`
-
-* 使用 taurus 执行 locust 脚本
+* 使用taurus执行locust脚本
 
     `bzt example/taurus/quick_test.yml`
 
@@ -68,16 +69,16 @@
 * `testreport/cvat_result.csv_failures.csv`
 * `testreport/cvat_result.csv_exceptions.csv`
 
-### 代码分支说明
+### 分支说明
 
 
 | 分支名称     |说明|
 | ----------- | -------------------------------------------------------------------- |
 | Master      | 主分支，维护发布产品的最新发布代码，从Release 或 Feature 合并为正式发布的历史|
-| Feature     | 开自Master分支，主要用于开发新功能和专项测试集，根据负责模块自行维护；命名规范为：feature/#...，每一个功能都应对应一个issue，...即为issue号. |
+| Feature     | 开自Master分支，主要用于开发新功能的或专项的测试集，根据负责模块自行维护；命名规范为：feature/#...，每一个功能都应对应一个issue，...即为issue号. |
 | Hotfix      |	开自Master分支，主要用于修复当前已发布版本的已知bug；解决bug时注意事项参考Bugfix。命名规范为：hotfix/#... |
-| Release	  | 开自Master分支，主要用于发布版本，一旦develop分支上有了做一次发布（或者说快到了既定的发布日）的足够功能，就从develop分支上fork一个发布分支。新建的分支用于开始发布循环，这个分支只应该做Bug修复、文档生成和其它面向发布任务。一旦对外发布的工作都完成了，执行以下三个操作：合并Release分支到Master； 给Master打上对应版本的标签tag； Release回归，这些从新建发布分支以来的做的修改要合并回Master分支。 命名规范为：release/...，...为版本号|
-| ngihtly     | 每晚构建，对测试套件的示例和公共库执行验证，以保证相关脚本是可用的。
+| Release	  | 开自Master分支，主要用于发布版本，一旦Master分支上有了做一次发布（或者说快到了既定的发布日）的足够功能，就从Master分支上fork一个发布分支。新建的分支用于开始发布循环，这个分支只应该做Bug修复、文档生成和其它面向发布任务。一旦对外发布的工作都完成了，执行以下三个操作：合并Release分支到Master； 给Master打上对应版本的标签tag； Release回归，这些从新建发布分支以来的做的修改要合并回Master分支。 命名规范为：release/...，...为版本号|
+| ngihtly     | 每晚构建，对测试套件的示例和公共库执行验证，以保证相关脚本是可用的。|
 
 > [!IMPORTANT]
 > Master tag 为测试代码库自身的版本号
@@ -131,20 +132,20 @@
 
 ### 版本发布
 
-* Latest
+* **Latest**
 
-1. 完整的套件架构
-2. 安装和环境准备
-3. 执行示例
-4. 基础测试用例集
+    1. 完整的套件架构
+    2. 安装和环境准备
+    3. 执行示例
+    4. 基础测试用例集
 
-* 规划
+* **规划**
 
-1. 补充和完善测试脚本
-2. 调通禅道与测试套件的同步过程调通禅道与测试套件的同步过程
-3. 调通argo与测试套件的同步过程
-4. 补充框架、模型性能工具和脚本 
-5. 完善容器执行或在k8s中分布式执行方法
+    1. 补充和完善测试脚本
+    2. 调通禅道与测试套件的同步过程调通禅道与测试套件的同步过程
+    3. 调通argo与测试套件的同步过程
+    4. 补充框架、模型性能工具和脚本 
+    5. 完善容器执行或在k8s中分布式执行方法
 
 **版本说明详情请参阅[RELEASE](./RELEASE.md)。**
 
