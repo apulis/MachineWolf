@@ -7,10 +7,15 @@
 # Editor：thomas
 # Build In China
 
-ARG PYTHON="3.7.5"
 FROM opensuse/leap:15.2
-ENV PYTHONUNBUFFERED=1
-WORKDIR /home/workspace
+# ENV JAVA_HOME=/spark/java/jre1.8.0_181  JRE_HOME=/spark/java/jre1.8.0_181  CLASSPATH=$JAVA_HOME/lib/:$JRE_HOME/lib/
+# ENV PATH $PATH:$JAVA_HOME/bin:/usr/local/python37/bin
+ENV PYTHON_HOME  /usr/bin/python3
+
+WORKDIR /tmp
+
+# 同步测试库和工具
+COPY PerfBoard docker-build/jdk-8u281-linux-x64.rpm  /home/perfboard/
 
 RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/repos.d/repo_bak/  \
     && zypper ar -fcg https://mirrors.bfsu.edu.cn/opensuse/distribution/leap/15.2/repo/non-oss/     NON-OSS  \
@@ -22,23 +27,28 @@ RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/re
     && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/non-oss                  openSUSE-Aliyun-UPDATE-NON-OSS  \
     && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/oss                      openSUSE-Aliyun-UPDATE-OSS  \
     && zypper -q ref   \  
-    && zypper update -y && zypper install -y gcc cmake git sudo python3 vim curl  wget  python3-devel  \
+    && zypper update -y && zypper install -y gcc cmake git sudo python3 vim htop iputils curl busybox wget tar gzip unzip curl python3-devel    \
+    && rpm -ivh /home/perfboard/jdk-8u281-linux-x64.rpm   \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
     && python3 get-pip.py   \
-    && pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple   \
-    && pip3 install python-dev-tools  
+    && ln -s /usr/bin/python3 /usr/bin/python  \
+    && pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple   \
+    && pip config set install.trusted-host https://repo.huaweicloud.com  \
+    && pip install python-dev-tools  \
+    && pip install -U -r /home/perfboard/requirements.ini \ 
+    && bzt /home/perfboard/example/jmeter/trace_user_footprint.jmx  \
+    && rm -rf /tmp/* 
 
-# 同步测试库
-RUN git clone https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apulis/PerfBoard.git   \
-    && pip3 install -U -r PerfBoard/requirements.ini && pip3 install jupyterlab   \
-    && jupyter lab --NotebookApp.token=''  
-    # && nohup jupyter lab --NotebookApp.token='' --port 8008 --no-browser --ip=\"0.0.0.0\" --allow-root --NotebookApp.iopub_msg_rate_limit=1000000.0 --NotebookApp.iopub_data_rate_limit=100000000.0 --NotebookApp.notebook_dir=PerfBoard &
-EXPOSE 8008
-ENTRYPOINT ["jupyter lab", "--NotebookApp.token=''", "--port 8008", "--no-browser", "--ip=\'0.0.0.0\'", "--allow-root", "--NotebookApp.iopub_msg_rate_limit=1000000.0", "--NotebookApp.iopub_data_rate_limit=100000000.0", "--NotebookApp.notebook_dir=PerfBoard"]
+WORKDIR /home/
 
+# port
+EXPOSE 1099 8088 8089
+
+# ENTRYPOINT 
+CMD ["nohup", " jupyter", " lab", " --NotebookApp.token=''", " --port 8088", " --no-browser", " --ip=\'0.0.0.0\'", " --allow-root", " --NotebookApp.iopub_msg_rate_limit=1000000.0", " --NotebookApp.iopub_data_rate_limit=100000000.0", " --NotebookApp.notebook_dir=perfboard", " &"]
 
 # Build  example
-# docker build -f Dockerfile . -t  harbor.apulis.cn:8443/testops/perfboard:latest
+# docker build -f PerfBoard/Dockerfile . -t  harbor.apulis.cn:8443/testops/perfboard:latest
 # docker push harbor.apulis.cn:8443/testops/perfboard:latest:latest
 # Run example
-# docker run -d -p 8008:8008  perfboard:latest
+# docker run -it --rm -d --name perfboard-jupyter -p 8088:8088  harbor.apulis.cn:8443/testops/perfboard:latest bash
