@@ -1,2 +1,0 @@
- zypper install zfs
- 

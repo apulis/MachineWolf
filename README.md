@@ -22,6 +22,7 @@
     sudo chmod +x init_dev.sh
     bash ./init_dev.sh
     cd example
+    # source env/bin/activate
     locust -f ./example/locust/test_http.py --conf ./example/locust/host.conf
     ```
 

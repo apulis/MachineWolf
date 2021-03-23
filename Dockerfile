@@ -27,7 +27,7 @@ RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/re
     && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/non-oss                  openSUSE-Aliyun-UPDATE-NON-OSS  \
     && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/oss                      openSUSE-Aliyun-UPDATE-OSS  \
     && zypper -q ref   \  
-    && zypper update -y && zypper install -y gcc cmake git sudo python3 vim htop iputils curl busybox wget tar gzip unzip curl python3-devel    \
+    && zypper update -y && zypper install -y gcc cmake git sudo python3 vim bash htop iputils curl busybox wget tar gzip unzip curl python3-devel    \
     && rpm -ivh /home/perfboard/jdk-8u281-linux-x64.rpm   \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
     && python3 get-pip.py   \
@@ -45,10 +45,10 @@ WORKDIR /home/
 EXPOSE 1099 8088 8089
 
 # ENTRYPOINT 
-CMD ["nohup", " jupyter", " lab", " --NotebookApp.token=''", " --port 8088", " --no-browser", " --ip=\'0.0.0.0\'", " --allow-root", " --NotebookApp.iopub_msg_rate_limit=1000000.0", " --NotebookApp.iopub_data_rate_limit=100000000.0", " --NotebookApp.notebook_dir=perfboard", " &"]
+# CMD nohup jupyter lab  --NotebookApp.token=''  --port 8088  --no-browser  --ip='0.0.0.0'  --allow-root  --NotebookApp.iopub_msg_rate_limit=1000000.0  --NotebookApp.iopub_data_rate_limit=100000000.0  --NotebookApp.notebook_dir=perfboard  &
 
 # Build  example
 # docker build -f PerfBoard/Dockerfile . -t  harbor.apulis.cn:8443/testops/perfboard:latest
 # docker push harbor.apulis.cn:8443/testops/perfboard:latest:latest
 # Run example
-# docker run -it --rm -d --name perfboard-jupyter -p 8088:8088  harbor.apulis.cn:8443/testops/perfboard:latest bash
+# docker run -d --name perfboard-jupyter -p 8088:8088  harbor.apulis.cn:8443/testops/perfboard:latest
