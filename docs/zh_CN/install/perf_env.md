@@ -1,8 +1,8 @@
 性能测试服务器初始化
 ================================================================
 
+* 参考
 
-thomas haiyuan.bian@apulis.com
 
 [使用 docker 或 k8s 执行测试](https://docs.locust.io/en/stable/running-locust-docker.html)
 
@@ -10,11 +10,11 @@ thomas haiyuan.bian@apulis.com
 0. 集群配置
 
 
-|网络设备   |角色    |访问链接                                                 |业务账号       |管理IP        |管理账号       |
-|:--------:|:------:|:------------------------------------------------------:|:------------:|:------------:|-------------:|
-|PC        |master  | sshpass -p apulis@2025 ssh -p 2025 root@192.168.1.204    |root/Aiops@18c|192.168.1.17  |ADMIN/apulis18c|
-|VM        |worker01| sshpass -p apulis@2025 ssh -p 2025 root@192.168.1.217    |root/Aiops@18c|192.168.1.21  |默认 |
-|Docker    |dev env | local                                                  |root/Aiops@18c|192.168.1.15  |默认 |
+|角色    |访问链接                                                |业务账号      |管理IP        |管理账号      |
+|:------:|:------------------------------------------------------:|:------------:|:------------:|-------------:|
+|master  | sshpass -p apulis@2025 ssh -p 2025 root@192.168.1.204  |root/Aiops@18c|192.168.1.17  |ADMIN/apulis18c|
+|worker01| sshpass -p apulis@2025 ssh -p 2025 root@192.168.1.217  |root/Aiops@18c|192.168.1.21  |默认 |
+|dev env | local                                                  |root/Aiops@18c|192.168.1.15  |默认 |
 
 * Remote Desktop: ssh Admin@192.168.1.x
 
@@ -22,18 +22,18 @@ ip route add default via 192.168.1.1 dev eth0 proto static metric 100
 
 * frp proxy:
 + perf-server： 
-- kubernetes dashboard： https://122.51.195.199:30692/#/login
+- kubernetes dashboard： https://<HOST>:30692/#/login
     ```token
     eyJhbGciOiJSUzI1NiIsImtpZCI6ImR6S05ENHB4QlRqNmcxcjhzNEdSc1hGeVhWWWtvZlktSkQ4V2lHODJVNmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tdG9rZW4tbWQ1ZzgiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGFzaGJvYXJkLWFkbWluIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMGEwMWE5NzAtZGFlMS00ZmE2LTgzMjYtOTgyZDVlMTZlZjM1Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmRhc2hib2FyZC1hZG1pbiJ9.NphmgVFtBzzWSHDRYcEzgcqER3IJcFP8FTd9fuUZGaaVow1eOoTAR5QiGpTMaKrg8HM4VBJKB368tbp-eCxFFbSp3HxZuwRUqwPMAAHSrp5dEshTeuk3S-m7CwACu0n77pWnURX8Xs3Q9ksbvCLxEySjQrcPOltdll0lY2bjK2z5NRLBAraaD6-9J-vOySAC5p6K6awh_ODGDNE8WhPuRPRmfL4qG58DEz3Wk7wUTv0Pix7IcjOHjjkJCYEIMDmS_Hu3w8oagMFpQxU88PPNTXk5aIXXS7beFOCXN_zz-nLW2A_h5ST9wftU3-PWGNtajTQZzZEyNyHOAJgqVgUmeg
     ```
-- argo: http://122.51.195.199:30184/workflows/
+- argo: http://<HOST>:30184/workflows/
 + test-env：
-- kubernetes dashboard：https://122.51.195.199:32109/#/login
+- kubernetes dashboard：https://<HOST>:32109/#/login
     ```token
 eyJhbGciOiJSUzI1NiIsImtpZCI6IlZ6UzJaWEtScFYxYTBmZ2o3bW0yZDdtWWZNTVJuX0w5TXMwRWxsc0ZvMkUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJ3ZWF2ZS1uZXQtdG9rZW4tczZrNmYiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoid2VhdmUtbmV0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiOTFhYWNjNDItZTk0ZS00YjIzLWE5YWUtYmE1NmZmY2QyNzk3Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOndlYXZlLW5ldCJ9.o0m-U3Ur0nxxdjj8l3Wu7vLSHU9iJQsi3_vYysq3NyOURjoC-IiEOMu4vgp3ITClsh-i6dxFrURdis-wH2bFwP31Bnz5UScor6iNCHSFwaZ7f_oGlkcgqCXBNvvhX2kuVZgs12UT0jHXxhKvRNXzUEVYoS0XnmiGY04ICHFPxdo0tnclI4pb20cGl1bTGHXh0HcZkaN-UJIwHRxt7jNd7OoOeXL4hE9BY1TAIkPKt4a9Uz7Bg-kWnp3V87czZwv38eyy76oqr7HVjuRvOiDEsHwi4jyU76Nd-Plhl6bIxHZpIolTfYRBgMqQG6e3mDTrp6oK3A6bSS_DxiRE2tNxqA
     ```
-- apulis-platform: http://122.51.195.199:7080/AIarts/codeDevelopment (thomas/apulis@2025)
-- apulis-endpoint: http://122.51.195.199:7080/endpoints/eyJwb3J0IjoiTXpJeE1EST0iLCJ1c2VyTmFtZSI6InRob21hcyJ9/lab
+- apulis-platform: http://<HOST>:7080/AIarts/codeDevelopment (thomas/apulis@2025)
+- apulis-endpoint: http://<HOST>:7080/endpoints/eyJwb3J0IjoiTXpJeE1EST0iLCJ1c2VyTmFtZSI6InRob21hcyJ9/lab
 
 1. 系统安装和配置
 
