@@ -22,7 +22,7 @@ jobs:
     - name: update repo
       run: |
         cd ..
-        git clone -b to_public https://banrieen:18209188642git@github.com/apulis/DLWorkspace.git
+        git clone -b to_public https://<HOSTNAME>:<PASSWORLD>@github.com/apulis/DLWorkspace.git
         cd DLWorkspace
         git config --global user.email "banrieen@163.com"
         git config --global user.name "banrieen"
@@ -39,17 +39,17 @@ jobs:
     - name: repo-sync to github apulis_platform
       uses: wei/git-sync@v2
       with:
-        source_repo: "https://banrieen:18209188642git@github.com/apulis/DLWorkspace.git"
+        source_repo: "https://<HOSTNAME>:<PASSWORLD>@github.com/apulis/DLWorkspace.git"
         source_branch: "to_public"
-        destination_repo: "https://banrieen:18209188642git@github.com/apulis/apulis_platform.git"
+        destination_repo: "https://<HOSTNAME>:<PASSWORLD>@github.com/apulis/apulis_platform.git"
         destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: repo-sync to gitee apulis_platform
       uses: wei/git-sync@v2
       with:
-        source_repo: "https://banrieen:18209188642git@github.com/apulis/DLWorkspace.git"
+        source_repo: "https://<HOSTNAME>:<PASSWORLD>@github.com/apulis/DLWorkspace.git"
         source_branch: "to_public" 
-        destination_repo: "https://banrieen:18209188642git@gitee.com/apulis/apulis_platform.git"
+        destination_repo: "https://<HOSTNAME>:<PASSWORLD>@gitee.com/apulis/apulis_platform.git"
         destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
