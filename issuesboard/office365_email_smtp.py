@@ -1,16 +1,16 @@
 import smtplib
 from email.message import EmailMessage
 
-user = 'haiyuan.bian@apulis.com'
-password = 'BHYhlz@0501'
+user = 'xxxxxxxxx@xxxxxxxx.com'
+password = 'xxxxxxxxxxxx'
 smtpsrv = "smtp.office365.com"
 smtpserver = smtplib.SMTP(smtpsrv,587)
 
 msg = EmailMessage()
 
 msg['Subject'] = 'Email Testing with Python'
-msg['From'] = 'TestOps@apulistech.onmicrosoft.com'
-msg['To'] = 'banrieen@163.com'
+msg['From'] = 'xxxxxxxxx@xxxxxxxxx.com'
+msg['To'] = 'xxxxxxxx@163.com'
 
 
 smtpserver.ehlo()

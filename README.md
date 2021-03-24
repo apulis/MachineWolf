@@ -126,6 +126,19 @@
         |-- csv_client
 ```
 
+### 安全性
+
+为避免信息暴漏，无效信息泛滥。
+
+* 所有测试脚本，说明文本和配置文件中去除一切ID, ACCOUNT, HOST信息
+* 不保留任何测试环境信息，和任何测试数据
+* 使用规范的标识替换敏感信息：
+
+    + 账号： `<HOSTNAME>:<PASSWORLD>`
+    + 主机： `<HOST>:<PORT>`
+    + 链接： `<LINKTYPE>:<LINKADDRESS>`
+    + 证书： `<KEYGEN> 或 <TOKEN>`
+    + 邮件： `<EMAIL-NAME@EMAIL-SERVICE.COM>`
 
 ### 文档 
 

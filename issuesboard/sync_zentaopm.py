@@ -123,8 +123,8 @@ def add_bug(self):
     
 #程序从这里开始。
 url_host = "http://apulis.zentaopm.com"
-account = "haiyuan.bian"
-password = "123456"
+account = "xxxxxxxx"
+password = "xxxxxxxx"
 headers_base = {
 'Referer':          'http://apulis.zentaopm.com/user-login.html',
 'Accept-Language':  'en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7',

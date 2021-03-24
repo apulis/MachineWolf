@@ -11,8 +11,8 @@
 # 待升级集群master主机IP, 账号
 update_host=192.168.1.198
 update_host_port=22
-update_host_name=root
-update_host_passwd=Aiperf@2025
+update_host_name=<HOSTNAME>
+update_host_passwd=<PASSWORLD>
 update_host_deployment_path=/home/
 
 platform_compile=$HOME/platform_compile
@@ -23,7 +23,7 @@ update_date=`date +%s`
 
 cd $update_host_deployment_path
 mv InstallationYTung InstallationYTung_bat_$update_date
-git clone -b v2.0.0  https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apulis/InstallationYTung.git
+git clone -b v2.0.0  https://<HOSTNAME>:<PASSWORLD>@apulis-gitlab.apulis.cn/apulis/InstallationYTung.git
 cd InstallationYTung
 # 同步最新代码版本号
 update_version=v2.0.0
@@ -44,7 +44,7 @@ cd $platform_compile
 for repo in ${repos[@]};
 do
 {   
-    git clone -b $update_version https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apulis/$repo.git 
+    git clone -b $update_version https://<HOSTNAME>:<PASSWORLD>@apulis-gitlab.apulis.cn/apulis/$repo.git 
 } &
 done
 wait
@@ -107,11 +107,11 @@ done
 wait
 
 # 同步代码到远程主机
-sshpass -p "Aiops@18c" rsync  --rsh='ssh -p 50018 ' -avz -P $images_save root@119.147.212.162:/tmp/ 
+sshpass -p "<PASSWORLD>" rsync  --rsh='ssh -p 50018 ' -avz -P $images_save root@119.147.212.162:/tmp/ 
 
 # 加载新镜像
 load_and_update(){
-sshpass -p "Aiops@18c" ssh -p 50018 root@119.147.212.162  > /dev/null 2>&1 << eeooff
+sshpass -p "<PASSWORLD>" ssh -p <PORT> root@<LINKADDRESS>  > /dev/null 2>&1 << eeooff
 cd $1 
 for fileName  in ` ls $1 `
     do 
@@ -133,9 +133,9 @@ eeooff
 
 load_and_update $remote_images_path/images_save $update_host_deployment_path
 
-# sshpass -p "Aiops@18c" rsync -az '-e ssh -p 50018 '  -P  root@119.147.212.162:/tmp/ $images_save
-# sshpass -p "Aiops@18c" rsync  --rsh='ssh -p 50018 ' -az -P  $images_save root@119.147.212.162:/tmp/
-# sshpass -p "Aiops@18c" scp -P 50018  ./addon_custom_user_dashboard_backend.tar root@119.147.212.162:/tmp/ 
+# sshpass -p "<PASSWORLD>" rsync -az '-e ssh -p 50018 '  -P  root@119.147.212.162:/tmp/ $images_save
+# sshpass -p "<PASSWORLD>" rsync  --rsh='ssh -p 50018 ' -az -P  $images_save root@119.147.212.162:/tmp/
+# sshpass -p "<PASSWORLD>" scp -P 50018  ./addon_custom_user_dashboard_backend.tar root@119.147.212.162:/tmp/ 
 # harbor.sigsus.cn:8443/sz_gongdianju/apulistech/dlworkspace_restfulapi2:latest
 # 
 # ./deploy.py kubernetes stop  custom-user-dashboard
