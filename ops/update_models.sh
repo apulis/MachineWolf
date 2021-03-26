@@ -23,7 +23,7 @@ DATABASE_ENGINE=postgres
 
 # Add postgres password file
 echo "${DB_ADDRESS}:${DB_PORT}:${DATABASE_NAME}:${USER}:${PGPASSWORD}" > ~/.pgpass
-models=(pytorch:1.5 mxnet:2.0.0-gpu-py3 tensorflow:2.3.0-gpu-py3 tensorflow:1.15.2-gpu-py3 tensorflow:1.14.0-gpu-py3)
+models=("pytorch:1.5" "mxnet:2.0.0-gpu-py3" "tensorflow:2.3.0-gpu-py3" "tensorflow:1.15.2-gpu-py3" "tensorflow:1.14.0-gpu-py3")
 localHarbor=harbor.atlas.cn:8443/sz_gongdianju
 for imodel in ${models}
 do
