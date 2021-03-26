@@ -21,21 +21,24 @@ USER="postgres"
 PGPASSWORD="ff20ncd9bc72k3cF" 
 DATABASE_ENGINE=postgres
 
-# Add postgres password file
-echo "${DB_ADDRESS}:${DB_PORT}:${DATABASE_NAME}:${USER}:${PGPASSWORD}" > ~/.pgpass
 models=("pytorch:1.5" "mxnet:2.0.0-gpu-py3" "tensorflow:2.3.0-gpu-py3" "tensorflow:1.15.2-gpu-py3" "tensorflow:1.14.0-gpu-py3")
+
 localHarbor=harbor.atlas.cn:8443/sz_gongdianju
-for imodel in ${models}
+for imodel in ${models[@]}
 do
 docker pull harbor.apulis.cn:8443/algorithm/apulistech/$imodel
 docker tag harbor.apulis.cn:8443/algorithm/apulistech/$imodel   $localHarbor/apulistech/$imodel
 docker push $localHarbor/apulistech/$imodel
+echo "insert into images (image_type, image_full_name, details) values ('${imodel%:*}', 'apulistech/${imodel}', '{"desc":"描述信息","category":"normal","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');"
+
 # Insert new train models image
 PGPASSWORD=$PGPASSWORD psql -U ${USER} -h ${DB_ADDRESS} -d ${DATABASE_NAME} << EOF
-    insert into images (image_type, image_full_name, details) values ('${imodel%:*}', 'apulistech/${imodel}', '{"desc":"描述信息","category":"normal","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');
+   insert into images (image_type, image_full_name, details) values ('${imodel%:*}', 'apulistech/${imodel}', '{"desc":"描述信息","category":"normal","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');
 EOF
 done
-
+PGPASSWORD=$PGPASSWORD psql -U ${USER} -h ${DB_ADDRESS} -d ${DATABASE_NAME} << EOF
+   Select * from  images ;
+EOF
 rm ~/.pgpass
 
 # * 镜像列表插入选择和删除
