@@ -44,7 +44,7 @@ import threading
  
 from PIL import Image
  
-image_size = range(1, 1001)
+image_size = range(1000, 1001)
  
  
 def start():
@@ -54,8 +54,8 @@ def start():
  
  
 def create_image(size):
-  pri_image = Image.open("origin.png")
-  pri_image.resize((size, size), Image.ANTIALIAS).save("img/png_%d.png" % size)
+  pri_image = Image.open("datasetshub/origin.jpg")
+  pri_image.resize((size, size), Image.ANTIALIAS).save("datasetshub/png_%d.jpg" % size)
  
  
 if __name__ == "__main__":
