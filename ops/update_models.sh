@@ -18,11 +18,11 @@ DB_ADDRESS="192.168.1.198"
 DB_PORT=5432
 DATABASE_NAME="ai_arts" 
 USER="postgres" 
-PASSWD="ff20ncd9bc72k3cF" 
+PGPASSWORD="ff20ncd9bc72k3cF" 
 DATABASE_ENGINE=postgres
 
 # Add postgres password file
-echo "${DB_ADDRESS}:${DB_PORT}:${DATABASE_NAME}:${USER}:${PASSWD}" > ~/.pgpass
+echo "${DB_ADDRESS}:${DB_PORT}:${DATABASE_NAME}:${USER}:${PGPASSWORD}" > ~/.pgpass
 models=(pytorch:1.5 mxnet:2.0.0-gpu-py3 tensorflow:2.3.0-gpu-py3 tensorflow:1.15.2-gpu-py3 tensorflow:1.14.0-gpu-py3)
 localHarbor=harbor.atlas.cn:8443/sz_gongdianju
 for imodel in ${models}
@@ -31,7 +31,7 @@ docker pull harbor.apulis.cn:8443/algorithm/apulistech/$imodel
 docker tag harbor.apulis.cn:8443/algorithm/apulistech/$imodel   $localHarbor/apulistech/$imodel
 docker push $localHarbor/apulistech/$imodel
 # Insert new train models image
-psql -U ${USER} -h ${DB_ADDRESS} -d ${DATABASE_NAME} << EOF
+PGPASSWORD=$PGPASSWORD psql -U ${USER} -h ${DB_ADDRESS} -d ${DATABASE_NAME} << EOF
     insert into images (image_type, image_full_name, details) values ('${imodel%:*}', 'apulistech/${imodel}', '{"desc":"描述信息","category":"normal","brand":"nvidia","cpuArchType":"amd64","deviceType":"gpu"}');
 EOF
 done
