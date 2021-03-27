@@ -111,6 +111,7 @@ env.bak/
 venv.bak/
 .pytest_cache
 .pytest_cache/
+report.html
 .vscode
 .vscode/
 
