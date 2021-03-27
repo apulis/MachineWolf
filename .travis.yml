@@ -6,4 +6,5 @@ install:
   - pip install -r requirements.ini
 # command to run tests
 script:
+  - mkdir -p testresult
   - locust -f ./example/locust/test_http.py --conf ./example/locust/host.conf
