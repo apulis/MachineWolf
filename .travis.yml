@@ -1,3 +1,6 @@
+env:
+  - DB=postgres
+  - SH=bash
 language: python
 python:
   - "3.6"      # current default Python on Travis CI
@@ -5,6 +8,7 @@ python:
 install:
   - pip install -r requirements.ini
 # command to run tests
-script:
+before_script:
   - mkdir -p testresult
+script:
   - locust -f ./example/locust/test_http.py --conf ./example/locust/host.conf
