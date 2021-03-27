@@ -1,5 +1,4 @@
 env:
-  - DB=postgres
   - SH=bash
 language: python
 python:
