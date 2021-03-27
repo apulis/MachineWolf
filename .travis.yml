@@ -12,3 +12,5 @@ before_script:
   - mkdir -p testresult
 script:
   - locust -f ./example/locust/test_http.py --conf ./example/locust/host.conf
+after_script:
+  - echo "Upload report and send email !"
