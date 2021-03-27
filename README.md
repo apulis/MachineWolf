@@ -7,7 +7,7 @@
 
 [![MIT licensedlicensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/nni/badge/?version=latest)](https://nni.readthedocs.io/en/latest/?badge=latest)
-
+[](https://travis-ci.com/banrieen/PerfBoard.svg?branch=master)
 [PerfBoard Doc](README_en_US.md) | [简体中文](README.md)
 
 **PerfBoard** 是一个自动化测试性能套件，促进 AiOps 实施。
@@ -15,14 +15,11 @@
 
 ### 快速使用指导
 
-
 * 在本地执行测试脚本
 
     ```bash
     sudo chmod +x init_dev.sh
     bash ./init_dev.sh
-    cd example
-    # source env/bin/activate
     locust -f ./example/locust/test_http.py --conf ./example/locust/host.conf
     ```
 
