@@ -53,10 +53,10 @@ def _(environment, **kw):
     if environment.stats.total.fail_ratio > 0.001:
         logging.error("Test failed due to failure ratio > 1%")
         environment.process_exit_code = 1
-    elif environment.stats.total.avg_response_time > 200:
+    elif environment.stats.total.avg_response_time > 5000:
         logging.error("Test failed due to average response time ratio > 200 ms")
         environment.process_exit_code = 2
-    elif environment.stats.total.get_response_time_percentile(0.99) > 800:
+    elif environment.stats.total.get_response_time_percentile(0.99) > 2000:
         logging.error("Test failed due to 95th percentile response time > 800 ms")
         environment.process_exit_code = 3
     else:
@@ -74,42 +74,35 @@ class Datasets(TaskSet):
     14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
     """
     
-    @events.test_start.add_listener
-    def on_test_start_get_homepage(self, environment, **kwargs):
-        print("A new test is starting, user will login")
+    global TEST_DATAS
+    def on_start(self):
+        print("======================= A new test is starting, user will login {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
+        self.client.request("get",TEST_DATAS["RESTFULAPI"]["homepage"])
+        self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
+        data=TEST_DATAS["ACCOUNT"]["web_admin"]
+        data["password"] = fake_users.security_passwd(data["password"])
+        response = self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=data)
+        result = response.json()
         # pdb.set_trace()
-        # print("+++++++++++++++++++++++", TEST_DATAS["RESTFULAPI"]["homepage"])
-        self.client.get(TEST_DATAS["RESTFULAPI"]["homepage"])
+        try:
+            if result["success"]:
+                TEST_DATAS["ACCOUNT"]["token"] = result["token"]
+                TEST_DATAS["ACCOUNT"]["currentRole_id"] = result["currentRole"][0]["id"]
+                TEST_DATAS["RESTFULAPI"]["header"]["Authorization"] = "Bearer " + TEST_DATAS["ACCOUNT"]["token"]
+                TEST_DATAS["RESTFULAPI"]["cookie"] = response.cookies
+        except KeyError: 
+            response.raise_for_status()
 
-    @events.test_stop.add_listener
-    def on_test_stop_logout(self, environment, **kwargs):
-        print("A  test is ending, user will logout !")
-        responses = self.client.get(url=TEST_DATAS["RESTFULAPI"]["logout"]["path"])
-        if responses.status_code == 200:
-            rst = json.loads(responses.text, strict=False)
-            if rst['success'] == '200':
-                responses.success() 
-    @task
-    def test_userlogin(self):
-        """ testcase 
-        10 ~ 100 用户登录
-         """
-        self.user_token = ""
-        responses = self.client.post(url=TEST_DATAS["RESTFULAPI"]["login"]["path"], headers=TEST_DATAS["RESTFULAPI"]["header"], data=TEST_DATAS["RESTFULAPI"]["admin"])
-        if responses.status_code == 200:
-            rst = json.loads(responses.text, strict=False)
-            if rst['success'] == '200':
-                responses.success() 
-                user_token =  rst['token']
-            else:
-                responses.failure('code：%s ErrorMsg：%s' % (rst['code'], rst['errorMsg']))
-        else:
-            responses.failure('status_code：%s' % responses.status_code)
+    def on_stop(self):
+        print("======================= A  test is ending, user will logout {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
+        response = self.client.request("get", url=TEST_DATAS["RESTFULAPI"]["logout"]["path"])
+        # self.admin_client = HttpSession(base_url=self.client.base_url)
+        # self.admin_client.delete( TEST_DATAS["RESTFULAPI"]["login"]["path"]) # , auth=(self.adminUserName, self.adminUserName)
 
 
-class WebsiteUser(FastHttpUser):
+class SiteUser(FastHttpUser):
     global TEST_DATAS 
-    task_set = Datasets
+    tasks = [Datasets]
     wait_time = between(0.5, 5)  # 等待时间,单位为s，任务执行间隔时间
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
     # pdb.set_trace()

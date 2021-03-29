@@ -1,0 +1,11 @@
+execution:
+- executor: locust
+  concurrency: 10
+  ramp-up: 1m
+  iterations: 1000
+  scenario: example
+
+scenarios:
+  example:
+    default-address: http://119.147.212.162:51080
+    script: push_datasets.py

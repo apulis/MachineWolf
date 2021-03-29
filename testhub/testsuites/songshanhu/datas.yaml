@@ -4,9 +4,8 @@ PLATFORM_VERSION: "v1.0.0"
 TEST_TAG: "rc0"
 ENV: 
   INFO: "office_test_lab: 3010推理集群"
-  WEB_LINK: "http://192.168.1.198/"
   ROOT_PASSWD: "Aiperf@2025"
-  ADMIN_PASSWD: "d5Wx1n"
+  ADMIN_PASSWD: "gkhCEP"
   CONF_PATH: "/home/InstallationYTung"
 
 ACCOUNT:
@@ -45,9 +44,9 @@ RESTFULAPI:
             "Label":{"version":"3.16.7","flags":{},"shapes":[]},
             "GenerateDateTime": "2021-01-22 19:24:03",
             "Version":"V1.0"}
-  PostInferenceResult:
+  upload_images:
     mothed: "post"
-    path: "/ai_arts/api/inferences/PostInferenceJob"
+    path: "/dataset_manager/api/cv_datasets/id/6/import_image_dir"
     datas: {"machineld":"None",
             "ProductCode":"None",
             "TableName":"AI_Test",
