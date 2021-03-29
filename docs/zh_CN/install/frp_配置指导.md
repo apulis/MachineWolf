@@ -1,5 +1,5 @@
-内网穿透测试
-------------
+# 内网穿透实例
+
 
 为什么使用 frp ？
 通过在具有公网 IP 的节点上部署 frp 服务端，可以轻松地将内网服务穿透到公网，同时提供诸多专业的功能特性，这包括：
@@ -11,6 +11,7 @@
 多个原生支持的客户端插件（静态文件查看，HTTP、SOCK5 代理等），便于独立使用 frp 客户端完成某些工作。
 高度扩展性的服务端插件系统，方便结合自身需求进行功能扩展。
 服务端和客户端 UI 页面。
+
 1. frp 服务器，客户端配置
 
 分别在公网服务器和私网终端下载[frp包](https://github.com/fatedier/frp/releases)，根据如下配置server,client。
@@ -155,6 +156,7 @@ remote_port = 7002
   systemctl enable frpc
   systemctl status frpc
   ```
+
 * 参考链接：
 
 1. [github](https://github.com/fatedier/frp)
