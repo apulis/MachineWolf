@@ -45,13 +45,13 @@ services:
 
 3. 配置
 
-```conf mockserver.properties
+```bash
+# conf mockserver.properties
 ###############################
 # MockServer & Proxy Settings #
 ###############################
 
 # Socket & Port Settings
-
 # socket timeout in milliseconds (default 120000)
 mockserver.maxSocketTimeout=120000
 

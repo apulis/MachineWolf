@@ -241,7 +241,7 @@ Git hooks 分为客户端钩子和服务端钩子。客户端钩子由诸如提�
 
 例如下面的文件列表是 `git init` 在 `.git/hooks` 文件夹下自动创建的 `hooks` 方法。
 
-```python
+```bash
 -rwxrwxr-x 1 robin robin  478 Jun  1 17:54 applypatch-msg.sample*
 -rwxrwxr-x 1 robin robin  896 Jun  1 17:54 commit-msg.sample*
 -rwxrwxr-x 1 robin robin  189 Jun  1 17:54 post-update.sample*
@@ -255,7 +255,7 @@ Git hooks 分为客户端钩子和服务端钩子。客户端钩子由诸如提�
 
 例如下面的文件列表中多了一个 `pre-commit` 的文件， 是我添加的用于代码检查的 `pre-commit hook`方法。
 
-```python
+```bash
 -rwxrwxr-x 1 robin robin  478 Sep  7 10:25 applypatch-msg.sample*
 -rwxrwxr-x 1 robin robin  896 Sep  7 10:25 commit-msg.sample*
 -rwxrwxr-x 1 robin robin  189 Sep  7 10:25 post-update.sample*
@@ -279,13 +279,13 @@ Git钩子。我们在每次提交时运行我们的钩子，以。本文以pytho
 
 
 #### (1).安装
-```python
+```bash
 ## 使用 pip 安装:
 pip install pre-commit
 ```
 #### (2). 配置
 在项目根目录填加 `.pre-commit-config.yaml` 文件, 这里以 `mmdetection` 的配置文件为例来做说明：
-```python
+```bash
 repos:
   - repo: https://gitlab.com/pycqa/flake8.git
     rev: 3.8.3
@@ -326,7 +326,7 @@ repos:
 其中 flake8 根据 flake8 给出的代码规则检查代码.
 
 #### (3). 安装 git hook scripts
-```python
+```bash
 # pre-commit install
 pre-commit install
 # pre-commit installed at .git/hooks/pre-commit
@@ -336,7 +336,7 @@ pre-commit install
 #### (4). 手动触发
 第一次，需要触发全部：
 
-```python
+```bash
 (pytorch) robin@robin-Z390-UD:~/jianzh/ApulisVision$ pre-commit run --all-files
 flake8...................................................................Passed
 seed isort known_third_party.............................................Passed
@@ -358,10 +358,12 @@ Fix python encoding pragma...............................................Passed
 Mixed line ending........................................................Passed
 docformatter.............................................................Passed
 ```
+
 可以看到， 我的文档中， 存在一些 `trailing whitespace`
 
 #### (5). 支持语言
-```python
+
+```bash
 docker
 docker_image
 fail

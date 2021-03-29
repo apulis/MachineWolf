@@ -23,15 +23,17 @@ ip route add default via 192.168.1.1 dev eth0 proto static metric 100
 * frp proxy:
 + perf-server： 
 - kubernetes dashboard： https://<HOST>:30692/#/login
-    ```token
-    eyJhbGciOiJSUzI1NiIsImtpZCI6ImR6S05ENHB4QlRqNmcxcjhzNEdSc1hGeVhWWWtvZlktSkQ4V2lHODJVNmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tdG9rZW4tbWQ1ZzgiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGFzaGJvYXJkLWFkbWluIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMGEwMWE5NzAtZGFlMS00ZmE2LTgzMjYtOTgyZDVlMTZlZjM1Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmRhc2hib2FyZC1hZG1pbiJ9.NphmgVFtBzzWSHDRYcEzgcqER3IJcFP8FTd9fuUZGaaVow1eOoTAR5QiGpTMaKrg8HM4VBJKB368tbp-eCxFFbSp3HxZuwRUqwPMAAHSrp5dEshTeuk3S-m7CwACu0n77pWnURX8Xs3Q9ksbvCLxEySjQrcPOltdll0lY2bjK2z5NRLBAraaD6-9J-vOySAC5p6K6awh_ODGDNE8WhPuRPRmfL4qG58DEz3Wk7wUTv0Pix7IcjOHjjkJCYEIMDmS_Hu3w8oagMFpQxU88PPNTXk5aIXXS7beFOCXN_zz-nLW2A_h5ST9wftU3-PWGNtajTQZzZEyNyHOAJgqVgUmeg
-    ```
+
+```bash
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImR6S05ENHB4QlRqNmcxcjhzNEdSc1hGeVhWWWtvZlktSkQ4V2lHODJVNmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tdG9rZW4tbWQ1ZzgiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGFzaGJvYXJkLWFkbWluIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMGEwMWE5NzAtZGFlMS00ZmE2LTgzMjYtOTgyZDVlMTZlZjM1Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmRhc2hib2FyZC1hZG1pbiJ9.NphmgVFtBzzWSHDRYcEzgcqER3IJcFP8FTd9fuUZGaaVow1eOoTAR5QiGpTMaKrg8HM4VBJKB368tbp-eCxFFbSp3HxZuwRUqwPMAAHSrp5dEshTeuk3S-m7CwACu0n77pWnURX8Xs3Q9ksbvCLxEySjQrcPOltdll0lY2bjK2z5NRLBAraaD6-9J-vOySAC5p6K6awh_ODGDNE8WhPuRPRmfL4qG58DEz3Wk7wUTv0Pix7IcjOHjjkJCYEIMDmS_Hu3w8oagMFpQxU88PPNTXk5aIXXS7beFOCXN_zz-nLW2A_h5ST9wftU3-PWGNtajTQZzZEyNyHOAJgqVgUmeg
+```
 - argo: http://<HOST>:30184/workflows/
 + test-env：
 - kubernetes dashboard：https://<HOST>:32109/#/login
-    ```token
+
+```bash
 eyJhbGciOiJSUzI1NiIsImtpZCI6IlZ6UzJaWEtScFYxYTBmZ2o3bW0yZDdtWWZNTVJuX0w5TXMwRWxsc0ZvMkUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJ3ZWF2ZS1uZXQtdG9rZW4tczZrNmYiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoid2VhdmUtbmV0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiOTFhYWNjNDItZTk0ZS00YjIzLWE5YWUtYmE1NmZmY2QyNzk3Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOndlYXZlLW5ldCJ9.o0m-U3Ur0nxxdjj8l3Wu7vLSHU9iJQsi3_vYysq3NyOURjoC-IiEOMu4vgp3ITClsh-i6dxFrURdis-wH2bFwP31Bnz5UScor6iNCHSFwaZ7f_oGlkcgqCXBNvvhX2kuVZgs12UT0jHXxhKvRNXzUEVYoS0XnmiGY04ICHFPxdo0tnclI4pb20cGl1bTGHXh0HcZkaN-UJIwHRxt7jNd7OoOeXL4hE9BY1TAIkPKt4a9Uz7Bg-kWnp3V87czZwv38eyy76oqr7HVjuRvOiDEsHwi4jyU76Nd-Plhl6bIxHZpIolTfYRBgMqQG6e3mDTrp6oK3A6bSS_DxiRE2tNxqA
-    ```
+```
 - apulis-platform: http://<HOST>:7080/AIarts/codeDevelopment (thomas/apulis@2025)
 - apulis-endpoint: http://<HOST>:7080/endpoints/eyJwb3J0IjoiTXpJeE1EST0iLCJ1c2VyTmFtZSI6InRob21hcyJ9/lab
 
@@ -41,7 +43,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IlZ6UzJaWEtScFYxYTBmZ2o3bW0yZDdtWWZNTVJuX0w5TXMwRWxs
 
    + 基础网络配置:
 
-    ```
+    ```bash
     # 配置IP:
 
     NAME=''
@@ -64,7 +66,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IlZ6UzJaWEtScFYxYTBmZ2o3bW0yZDdtWWZNTVJuX0w5TXMwRWxs
 
    * 更新安装源：
 
-    ```zypper
+    ```bash
     sudo mkdir -p /etc/zypp/repos.d/repo.bak
     sudo mv /etc/zypp/repos.d/*.repo /etc/zypp/repos.d/repo.bak/
     sudo sudo zypper ar -fcg https://mirrors.bfsu.edu.cn/opensuse/distribution/leap/15.2/repo/oss/ OSS
@@ -75,7 +77,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IlZ6UzJaWEtScFYxYTBmZ2o3bW0yZDdtWWZNTVJuX0w5TXMwRWxs
     zypper ref
     ```
     
-    ```k8s
+    ```bash
     vim /etc/yum.repos.d/kube.repo
 
     [kubernetes]
@@ -249,6 +251,7 @@ kubeadm config print init-defaults > kubeadm-config.yaml
     --ignore-preflight-errors=Swap    #忽略swap报错信息
 
 * 指定配置
+
 kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs
 
 kubeadm init --config=kubeadm-config.yaml --pod-network-cidr=10.244.14.0/16 --ignore-preflight-errors=all --upload-certs --v=6 

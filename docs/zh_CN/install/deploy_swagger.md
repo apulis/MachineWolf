@@ -1,4 +1,7 @@
 
+集成swagger
+----------------------------------------
+
 * Running the image from DockerHub
 
 There is a docker image published in DockerHub.To use this, run the following:
