@@ -76,6 +76,6 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['../_static']
-html_logo = '../img/diamond.png'
+html_logo = '../img/ico.png'
 html_title = '机器学习和深度学习性能验证套件 (%s %s)' % \
 (project, release)
