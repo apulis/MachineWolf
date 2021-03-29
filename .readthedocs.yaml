@@ -5,6 +5,10 @@
 # Required
 version: 2
 
+# Configuration for the documentation build process.
+build:
+  image: stable
+
 python:
   version: 3.7
   install:
@@ -14,7 +18,8 @@ python:
 sphinx:
   builder: html
   configuration: docs/zh_CN/conf.py
-  fail_on_warning: true
+  fail_on_warning: false
+
 # Optionally build your docs in additional formats such as PDF & ePub
 formats: all
 
