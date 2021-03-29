@@ -1,25 +1,5 @@
-<p align="center">
-<img src="docs/img/ico.png" width="150"/>
-</p>
 
------------
-
-[![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
-[![Documentation Status](https://readthedocs.org/projects/nni/badge/?version=latest)](https://achinewolf.readthedocs.io/zh_CN/latest/?badge=latest)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/apulis/MachineWolf)
-[![GitHub release (latest)](https://img.shields.io/github/v/release/apulis/MachineWolf)](https://github.com/apulis/MachineWolf/releases)
-<!-- ![GitHub Latest download](https://img.shields.io/github/downloads/apulis/MachineWolf/latest/total?style=plastic) -->
-<!-- [![codeql-analysis Actions Status](https://github.com/apulis/MachineWolf/workflows/codeql-analysis/badge.svg)](https://github.com/apulis/MachineWolf/actions)
-[![nightly-build Actions Status](https://github.com/apulis/MachineWolf/workflows/nightly-build/badge.svg)](https://github.com/apulis/MachineWolf/actions) -->
-![Issues track](https://img.shields.io/github/issues/apulis/MachineWolf)
-
-
-[MachineWolf Doc](README_en_US.md) | [简体中文](https://machinewolf.readthedocs.io/en/latest/)
-
-**MachineWolf** 是一个自动化测试性能套件，促进 AiOps 实施。
-
-
-### 快速使用指导
+# 快速使用指导
 
 * 在本地执行测试脚本
 
@@ -60,11 +40,11 @@
 
 **测试报告示例**
 
-![locust-http-response](docs/img/locust_report.png)
+![locust-http-response](../img/locust_report.png)
 
 **CLI看板示例**
 
-![taurus-status](docs/img/taurus_report.png)
+![taurus-status](../img/taurus_report.png)
 
 **导出测试报告**
 
@@ -73,7 +53,7 @@
 * `testreport/cvat_result.csv_failures.csv`
 * `testreport/cvat_result.csv_exceptions.csv`
 
-### 分支说明
+## 分支说明
 
 
 | 分支名称     |说明|
@@ -94,7 +74,7 @@
 * 所有经过调试，完成验证的 Feature、Hotfix、Release 都要合并到 Master
 
 
-### 测试套件说明
+## 测试套件说明
 
 **整个测试套件分类**
 
@@ -103,12 +83,12 @@
 * testhub:      平台、组件测试案例和脚本
 * issuesboard:  同步issues和report
 
-### 执行测试套件
+## 执行测试套件
 
 测试套件本着兼容并蓄，容纳萃取的宗旨，独立灵活的组织测试套件。支持各种前沿的、优秀的工具和理念；目前将测试方案（testscheme）、数据(datas.yaml)、脚本(.py,.jmx)、执行计划（host.yml,taurus.yml）灵活的组织在一起。
 目前还是一些样例，还需要完善和补充。
 
-``` direction
+```bash
 |-- testhub/
     `-- testscheme
         |-- 5g_manufacturing
@@ -129,7 +109,7 @@
         |-- csv_client
 ```
 
-### 安全性
+## 安全性
 
 为避免信息暴漏，无效信息泛滥。
 
@@ -143,11 +123,7 @@
     + 证书： `<KEYGEN> 或 <TOKEN>`
     + 邮件： `<EMAIL-NAME@EMAIL-SERVICE.COM>`
 
-### 文档 
-
-有关安装指南、教程和API的更多详细信息，请参阅[文档库](docs/zh_CN)
-
-### 版本发布
+## 版本发布
 
 * **Latest**
 
@@ -164,12 +140,3 @@
     4. 补充框架、模型性能工具和脚本 
     5. 完善容器执行或在k8s中分布式执行方法
 
-**版本说明详情请参阅[RELEASE](./RELEASE.md)。**
-
-### 版权协议
-
-[MIT](LICENSE)
-
-### 社区和联系
-
-[Apulis Aiops Team](http://www.apulis.cn/index.php?s=/sys/cate/5.html)

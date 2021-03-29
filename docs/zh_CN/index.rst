@@ -8,9 +8,10 @@ Welcome to MachineWolf's documentation!
 
 .. toctree::
    :glob:
-   :reversed:
    :maxdepth: 2
-   :caption: Contents:
+   :caption: 目录:
+   
+   quickly_start
 
    design/*
    install/*
