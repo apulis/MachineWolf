@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="docs/img/MachineWolf _logo.png" width="150"/>
+<img src="docs/img/ico.png" width="150"/>
 </p>
 
 -----------
