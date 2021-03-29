@@ -1,5 +1,5 @@
 # !/bin/bash
-# Init Perfboard development environment
+# Init MachineWolf  development environment
 # Matainer: Thome
 # UpdateTime: 2021-03-08
 # License: Mozilla

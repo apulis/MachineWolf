@@ -1,16 +1,16 @@
 
 <p align="center">
-<img src="docs/img/perfboard_logo.png" width="150"/>
+<img src="docs/img/MachineWolf _logo.png" width="150"/>
 </p>
 
 -----------
 
 [![MIT licensedlicensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/nni/badge/?version=latest)](https://nni.readthedocs.io/en/latest/?badge=latest)
-[](https://travis-ci.com/banrieen/PerfBoard.svg?branch=master)
-[PerfBoard Doc](README_en_US.md) | [简体中文](README.md)
+[](https://travis-ci.com/banrieen/MachineWolf .svg?branch=master)
+[MachineWolf  Doc](README_en_US.md) | [简体中文](README.md)
 
-**PerfBoard** 是一个自动化测试性能套件，促进 AiOps 实施。
+**MachineWolf ** 是一个自动化测试性能套件，促进 AiOps 实施。
 
 
 ### 快速使用指导
@@ -27,12 +27,12 @@
 
     1. 拉取已经编译好的镜像
     
-    `docker pull harbor.apulis.cn:8443/testops/perfboard:latest`
+    `docker pull harbor.apulis.cn:8443/testops/MachineWolf :latest`
 
     2. 执行docker
     
     ```bash
-    docker run --name perfboard -d -p 8088:8088  perfboard:latest
+    docker run --name MachineWolf  -d -p 8088:8088  MachineWolf :latest
     http://<xxx.xxx.xxx.xxx>:8088 # 打开jupyterlab
     ```
 

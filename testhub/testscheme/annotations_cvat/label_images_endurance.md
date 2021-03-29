@@ -218,7 +218,7 @@
 
 ### 测试用例和脚本（待完善）
 
-   `perfboard/testhub/testsuites/label_images/`
+   `MachineWolf /testhub/testsuites/label_images/`
 
 ### SLO/SLI预估
 

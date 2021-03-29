@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="docs/img/perfboard_logo.png" width="250"/>
+<img src="docs/img/MachineWolf _logo.png" width="250"/>
 </p>
 
 -----------
@@ -13,9 +13,9 @@
 [![Version](https://img.shields.io/github/release/Microsoft/nni.svg)](https://github.com/Microsoft/nni/releases) [![Join the chat at https://gitter.im/Microsoft/nni](https://badges.gitter.im/Microsoft/nni.svg)](https://gitter.im/Microsoft/nni?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Documentation Status](https://readthedocs.org/projects/nni/badge/?version=latest)](https://nni.readthedocs.io/en/latest/?badge=latest)
 
-[PerfBoard Doc](README_en_US.md) | [简体中文](README.md)
+[MachineWolf  Doc](README_en_US.md) | [简体中文](README.md)
 
-**PerfBoard** is a AiOps Performance Enhancements Suite .
+**MachineWolf ** is a AiOps Performance Enhancements Suite .
 
 
 ### Quick Start

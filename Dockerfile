@@ -15,7 +15,7 @@ ENV PYTHON_HOME  /usr/bin/python3
 WORKDIR /tmp
 
 # 同步测试库和工具
-COPY PerfBoard docker-build/jdk-8u281-linux-x64.rpm  /home/perfboard/
+COPY MachineWolf  docker-build/jdk-8u281-linux-x64.rpm  /home/MachineWolf /
 
 RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/repos.d/repo_bak/  \
     && zypper ar -fcg https://mirrors.bfsu.edu.cn/opensuse/distribution/leap/15.2/repo/non-oss/     NON-OSS  \
@@ -28,15 +28,15 @@ RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/re
     && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/oss                      openSUSE-Aliyun-UPDATE-OSS  \
     && zypper -q ref   \  
     && zypper update -y && zypper install -y gcc cmake git sudo python3 vim bash htop iputils curl busybox wget tar gzip unzip curl python3-devel    \
-    && rpm -ivh /home/perfboard/jdk-8u281-linux-x64.rpm   \
+    && rpm -ivh /home/MachineWolf /jdk-8u281-linux-x64.rpm   \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
     && python3 get-pip.py   \
     && ln -s /usr/bin/python3 /usr/bin/python  \
     && pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple   \
     && pip config set install.trusted-host https://repo.huaweicloud.com  \
     && pip install python-dev-tools  \
-    && pip install -U -r /home/perfboard/requirements.ini \ 
-    && bzt /home/perfboard/example/jmeter/trace_user_footprint.jmx  \
+    && pip install -U -r /home/MachineWolf /requirements.ini \ 
+    && bzt /home/MachineWolf /example/jmeter/trace_user_footprint.jmx  \
     && rm -rf /tmp/* 
 
 WORKDIR /home/
@@ -45,10 +45,10 @@ WORKDIR /home/
 EXPOSE 1099 8088 8089
 
 # ENTRYPOINT 
-# CMD nohup jupyter lab  --NotebookApp.token=''  --port 8088  --no-browser  --ip='0.0.0.0'  --allow-root  --NotebookApp.iopub_msg_rate_limit=1000000.0  --NotebookApp.iopub_data_rate_limit=100000000.0  --NotebookApp.notebook_dir=perfboard  &
+# CMD nohup jupyter lab  --NotebookApp.token=''  --port 8088  --no-browser  --ip='0.0.0.0'  --allow-root  --NotebookApp.iopub_msg_rate_limit=1000000.0  --NotebookApp.iopub_data_rate_limit=100000000.0  --NotebookApp.notebook_dir=MachineWolf   &
 
 # Build  example
-# docker build -f PerfBoard/Dockerfile . -t  harbor.apulis.cn:8443/testops/perfboard:latest
-# docker push harbor.apulis.cn:8443/testops/perfboard:latest:latest
+# docker build -f MachineWolf /Dockerfile . -t  harbor.apulis.cn:8443/testops/MachineWolf :latest
+# docker push harbor.apulis.cn:8443/testops/MachineWolf :latest:latest
 # Run example
-# docker run -d --name perfboard-jupyter -p 8088:8088  harbor.apulis.cn:8443/testops/perfboard:latest
+# docker run -d --name MachineWolf -jupyter -p 8088:8088  harbor.apulis.cn:8443/testops/MachineWolf :latest

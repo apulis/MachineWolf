@@ -29,7 +29,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="resources_folder" elementType="Argument">
             <stringProp name="Argument.name">resources_folder</stringProp>
-            <stringProp name="Argument.value">${__P(C:\Users\haiyuan\PerfSpace\PerfBoard\resources, C:\Users\haiyuan\PerfSpace\PerfBoard\jmeter)}</stringProp>
+            <stringProp name="Argument.value">${__P(C:\Users\haiyuan\PerfSpace\MachineWolf \resources, C:\Users\haiyuan\PerfSpace\MachineWolf \jmeter)}</stringProp>
             <stringProp name="Argument.desc">Change this value to folder containing your CSV files</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>

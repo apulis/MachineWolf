@@ -3,7 +3,7 @@
 
 ## Getting Started
 
-- Fork the repository on [Github](https://github.com/apulis/PerfBoard)
+- Fork the repository on [Github](https://github.com/apulis/MachineWolf )
 - Read the [README.md](README.md) for project information and build instructions.
 
 ## Contribution Workflow
@@ -31,11 +31,11 @@ Please follow this style to make diamond easy to review, maintain and develop.
     If you want to download the code to the local machine, `git` is the best way:
     ```shell
     # For GitHub
-    git clone https://github.com/{insert_your_forked_repo}/PerfBoard.git
-    git remote add upstream https://github.com/diamond-ai/PerfBoard.git
+    git clone https://github.com/{insert_your_forked_repo}/MachineWolf .git
+    git remote add upstream https://github.com/diamond-ai/MachineWolf .git
     # For Gitee
-    git clone https://gitee.com/{insert_your_forked_repo}/PerfBoard.git
-    git remote add upstream https://gitee.com/diamond/PerfBoard.git
+    git clone https://gitee.com/{insert_your_forked_repo}/MachineWolf .git
+    git remote add upstream https://gitee.com/diamond/MachineWolf .git
     ```
 
 * Develop code locally
@@ -83,7 +83,7 @@ When reporting issues, refer to this format:
 
 ### Propose PRs
 
-* Raise your idea as an *issue* on [GitHub](https://github.com/apulis/PerfBoard/issues)
+* Raise your idea as an *issue* on [GitHub](https://github.com/apulis/MachineWolf /issues)
 * If it is a new feature that needs lots of design details, a design proposal should also be submitted.
 * After reaching consensus in the issue discussions and design proposal reviews, complete the development on the forked repo and submit a PR.
 * None of PRs is not permitted until it receives **2+ LGTM** from approvers. Please NOTICE that approver is NOT allowed to add *LGTM* on his own PR.
