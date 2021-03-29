@@ -56,7 +56,7 @@ language = 'zh_CN'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'build','Thumbs.db', '.DS_Store', 'Release_v1.0.md', '**.ipynb_checkpoints']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'Release_v1.0.md', '**.ipynb_checkpoints']
 
 # You can specify multiple suffix as a list of string:
 source_suffix = ['.rst', '.md']
@@ -75,7 +75,6 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['../static']
+html_static_path = ['../_static']
 html_logo = '../img/ico.png'
-html_title = '机器学习和深度学习性能验证套件 (%s %s)' % \
-(project, release)
+html_title = '机器学习和深度学习性能验证套件 (%s %s)' % (project, release)
