@@ -1,16 +1,22 @@
-
 <p align="center">
 <img src="docs/img/ico.png" width="150"/>
 </p>
 
 -----------
 
-[![MIT licensedlicensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
-[![Documentation Status](https://readthedocs.org/projects/nni/badge/?version=latest)](https://nni.readthedocs.io/en/latest/?badge=latest)
-[](https://travis-ci.com/banrieen/MachineWolf .svg?branch=master)
-[MachineWolf  Doc](README_en_US.md) | [简体中文](README.md)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/nni/badge/?version=latest)](https://achinewolf.readthedocs.io/zh_CN/latest/?badge=latest)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/apulis/MachineWolf)
+[![GitHub release (latest)](https://img.shields.io/github/v/release/apulis/MachineWolf)](https://github.com/apulis/MachineWolf/releases)
+<!-- ![GitHub Latest download](https://img.shields.io/github/downloads/apulis/MachineWolf/latest/total?style=plastic) -->
+[![codeql-analysis Actions Status](https://github.com/apulis/MachineWolf/workflows/codeql-analysis/badge.svg)](https://github.com/apulis/MachineWolf/actions)
+[![nightly-build Actions Status](https://github.com/apulis/MachineWolf/workflows/nightly-build/badge.svg)](https://github.com/apulis/MachineWolf/actions)
+![Issues track](https://img.shields.io/github/issues/apulis/MachineWolf)
 
-**MachineWolf ** 是一个自动化测试性能套件，促进 AiOps 实施。
+
+[MachineWolf Doc](README_en_US.md) | [简体中文](README.md)
+
+**MachineWolf** 是一个自动化测试性能套件，促进 AiOps 实施。
 
 
 ### 快速使用指导
