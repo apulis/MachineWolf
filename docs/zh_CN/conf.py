@@ -22,7 +22,7 @@ copyright = '2021, Thomas'
 author = 'Thomas'
 
 # The full version, including alpha/beta/rc tags
-release = 'latest'
+release = 'stable'
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
