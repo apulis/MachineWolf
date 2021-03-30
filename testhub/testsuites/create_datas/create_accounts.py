@@ -6,7 +6,6 @@
 # TIMER:   2021-03-11
 """
 
-from testhub.testlib import fake_users
 from locust import HttpUser, TaskSet, task, between
 from locust.contrib.fasthttp import FastHttpUser
 from locust import events
@@ -17,6 +16,8 @@ import os
 import yaml
 import pdb
 import hashlib
+from testhub.testlib import fake_users
+from testhub.testlib import csv_client
 
 TEST_CONF = os.path.join(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep  ), "datas.yaml")
 TEST_DATAS = {}
@@ -67,6 +68,7 @@ class CreateUsers(TaskSet):
         """ testcase
         1. 注册新用户
          """
+        user_filename = "fake_user.csv"
         user_datas = fake_users.new_user()
         print("======================= test_create_user DATAS: {} ".format(user_datas))
         print("======================= test_create_user HEADER: {}".format(self.client.header))
@@ -75,25 +77,31 @@ class CreateUsers(TaskSet):
                                                 headers=TEST_DATAS["RESTFULAPI"]["header"], 
                                                 json=user_datas, 
                                                 cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
+        csv_client.csv_json_writer(csv_path=os.path.join(TEST_DATAS["ENV"]["DATA_PATH"], user_filename), mode="a", datas=user_datas["userMessage"][0])
+
     @task(2)
     def test_create_group(self):
         """ testcases
         2. 注册新用户组
          """
+        group_filename = "fake_group.csv"
         group_datas = fake_users.new_group()
         self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
                             headers=TEST_DATAS["RESTFULAPI"]["header"], 
                             json=group_datas)
+        csv_client.csv_json_writer(csv_path=os.path.join(TEST_DATAS["ENV"]["DATA_PATH"],group_filename), mode="a", datas=group_datas)
+    
     @task(2)
     def test_create_role(self):
         """ 
         3. 注册新role
          """
+        role_filename = "fake_role.csv"
         role_datas = fake_users.new_role()
         self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_role"]["path"], 
                             headers=TEST_DATAS["RESTFULAPI"]["header"], 
                             json=role_datas)
-
+        csv_client.csv_json_writer(csv_path=os.path.join(TEST_DATAS["ENV"]["DATA_PATH"],role_filename), mode="a", datas=role_datas)
 
 class BasicalDatas(HttpUser):
     global TEST_DATAS
@@ -106,5 +114,5 @@ class BasicalDatas(HttpUser):
 if __name__ == "__main__":
     pass
     # Run in cmd
-    # locust -f ./testhub/testsuites/create_datas/create_common_datas.py --conf ./testhub/testsuites/create_datas/host.conf
+    # locust -f ./testhub/testsuites/create_datas/create_accounts.py --conf ./testhub/testsuites/create_datas/host.conf
 

@@ -7,10 +7,10 @@
 import csv
 import re
 
-def csv_reader_as_string(csv_path="",length=10):
+def csv_reader_as_string(csv_path="", mode="r", length=10):
     output = []
     num = 0
-    with open(csv_path, newline='',encoding='utf-8') as csvfile:
+    with open(csv_path, mode, newline='',encoding='utf-8') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
         for row in spamreader:
             account = re.split('([\t])', row[0] )  
@@ -20,8 +20,8 @@ def csv_reader_as_string(csv_path="",length=10):
                 return output
     return  output
 
-def csv_string_writer(csv_path="",datas=""):
-    with open(csv_path, 'w', newline='') as csvfile: 
+def csv_string_writer(csv_path="", mode="a", datas=""):
+    with open(csv_path, mode, newline='') as csvfile: 
         spamwriter  = csv.writer(csvfile, 
                                 newline='',
                                 delimiter=' ',
@@ -31,7 +31,7 @@ def csv_string_writer(csv_path="",datas=""):
             spamwriter.writerow(Spam)
     return True
 
-def csv_reader_as_json(csv_path="",length=0):
+def csv_reader_as_json(csv_path="", mode="r", length=0):
     output = []
     num = 0
     with open(csv_path, newline='',encoding='utf-8') as csvfile:
@@ -43,19 +43,20 @@ def csv_reader_as_json(csv_path="",length=0):
                 return output
     return  output
 
-def csv_json_writer(csv_path="",datas={}):
+
+def csv_json_writer(csv_path="", mode="a", datas={}):
+    # Only write a row
     if not datas:
        return 0
-    with open(csv_path, 'w', newline='') as csvfile: 
-        fieldnames = list(datas[0].keys())
+    print("======================= csv_json_writer DATAS: {} ".format(datas))
+    with open(csv_path, mode, newline='') as csvfile: 
+        fieldnames = list(datas.keys()) 
         dicWriter  = csv.DictWriter(csvfile, fieldnames=fieldnames)
         dicWriter.writeheader()
-        for dics in datas:
-            dicWriter.writerow(dics)
-        return True
+        dicWriter.writerow(datas)
 
 if __name__ == "__main__":
-    csv_path = r"datasetshub/users_w.csv"
-    account = csv_reader_as_string(r"datasetshub/users.csv", 0)
-    csv_json_writer(csv_path=r"datasetshub/users_w.csv",datas=account)
-
+    csv_path = r"datasetshub/fake_role.csv"
+    # account = csv_reader_as_string(r"datasetshub/users.csv", 0)
+    # csv_json_writer(csv_path=r"datasetshub/users_w.csv",datas=account)
+    print(csv_reader_as_json(csv_path=csv_path))
