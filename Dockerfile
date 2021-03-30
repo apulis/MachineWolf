@@ -1,54 +1,43 @@
 # DockerName: Locust runner
 # Usecase: With locust runtime dependentance tools and testsuites
-# Update: 2021-03-14
+# Update: 2021-03-30
 # Dependents:  python3
 # Arch: x86-64
 # Version: v0.5.0
 # Editor：thomas
 # Build In China
 
-FROM opensuse/leap:15.2
-# ENV JAVA_HOME=/spark/java/jre1.8.0_181  JRE_HOME=/spark/java/jre1.8.0_181  CLASSPATH=$JAVA_HOME/lib/:$JRE_HOME/lib/
-# ENV PATH $PATH:$JAVA_HOME/bin:/usr/local/python37/bin
+FROM  mltooling/ml-workspace:0.12.1
 ENV PYTHON_HOME  /usr/bin/python3
-
-WORKDIR /tmp
-
-# 同步测试库和工具
-COPY MachineWolf  docker-build/jdk-8u281-linux-x64.rpm  /home/MachineWolf /
-
-RUN mkdir /etc/zypp/repos.d/repo_bak && mv /etc/zypp/repos.d/*.repo /etc/zypp/repos.d/repo_bak/  \
-    && zypper ar -fcg https://mirrors.bfsu.edu.cn/opensuse/distribution/leap/15.2/repo/non-oss/     NON-OSS  \
-    && zypper ar -fcg https://mirrors.bfsu.edu.cn/opensuse/distribution/leap/15.2/repo/oss/         OSS  \
-    && zypper ar -fcg https://mirrors.bfsu.edu.cn/opensuse/update/leap/15.2/non-oss/                UPDATE-NON-OSS    \              
-    && zypper ar -fcg https://mirrors.bfsu.edu.cn/opensuse/update/leap/15.2/oss/                    UPDATE-OSS  \
-    && zypper ar -fcg https://mirrors.aliyun.com/opensuse/distribution/leap/15.2/repo/non-oss       openSUSE-Aliyun-NON-OSS  \
-    && zypper ar -fcg https://mirrors.aliyun.com/opensuse/distribution/leap/15.2/repo/oss           openSUSE-Aliyun-OSS  \
-    && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/non-oss                  openSUSE-Aliyun-UPDATE-NON-OSS  \
-    && zypper ar -fcg https://mirrors.aliyun.com/opensuse/update/leap/15.2/oss                      openSUSE-Aliyun-UPDATE-OSS  \
-    && zypper -q ref   \  
-    && zypper update -y && zypper install -y gcc cmake git sudo python3 vim bash htop iputils curl busybox wget tar gzip unzip curl python3-devel    \
-    && rpm -ivh /home/MachineWolf /jdk-8u281-linux-x64.rpm   \
-    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
-    && python3 get-pip.py   \
-    && ln -s /usr/bin/python3 /usr/bin/python  \
-    && pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple   \
-    && pip config set install.trusted-host https://repo.huaweicloud.com  \
-    && pip install python-dev-tools  \
-    && pip install -U -r /home/MachineWolf /requirements.ini \ 
-    && bzt /home/MachineWolf /example/jmeter/trace_user_footprint.jmx  \
-    && rm -rf /tmp/* 
 
 WORKDIR /home/
 
-# port
-EXPOSE 1099 8088 8089
+# 同步测试库和工具
+COPY docker-build/go1.16.2.linux-amd64.tar.gz  .
 
-# ENTRYPOINT 
-# CMD nohup jupyter lab  --NotebookApp.token=''  --port 8088  --no-browser  --ip='0.0.0.0'  --allow-root  --NotebookApp.iopub_msg_rate_limit=1000000.0  --NotebookApp.iopub_data_rate_limit=100000000.0  --NotebookApp.notebook_dir=MachineWolf   &
+RUN sudo cp -a /etc/apt/sources.list /etc/apt/sources.list.bak  \
+    && sudo sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list  \
+    && sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list  \
+    && apt update    \  
+    && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.2.linux-amd64.tar.gz  \
+    && export PATH=$PATH:/usr/local/go/bin   \
+    && go env -w GOPROXY=https://goproxy.cn,direct  \
+    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
+    && pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple   \
+    && pip config set install.trusted-host https://repo.huaweicloud.com  \
+    && pip install python-dev-tools  \
+    && git clone -b master https://haiyuan.bian:apulis18c@apulis-gitlab.apulis.cn/apulis/MachineWolf.git   \
+    && cd /home/MachineWolf/  \
+    && git pull origin master  \
+    && pip install -U --ignore-installed -r /home/MachineWolf/requirements.ini \ 
+    && bzt /home/MachineWolf/example/jmeter/trace_user_footprint.jmx  \
+    && rm -rf /tmp/* 
+
+# port
+# EXPOSE 1099 8080 8088 8089
 
 # Build  example
-# docker build -f MachineWolf /Dockerfile . -t  harbor.apulis.cn:8443/testops/MachineWolf :latest
-# docker push harbor.apulis.cn:8443/testops/MachineWolf :latest:latest
+# docker build -f MachineWolf/Dockerfile .  -t  harbor.apulis.cn:8443/testops/machinewolf:latest
+# docker push harbor.apulis.cn:8443/testops/machinewolf:latest
 # Run example
-# docker run -d --name MachineWolf -jupyter -p 8088:8088  harbor.apulis.cn:8443/testops/MachineWolf :latest
+# docker run -d --name MachineWolf-jupyter -p 8088:8080  harbor.apulis.cn:8443/testops/machinewolf:latest
