@@ -21,7 +21,7 @@ from testhub.testlib import csv_client
 
 TEST_CONF = os.path.join(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep  ), "datas.yaml")
 TEST_DATAS = {}
-
+DATA_PREFIX = "songshanhu"
 def read_test_datas(conf_file=TEST_CONF):
     stream = {}
     with open(conf_file,'r') as cf:
@@ -68,7 +68,7 @@ class CreateUsers(TaskSet):
         """ testcase
         1. 注册新用户
          """
-        user_filename = "fake_user.csv"
+        user_filename = "".join([DATA_PREFIX,"_","fake_user.csv"])
         user_datas = fake_users.new_user()
         print("======================= test_create_user DATAS: {} ".format(user_datas))
         print("======================= test_create_user HEADER: {}".format(self.client.header))
@@ -84,7 +84,7 @@ class CreateUsers(TaskSet):
         """ testcases
         2. 注册新用户组
          """
-        group_filename = "fake_group.csv"
+        group_filename = "".join([DATA_PREFIX,"_","fake_group.csv"])
         group_datas = fake_users.new_group()
         self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
                             headers=TEST_DATAS["RESTFULAPI"]["header"], 
@@ -96,7 +96,7 @@ class CreateUsers(TaskSet):
         """ 
         3. 注册新role
          """
-        role_filename = "fake_role.csv"
+        role_filename = "".join([DATA_PREFIX,"_","fake_role.csv"])
         role_datas = fake_users.new_role()
         self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_role"]["path"], 
                             headers=TEST_DATAS["RESTFULAPI"]["header"], 
