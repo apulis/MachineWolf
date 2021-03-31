@@ -1,4 +1,4 @@
-# 松山湖-A3010推理性能测试环境和数据
+# 松山湖-工业质检接口测试
 
 PLATFORM_VERSION: "v1.0.0"
 TEST_TAG: "rc0"
@@ -90,11 +90,11 @@ RESTFULAPI:
     path:   "ai_arts/api/jobs?searchWord=&pageNum=1&pageSize=10&status=all&vcName=platform&jobType=all&order=asc&orderBy=jobTime"
     datas:   {}
   get_vc_usages:
-    mathed: "get" 
+    mothed: "get" 
     path:   "endpoints/grafana_zh/d/per-vc-gpu-statistic-zh/mei-ge-vcshe-bei-tong-ji-xin-xi?kiosk=tv"
     datas:  {}
   get_devices_usages:
-    mathed: "get"
+    mothed: "get"
     path:   "endpoints/grafana_zh/d/device-usage-history-zh/she-bei-shi-yong-liang?kiosk=tv"
     datas:  {}
   create_project:

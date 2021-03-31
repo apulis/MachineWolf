@@ -97,7 +97,7 @@ def new_role():
             }
 
 def new_project():
-    
+    pass
 
 if __name__ == "__main__":
     print(new_user())
