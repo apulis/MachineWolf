@@ -96,6 +96,9 @@ def new_role():
             "permissions":Role   
             }
 
+def new_project():
+    
+
 if __name__ == "__main__":
     print(new_user())
     # print(new_group())

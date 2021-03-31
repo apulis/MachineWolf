@@ -111,7 +111,7 @@ class BasicalDatas(HttpUser):
     tasks = [CreateUsers]
 
 if __name__ == "__main__":
-    global DATA_PREFIX
+    # global DATA_PREFIX
     DATA_PREFIX = "songshanhu"
     # Run in cmd
     # locust -f ./testhub/testsuites/create_datas/create_accounts.py --conf ./testhub/testsuites/create_datas/host.conf

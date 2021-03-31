@@ -29,6 +29,7 @@ from locust import HttpUser, TaskSet, task, between
 from locust.contrib.fasthttp import FastHttpUser
 from locust import events
 from locust.clients import HttpSession
+from credentials import *
 import logging
 import json
 import os
@@ -41,6 +42,8 @@ from testhub.testlib import csv_client
 TEST_CONF = os.path.join(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep  ), "datas.yaml")
 TEST_DATAS = {}
 DATA_PREFIX = "songshanhu"
+USER_CREDENTIALS = []
+
 def read_test_datas(conf_file=TEST_CONF):
     stream = {}
     with open(conf_file,'r') as cf:
@@ -74,12 +77,15 @@ class Datasets(TaskSet):
     14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
     """
     global TEST_DATAS
+    userName = "NOT_FOUND"
+    password = "NOT_FOUND"
+
     def on_start(self):
         print("======================= A new test is starting, user will login {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
         self.client.request("get",TEST_DATAS["RESTFULAPI"]["homepage"])
         self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
-        data=TEST_DATAS["ACCOUNT"]["web_admin"]
-        data["password"] = fake_users.security_passwd(data["password"])
+        self.email, self.password = USER_CREDENTIALS.pop()
+        aaccount={"userName":self.email,"password":self.password}
         response = self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=data)
         result = response.json()
         # pdb.set_trace()
@@ -100,12 +106,11 @@ class Datasets(TaskSet):
 
 
     @task(10)
-    def test_create_user(self):
+    def test_create_project(self):
         """ testcase
         1. 注册新用户
          """
         user_filename = "".join([DATA_PREFIX,"_","fake_user.csv"])
-        csv_client.csv_reader_as_json(csv_path=os.path.join(TEST_DATAS["ENV"]["DATA_PATH"], user_filename))
         user_datas = fake_users.new_user()
         print("======================= test_create_user DATAS: {} ".format(user_datas))
         print("======================= test_create_user HEADER: {}".format(self.client.header))
@@ -116,7 +121,7 @@ class Datasets(TaskSet):
                                                 cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
 
     @task(2)
-    def test_create_group(self):
+    def test_create_dataset(self):
         """ testcases
         2. 注册新用户组
          """
@@ -125,14 +130,14 @@ class Datasets(TaskSet):
         self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
                             headers=TEST_DATAS["RESTFULAPI"]["header"], 
                             json=group_datas)
-        csv_client.csv_json_writer(csv_path=os.path.join(TEST_DATAS["ENV"]["DATA_PATH"],group_filename), mode="a", datas=group_datas)
  
-
 class BasicalDatas(HttpUser):
     global TEST_DATAS
+    global USER_CREDENTIALS
     sock = None
     wait_time = between(0.5, 2) 
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
+    USER_CREDENTIALS = [{'userName': ic['userName'], 'password':ic['password'] } for ic in csv_reader_as_json(csv_path=TEST_DATAS["ENV"]["CSV_PATH"]) if "userName" != ic['userName'] ]
     host = TEST_DATAS["ENV"]["HOST"]
     tasks = [Datasets]
 

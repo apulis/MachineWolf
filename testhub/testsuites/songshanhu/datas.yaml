@@ -7,7 +7,7 @@ ENV:
   HOST: "http://182.138.104.162:16480"
   Prometheus_Client: http://182.138.104.162:9091
   CONF_PATH: "/home/InstallationYTung"
-  DATA_PATH: "datasetshub/"
+  CSV_PATH: "datasetshub/songshanhu_fake_user.csv"
 
 ACCOUNT:
   web_admin: {"userName":"admin","password":"fpS6bZ"}
@@ -37,21 +37,70 @@ RESTFULAPI:
     mothed: "get" 
     path:   "/custom-user-dashboard-backend/auth/logout"
     Response: 200
-  PostInferenceJob:
+  get_verview:
+    mothed: "get"
+    path:   "AIarts/OverView"
+    datas:  {}
+  get_QIP:
+    mothed:  "get"
+    path:    "AIarts/QIP/home"
+    datas:  {}
+  get_datasets:
+    mothed:  "get"
+    path:    "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
+    datas:   {} 
+  get_datasets_savelist:
+    mothed:  "get"
+    path:    "ipc_data_manager/ipc_data/api/raw_images?pageNum=1&pageSize=10"
+    datas:   {}
+  get_datasets_managerlist:
+    mothed:  "get"
+    path:    "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
+    datas:   {}
+  get_project:
+    mothed:  "get"
+    path:    "ai_arts/api/vc/?vcName=platform"
+    datas: ""
+  get_dataset_isPublished:
+    mothed: "get"
+    path:   "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=true&isLatest=true"
+    datas:  {}
+  get_dataset_normal:
+    mothed: "get"
+    path:   "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
+    datas:  {}
+  get_inferences:
+    mothed:  "get"
+    path:    "atistics/api/inference?pageNum=1&pageSize=10"
+    datas:  {}
+  get_system_settings:
+    mothed: "get"
+    path:   "ai_arts/api/v2/get_sender"
+    datas:  {}
+  get_currentUser:
+    mothed:  "get"
+    path:    "custom-user-dashboard-backend/auth/currentUser"
+    datas:   {}
+  get_platform_config:
+    mothed:  "get"
+    path:    "custom-user-dashboard-backend/platform-config"
+    datas:   {}
+  get_jobs:
+    mothed: "get"
+    path:   "ai_arts/api/jobs?searchWord=&pageNum=1&pageSize=10&status=all&vcName=platform&jobType=all&order=asc&orderBy=jobTime"
+    datas:   {}
+  get_vc_usages:
+    mathed: "get" 
+    path:   "endpoints/grafana_zh/d/per-vc-gpu-statistic-zh/mei-ge-vcshe-bei-tong-ji-xin-xi?kiosk=tv"
+    datas:  {}
+  get_devices_usages:
+    mathed: "get"
+    path:   "endpoints/grafana_zh/d/device-usage-history-zh/she-bei-shi-yong-liang?kiosk=tv"
+    datas:  {}
+  create_project:
     mothed: "post"
-    path: "/ai_arts/api/inferences/PostInferenceJob"
-    datas: {"machineld":"None",
-            "ProductCode":"None",
-            "TableName":"AI_Test",
-            "ProjectName":"5G_aoi",
-            "TaskName":"assm1-2",
-            "Flag":"OK",
-            "ImageName":"None_AI_Test_5g_aoi_assm1-2_201210222192400571_None_OK.jpg",
-            "ImageRawData": "svg_string",
-            "TaskType":"Detection",
-            "Label":{"version":"3.16.7","flags":{},"shapes":[]},
-            "GenerateDateTime": "2021-01-22 19:24:03",
-            "Version":"V1.0"}
+    path: "/ai_arts/api/projects"
+    datas: {"description": "test_project-info","name": "test_project"}
   upload_images:
     mothed: "post"
     path: "/dataset_manager/api/cv_datasets/id/6/import_image_dir"

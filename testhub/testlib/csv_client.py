@@ -34,7 +34,7 @@ def csv_string_writer(csv_path="", mode="a", datas=""):
 def csv_reader_as_json(csv_path="", length=0):
     output = []
     num = 0
-    with open(csv_path, newline='',encoding='utf-8') as csvfile:
+    with open(csv_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             output.append(row)
@@ -52,11 +52,10 @@ def csv_json_writer(csv_path="", mode="a", datas={}):
     with open(csv_path, mode, newline='') as csvfile: 
         fieldnames = list(datas.keys()) 
         dicWriter  = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        dicWriter.writeheader()
+        # dicWriter.writeheader()
         dicWriter.writerow(datas)
 
 if __name__ == "__main__":
-    csv_path = r"datasetshub/fake_user.csv"
-    # account = csv_reader_as_string(r"datasetshub/users.csv", 0)
+    csv_path = r"datasetshub/songshanhu_fake_user.csv"
     # csv_json_writer(csv_path=r"datasetshub/users_w.csv",datas=account)
     print(csv_reader_as_json(csv_path=csv_path))
