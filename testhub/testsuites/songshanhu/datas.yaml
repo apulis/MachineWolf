@@ -4,31 +4,39 @@ PLATFORM_VERSION: "v1.0.0"
 TEST_TAG: "rc0"
 ENV: 
   INFO: "office_test_lab: 3010推理集群"
-  ROOT_PASSWD: "Aiperf@2025"
-  ADMIN_PASSWD: "gkhCEP"
+  HOST: "http://182.138.104.162:16480"
+  Prometheus_Client: http://182.138.104.162:9091
   CONF_PATH: "/home/InstallationYTung"
+  DATA_PATH: "datasetshub/"
 
 ACCOUNT:
-  admin: {"userName":"admin","password":"71628a98d40b6d01cdb4a3be10545612"}
-  testuser: {"userName":"thomas","password":"99e261ecc3ae5435b4860d8add7bdf4"}
+  web_admin: {"userName":"admin","password":"fpS6bZ"}
+  testuser: {"userName":"thomas","password":"apulis@2025"}
+  ssh_root: {"userName":"root","password":"Aiperf@2025"}
+  token: ""
+  user_id: 1
+  currentRole_id: 1
+  permissionList: ['SUBMIT_TRAINING_JOB', 'VIEW_ALL_USER_JOB', 'VIEW_AND_MANAGE_ALL_USERS_JOB', 'VIEW_CLUSTER_STATUS', 'MANAGE_USER', 'AI_ARTS_ALL', 'LABELING_IMAGE', 'DISPATCH_LABELING_TASK',  'REVIEW_LABELING_TASK', 'MANAGE_VC', 'MANAGE_JOBS', 'MANAGE_PRIVILEGE_JOB', 'SUBMIT_PRIVILEGE_JOB', 'VIEW_VC']
 
 TEST_DATAS:
   MODELSETS: ""
   DATASETS: 
     test: ""
-    huawei: "待定"
+    huawei: ""
   IMAGESETS: ""
   
 RESTFULAPI:
-  Header: {"Content-Type":"application/json;charset=UTF-8","Accept-Encoding":"gzip, deflate","Accept":"application/json","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"}
-  Token: ""
-  Homepage: "/"
-  Login: 
+  header:   {"Content-Type":"application/json;charset=UTF-8", "Accept-Language":"en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7",  "Accept-Encoding":"gzip, deflate",  "Accept":"application/json",  "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"}
+  cookie:    ""
+  homepage: "/"
+  login: 
     mothed: "post" 
-    path: "/custom-user-dashboard-backend/auth/login"
-  Logout: 
+    path:   "/custom-user-dashboard-backend/auth/login"
+    Response: 200
+  logout: 
     mothed: "get" 
-    path: "/custom-user-dashboard-backend/auth/logout"
+    path:   "/custom-user-dashboard-backend/auth/logout"
+    Response: 200
   PostInferenceJob:
     mothed: "post"
     path: "/ai_arts/api/inferences/PostInferenceJob"

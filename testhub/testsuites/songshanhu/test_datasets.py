@@ -25,23 +25,23 @@
  """
 
 
-import locust.stats
-locust.stats.CONSOLE_STATS_INTERVAL_SEC = 3
-
-from locust import TaskSet, task, between, User
+from locust import HttpUser, TaskSet, task, between
 from locust.contrib.fasthttp import FastHttpUser
 from locust import events
+from locust.clients import HttpSession
 import logging
 import json
 import os
 import yaml
 import pdb
+import hashlib
+from testhub.testlib import fake_users
+from testhub.testlib import csv_client
 
 TEST_CONF = os.path.join(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep  ), "datas.yaml")
 TEST_DATAS = {}
-
+DATA_PREFIX = "songshanhu"
 def read_test_datas(conf_file=TEST_CONF):
-    # 读取配置文件中的datasets, modelsets
     stream = {}
     with open(conf_file,'r') as cf:
         stream =cf.read()
@@ -73,7 +73,6 @@ class Datasets(TaskSet):
     13. master节点在模型转换、数据集转换时IO,CPU,MEM的使用率
     14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
     """
-    
     global TEST_DATAS
     def on_start(self):
         print("======================= A new test is starting, user will login {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
@@ -100,18 +99,46 @@ class Datasets(TaskSet):
         # self.admin_client.delete( TEST_DATAS["RESTFULAPI"]["login"]["path"]) # , auth=(self.adminUserName, self.adminUserName)
 
 
-class SiteUser(FastHttpUser):
-    global TEST_DATAS 
-    tasks = [Datasets]
-    wait_time = between(0.5, 5)  # 等待时间,单位为s，任务执行间隔时间
-    TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
-    # pdb.set_trace()
-    # print("+++++++++++++++++++++++", TEST_DATAS["RESTFULAPI"]["homepage"])
+    @task(10)
+    def test_create_user(self):
+        """ testcase
+        1. 注册新用户
+         """
+        user_filename = "".join([DATA_PREFIX,"_","fake_user.csv"])
+        csv_client.csv_reader_as_json(csv_path=os.path.join(TEST_DATAS["ENV"]["DATA_PATH"], user_filename))
+        user_datas = fake_users.new_user()
+        print("======================= test_create_user DATAS: {} ".format(user_datas))
+        print("======================= test_create_user HEADER: {}".format(self.client.header))
+        print("======================= test_create_user COOKIES: {} ".format(TEST_DATAS["RESTFULAPI"]["cookie"]))
+        self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["create_user"]["path"], 
+                                                headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                                json=user_datas, 
+                                                cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
 
+    @task(2)
+    def test_create_group(self):
+        """ testcases
+        2. 注册新用户组
+         """
+        group_filename = "".join([DATA_PREFIX,"_","fake_group.csv"])
+        group_datas = fake_users.new_group()
+        self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
+                            headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                            json=group_datas)
+        csv_client.csv_json_writer(csv_path=os.path.join(TEST_DATAS["ENV"]["DATA_PATH"],group_filename), mode="a", datas=group_datas)
+ 
+
+class BasicalDatas(HttpUser):
+    global TEST_DATAS
+    sock = None
+    wait_time = between(0.5, 2) 
+    TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
+    host = TEST_DATAS["ENV"]["HOST"]
+    tasks = [Datasets]
 
 if __name__ == "__main__":
-    cmd = 'locust -f locust_demo.py'
-    os.system(cmd)
+    global DATA_PREFIX
+    DATA_PREFIX = "songshanhu"
     # locust -f ./testsuite/songshanhu/inference_perf.py --conf ./testsuite/songshanhu/songshanhu.conf
 
 

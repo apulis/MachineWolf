@@ -32,7 +32,6 @@ def read_test_datas(conf_file=TEST_CONF):
 class CreateUsers(TaskSet):
     """ 
     创建用户数据
-
     1. 注册新用户
     2. 注册新用户组
     3. 注册新role

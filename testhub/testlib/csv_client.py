@@ -7,7 +7,7 @@
 import csv
 import re
 
-def csv_reader_as_string(csv_path="", mode="r", length=10):
+def csv_reader_as_string(csv_path="", length=10):
     output = []
     num = 0
     with open(csv_path, mode, newline='',encoding='utf-8') as csvfile:
@@ -31,7 +31,7 @@ def csv_string_writer(csv_path="", mode="a", datas=""):
             spamwriter.writerow(Spam)
     return True
 
-def csv_reader_as_json(csv_path="", mode="r", length=0):
+def csv_reader_as_json(csv_path="", length=0):
     output = []
     num = 0
     with open(csv_path, newline='',encoding='utf-8') as csvfile:
@@ -56,7 +56,7 @@ def csv_json_writer(csv_path="", mode="a", datas={}):
         dicWriter.writerow(datas)
 
 if __name__ == "__main__":
-    csv_path = r"datasetshub/fake_role.csv"
+    csv_path = r"datasetshub/fake_user.csv"
     # account = csv_reader_as_string(r"datasetshub/users.csv", 0)
     # csv_json_writer(csv_path=r"datasetshub/users_w.csv",datas=account)
     print(csv_reader_as_json(csv_path=csv_path))
