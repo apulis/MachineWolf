@@ -22,7 +22,6 @@ RUN sudo cp -a /etc/apt/sources.list /etc/apt/sources.list.bak  \
     && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.2.linux-amd64.tar.gz  \
     && export PATH=$PATH:/usr/local/go/bin   \
     && go env -w GOPROXY=https://goproxy.cn,direct  \
-    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
     && pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple   \
     && pip config set install.trusted-host https://repo.huaweicloud.com  \
     && pip install python-dev-tools  \
@@ -40,4 +39,4 @@ RUN sudo cp -a /etc/apt/sources.list /etc/apt/sources.list.bak  \
 # docker build -f MachineWolf/Dockerfile .  -t  harbor.apulis.cn:8443/testops/machinewolf:latest
 # docker push harbor.apulis.cn:8443/testops/machinewolf:latest
 # Run example
-# docker run -d --name MachineWolf-jupyter -p 8088:8080  harbor.apulis.cn:8443/testops/machinewolf:latest
+# docker run -d     -p 8088:8080     --name "ml-workspace"  -v "${PWD}:/workspace"  --env NOTEBOOK_ARGS="--NotebookApp.notebook_dir=/home"   --shm-size 2048m     --restart always     harbor.apulis.cn:8443/testops/machinewolf:latest

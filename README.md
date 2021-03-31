@@ -33,12 +33,12 @@
 
     1. 拉取已经编译好的镜像
     
-    `docker pull harbor.apulis.cn:8443/testops/MachineWolf :latest`
+    `docker pull harbor.apulis.cn:8443/testops/machinewolf:latest`
 
     2. 执行docker
     
     ```bash
-    docker run --name MachineWolf  -d -p 8088:8088  MachineWolf :latest
+    docker run -d     -p 8088:8080     --name "ml-workspace"  -v "${PWD}:/workspace"  --env NOTEBOOK_ARGS="--NotebookApp.notebook_dir=/home"  --shm-size 2048m  --restart always     harbor.apulis.cn:8443/testops/machinewolf:latest
     http://<xxx.xxx.xxx.xxx>:8088 # 打开jupyterlab
     ```
 
