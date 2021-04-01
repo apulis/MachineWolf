@@ -103,17 +103,11 @@ RESTFULAPI:
     path:   "/endpoints/grafana_zh/api/datasources/proxy/1/api/v1/query_range?query=sum(avg%20(k8s_node_device_total%7Bdevice_str%3D%27nvidia.com%2Fgpu%27%7D)by%20(host_ip)%20)&start=1617239240&end=1617260840&step=40"
     datas:  {}
     referer: "/AIarts/QIP/basicServices/resourceMonitor"
-  create_project:
-    mothed: "post"
-    path: "/ai_arts/api/projects"
-    datas: {"description": "test_project-info","name": "test_project"}
-
  # Test-Datasets
-
   create_datasets:
     mothed: "post"
     path:    "/dataset_manager/api/cv_datasets"
-    datas:   {"name":"lenet_tomas","annotScene":"image","annotType":"object_detection","cvDatasetFormat":"COCO 1.0"}
+    datas:     {"name":"lenet_tomas","annotScene":"image","annotType":"object_detection","cvDatasetFormat":"COCO 1.0"}
     response:  {"code":0,"msg":"success","data":{"id":97,"createdAt":1617248335629,"updatedAt":1617248335629,"deletedAt":null,"cvDatasetFormat":"COCO 1.0","annotScene":"image","annotType":"object_detection","annotStatus":"","datasetCode":"7e8dee95-6fae-4cef-b3f0-039b4bb3d0ca","name":"lenet_tomas","description":"","version":"0.1","tag":0,"sourceType":"","sourceDetail":null,"storageType":"cluster_fs","storagePath":"dataset-images/dataset-manager/storage/265e225a-2343-4d19-b7bb-c208725a9e71","storageDetail":null,"itemCount":0,"annotCount":0,"isPublished":false,"isLatest":true,"jobStatus":"","labelList":null,"versionCount":""}}
   upload_datas:
     mothed:  "post"
@@ -124,7 +118,6 @@ RESTFULAPI:
     mothed:  "post"
     path:    "/dataset_manager/api/cv_datasets/id/97/import_image"
     datas:   {"cvDatasetId":97,"sourceType":"upload_from_page","dirPath":"dataset-images/dataset-manager/storage/tmp/f1b17ab6-f144-4cba-a623-2c92b9575a9c"}
-    
   cat_datasets:
     mothed:  "get"
     path:    "/dataset_manager/api/cv_datasets/id/97/path_list"
@@ -138,7 +131,10 @@ RESTFULAPI:
     mothed:  "post"
     path:    "/dataset_manager/api/cv_datasets/id/97/add_images"
     datas:   {"cvDatasetId":97,"sourceType":"upload_from_page","dirPath":"dataset-images/dataset-manager/storage/tmp/1facad4b-86f3-4f13-adbd-17104e897368"}
-  
+  delete_datasets:
+    mothed:  "delete"
+    path:    ""
+    datas:   {}
   upload_images:
     mothed: "post"
     path: "/dataset_manager/api/cv_datasets/id/6/import_image_dir"

@@ -58,8 +58,6 @@ class OverviewStatus(TaskSet):
     14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
     """
     global TEST_DATAS
-    userName = "NOT_FOUND"
-    password = "NOT_FOUND"
 
     def on_start(self):
         print("======================= A new test is starting, user will login {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))

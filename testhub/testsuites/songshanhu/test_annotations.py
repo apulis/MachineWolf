@@ -29,6 +29,7 @@ from locust import HttpUser, TaskSet, task, between
 from locust.contrib.fasthttp import FastHttpUser
 from locust import events
 from locust.clients import HttpSession
+from credentials import *
 import logging
 import json
 import os
@@ -76,12 +77,15 @@ class Datasets(TaskSet):
     14. master、A3010在满载推理业务时的网络负载，IO,CPU,MEM占用率
     """
     global TEST_DATAS
-    datasets_session = {}
+    userName = "NOT_FOUND"
+    password = "NOT_FOUND"
+
     def on_start(self):
         print("======================= A new test is starting, user will login {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
         self.client.request("get",TEST_DATAS["RESTFULAPI"]["homepage"])
         self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
-        aaccount = USER_CREDENTIALS.pop()
+        self.email, self.password = USER_CREDENTIALS.pop()
+        aaccount={"userName":self.email,"password":self.password}
         response = self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=data)
         result = response.json()
         # pdb.set_trace()
@@ -97,32 +101,35 @@ class Datasets(TaskSet):
     def on_stop(self):
         print("======================= A  test is ending, user will logout {} ! =======================".format(TEST_DATAS["ENV"]["HOST"]))
         response = self.client.request("get", url=TEST_DATAS["RESTFULAPI"]["logout"]["path"])
+        # self.admin_client = HttpSession(base_url=self.client.base_url)
+        # self.admin_client.delete( TEST_DATAS["RESTFULAPI"]["login"]["path"]) # , auth=(self.adminUserName, self.adminUserName)
 
 
-    @task(1)
+    @task(10)
+    def test_create_project(self):
+        """ testcase
+        1. 注册新用户
+         """
+        user_filename = "".join([DATA_PREFIX,"_","fake_user.csv"])
+        user_datas = fake_users.new_user()
+        print("======================= test_create_user DATAS: {} ".format(user_datas))
+        print("======================= test_create_user HEADER: {}".format(self.client.header))
+        print("======================= test_create_user COOKIES: {} ".format(TEST_DATAS["RESTFULAPI"]["cookie"]))
+        self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["create_user"]["path"], 
+                                                headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                                json=user_datas, 
+                                                cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
+
+    @task(2)
     def test_create_dataset(self):
         """ testcases
-        1. 注册新用户组
+        2. 注册新用户组
          """
-        datasets_info = fake_users.new_datastes_songshanhu()
-        with self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
+        group_filename = "".join([DATA_PREFIX,"_","fake_group.csv"])
+        group_datas = fake_users.new_group()
+        self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
                             headers=TEST_DATAS["RESTFULAPI"]["header"], 
-                            json=datasets_info) as resp:
-            self.datasets_session["datasets_id"] = resp["data"]["id"]
-            self.datasets_session["datasetCode"] = resp["data"]["datasetCode"]
-    
-    @task(0)
-    def test_upload_datas(self):
-        """ testcases
-        2. 上传压缩包
-         """
-        self.datasets_session["datasets_id"] = resp["data"]["id"]
-        self.datasets_session["datasetCode"] = resp["data"]["datasetCode"]
-        with self.client.request("post",url=TEST_DATAS["RESTFULAPI"]["create_group"]["path"], 
-                            headers=TEST_DATAS["RESTFULAPI"]["header"], 
-                            json=datasets_info) as resp:
-
-            self.datasets_session["datasets_uploaded_path"] = resp["data"]
+                            json=group_datas)
  
 class BasicalDatas(HttpUser):
     global TEST_DATAS
@@ -130,14 +137,14 @@ class BasicalDatas(HttpUser):
     sock = None
     wait_time = between(0.5, 2) 
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
-    USER_CREDENTIALS = [{'userName': ic['userName'], 'password':ic['password'] } for ic in csv_client.csv_reader_as_json(csv_path=TEST_DATAS["ACCOUNT"]["CSV_PATH"]) if "userName" != ic['userName'] ]
+    USER_CREDENTIALS = [{'userName': ic['userName'], 'password':ic['password'] } for ic in csv_reader_as_json(csv_path=TEST_DATAS["ENV"]["CSV_PATH"]) if "userName" != ic['userName'] ]
     host = TEST_DATAS["ENV"]["HOST"]
     tasks = [Datasets]
 
 if __name__ == "__main__":
-    # global DATA_PREFIX
+    global DATA_PREFIX
     DATA_PREFIX = "songshanhu"
-    pass
-    # locust -f testhub/testsuites/songshanhu/test_datasets.py --conf testhub/testsuites/songshanhu/host.conf
+    # locust -f ./testsuite/songshanhu/inference_perf.py --conf ./testsuite/songshanhu/songshanhu.conf
+
 
 

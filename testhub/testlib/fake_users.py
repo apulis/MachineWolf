@@ -41,6 +41,14 @@ class ChinesePhone(BaseProvider):
         return ''.join([self.PhoneChinaPrefix[random.randint(0, len(self.PhoneChinaPrefix) - 1)],''.join(random.sample(string.digits, 8))])
 
 
+class DatasetsInfo(BaseProvider):
+    # 创建数据集管理中的一些操作信息
+    annotaion_class = ["图片", "视频"]
+    annotaion_sences = ["物体检测","图像分类", "图像分割", "文本检测", "文本识别"]
+    data_source_class = ["网页上传", "平台导入", "原始数据导入"]
+    annotaion_status = ["未标注","标注中","已标注"]
+    datasets_name = [""]
+
 def security_passwd(passwd=PASSWORD_DEFAULT):
     Md5Passwd = hashlib.md5()
     Md5Passwd.update(passwd.encode("utf-8"))
@@ -94,6 +102,14 @@ def new_role():
     return {"name":Rolename,
             "note":Rolenote,
             "permissions":Role   
+            }
+
+def new_datastes_songshanhu():
+
+    return {"name":"lenet_tomas",
+            "annotScene":"image",
+            "annotType":"object_detection",
+            "cvDatasetFormat":"COCO 1.0"
             }
 
 def new_project():
