@@ -39,63 +39,63 @@ RESTFULAPI:
     Response: 200
   get_verview:
     mothed: "get"
-    path:   "AIarts/OverView"
+    path:   "/AIarts/OverView"
     datas:  {}
   get_QIP:
     mothed:  "get"
-    path:    "AIarts/QIP/home"
+    path:    "/AIarts/QIP/home"
     datas:  {}
   get_datasets:
     mothed:  "get"
-    path:    "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
+    path:    "/dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
     datas:   {} 
   get_datasets_savelist:
     mothed:  "get"
-    path:    "ipc_data_manager/ipc_data/api/raw_images?pageNum=1&pageSize=10"
+    path:    "/ipc_data_manager/ipc_data/api/raw_images?pageNum=1&pageSize=10"
     datas:   {}
   get_datasets_managerlist:
     mothed:  "get"
-    path:    "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
+    path:    "/dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
     datas:   {}
   get_project:
     mothed:  "get"
-    path:    "ai_arts/api/vc/?vcName=platform"
+    path:    "/ai_arts/api/vc/?vcName=platform"
     datas: ""
   get_dataset_isPublished:
     mothed: "get"
-    path:   "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=true&isLatest=true"
+    path:   "/dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=true&isLatest=true"
     datas:  {}
   get_dataset_normal:
     mothed: "get"
-    path:   "dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
+    path:   "/dataset_manager/api/cv_datasets/?pageNum=1&pageSize=10&isPublished=false"
     datas:  {}
   get_inferences:
     mothed:  "get"
-    path:    "atistics/api/inference?pageNum=1&pageSize=10"
+    path:    "/atistics/api/inference?pageNum=1&pageSize=10"
     datas:  {}
   get_system_settings:
     mothed: "get"
-    path:   "ai_arts/api/v2/get_sender"
+    path:   "/ai_arts/api/v2/get_sender"
     datas:  {}
   get_currentUser:
     mothed:  "get"
-    path:    "custom-user-dashboard-backend/auth/currentUser"
+    path:    "/custom-user-dashboard-backend/auth/currentUser"
     datas:   {}
   get_platform_config:
     mothed:  "get"
-    path:    "custom-user-dashboard-backend/platform-config"
+    path:    "/custom-user-dashboard-backend/platform-config"
     datas:   {}
   get_jobs:
     mothed: "get"
-    path:   "ai_arts/api/jobs?searchWord=&pageNum=1&pageSize=10&status=all&vcName=platform&jobType=all&order=asc&orderBy=jobTime"
+    path:   "/ai_arts/api/jobs?searchWord=&pageNum=1&pageSize=10&status=all&vcName=platform&jobType=all&order=asc&orderBy=jobTime"
     datas:   {}
   get_vc_usages:
     mothed: "get" 
-    path:   "endpoints/grafana_zh/d/per-vc-gpu-statistic-zh/mei-ge-vcshe-bei-tong-ji-xin-xi?kiosk=tv"
+    path:   "/endpoints/grafana_zh/d/per-vc-gpu-statistic-zh/mei-ge-vcshe-bei-tong-ji-xin-xi?kiosk=tv"
     datas:  {}
   get_devices_usages:
     mothed: "get"
-    path:   "endpoints/grafana_zh/d/device-usage-history-zh/she-bei-shi-yong-liang?kiosk=tv"
+    path:   "/endpoints/grafana_zh/d/device-usage-history-zh/she-bei-shi-yong-liang?kiosk=tv"
     datas:  {}
   create_project:
     mothed: "post"

@@ -7,5 +7,15 @@ execution:
 
 scenarios:
   example:
-    default-address: http://119.147.212.162:51080
-    script: push_datasets.py
+    script: test_overview.py
+
+reporting:
+- module: console
+- module: final-stats
+  summary: true  # overall samples count and percent of failures
+  percentiles: true  # display average times and percentiles
+  summary-labels: false # provides list of sample labels, status, percentage of completed, avg time and errors
+  failed-labels: false  # provides list of sample labels with failures
+  test-duration: true  # provides test duration
+  dump-csv: ./testresult/taurus-result-songshanhu-test-overview.csv
+# dump-xml: filename to export data in XML format

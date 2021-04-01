@@ -12,7 +12,6 @@ from locust import HttpUser, TaskSet, task, between
 from locust.contrib.fasthttp import FastHttpUser
 from locust import events
 from locust.clients import HttpSession
-# from credentials import *
 import logging
 import json
 import os
@@ -68,7 +67,7 @@ class OverviewStatus(TaskSet):
         self.client.header = TEST_DATAS["RESTFULAPI"]["header"]
         account = USER_CREDENTIALS.pop()
         print("======================= USER_CREDENTIALS.pop: {} ".format(account))
-        response = self.client.request("post", url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=account)
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["login"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["login"]["path"], data=account)
         result = response.json()
         # pdb.set_trace()
         try:
@@ -89,8 +88,6 @@ class OverviewStatus(TaskSet):
         """ testcase
         1. 查看概览
          """
-        print("======================= test_create_user HEADER: {}".format(self.client.header))
-        print("======================= test_create_user COOKIES: {} ".format(TEST_DATAS["RESTFULAPI"]["cookie"]))
         response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_verview"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_verview"]["path"])
 
     @task(1)
