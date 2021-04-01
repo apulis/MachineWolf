@@ -58,3 +58,28 @@ RESTFULAPI:
     datas:   {"name":"guest","note":"guestroleguestroleguestroleguestrole","permissions":[]}
     Referer: "/annotations/tasks/create"
     Response: {"success":true,"message":"success"}
+
+  get_grouplist:
+    mothed:   "get"
+    path:     "/custom-user-dashboard-backend/group/list?search="
+    datas:   {}
+  delete_group:
+    mothed:   "delete"
+    path:     "/custom-user-dashboard-backend/group"
+    datas:    {"groupIds":[3]}
+  get_rolelist:
+    mothed:   "get"
+    path:     "/custom-user-dashboard-backend/role?pageNo=1&pageSize=10&search="
+    datas:    {}
+  delete_role:
+    mothed:   "delete"
+    path:     "/custom-user-dashboard-backend/role"
+    datas:    {roleIds: [5]}
+  get_userlist:
+    mothed:   "get"
+    path:     "/custom-user-dashboard-backend/users/list?pageNo=1&pageSize=10&search="
+    datas:    {}
+  delete_user:
+    mothed:  "delete"
+    path:    "/custom-user-dashboard-backend/users"
+    datas:   [30004]

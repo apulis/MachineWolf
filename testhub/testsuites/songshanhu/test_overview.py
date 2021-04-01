@@ -88,105 +88,137 @@ class OverviewStatus(TaskSet):
         """ testcase
         1. 查看概览
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_verview"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_verview"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_verview"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_verview"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
 
     @task(1)
     def test_get_QIP(self):
         """ testcase
         1. 查看工业质检项目类型
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_QIP"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_QIP"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_QIP"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_QIP"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
 
-    @task(2)
+    @task(1)
     def test_get_datasets_managerlist(self):
         """ testcase
         1. 查看数据集管理列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_datasets_managerlist"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_datasets_managerlist"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_datasets_managerlist"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_datasets_managerlist"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"]) 
 
-    @task(1)
+    @task(0)
     def test_get_datasets_savelist(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_datasets_savelist"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_datasets_savelist"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_datasets_savelist"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_datasets_savelist"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
 
     @task(1)
     def test_get_project(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_project"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_project"]["path"])
-
-    @task(1)
-    def test_get_project(self):
-        """ testcase
-        1. 查看数据集存储列表
-         """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_project"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_project"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_project"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_project"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
 
     @task(1)
     def test_get_dataset_isPublished(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_dataset_isPublished"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_dataset_isPublished"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_dataset_isPublished"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_dataset_isPublished"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
 
     @task(1)
     def test_get_dataset_normal(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_dataset_normal"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_dataset_normal"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_dataset_normal"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_dataset_normal"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
     
-    @task(1)
+    @task(0)
     def test_get_inferences(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_inferences"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_inferences"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_inferences"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_inferences"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
     
-    @task(1)
+    @task(0)
     def test_get_system_settings(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_system_settings"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_system_settings"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_system_settings"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_system_settings"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
   
     @task(1)
     def test_get_currentUser(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_currentUser"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_currentUser"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_currentUser"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_currentUser"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
   
     @task(1)
     def test_get_platform_config(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_platform_config"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_platform_config"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_platform_config"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_platform_config"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
   
-    @task(1)
+    @task(0)
     def test_get_jobs(self):
         """ testcase
         1. 查看数据集存储列表
          """
         response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_jobs"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_jobs"]["path"])
-  
-    @task(1)
+
+    @task(0)  
     def test_get_vc_usages(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_vc_usages"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_vc_usages"]["path"])
-  
-    @task(1)
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_vc_usages"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_vc_usages"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
+
+    @task(0) 
     def test_get_devices_usages(self):
         """ testcase
         1. 查看数据集存储列表
          """
-        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_devices_usages"]["mothed"], url=TEST_DATAS["RESTFULAPI"]["get_devices_usages"]["path"])
+        response = self.client.request(TEST_DATAS["RESTFULAPI"]["get_devices_usages"]["mothed"], 
+                                        url=TEST_DATAS["RESTFULAPI"]["get_devices_usages"]["path"],
+                                        headers=TEST_DATAS["RESTFULAPI"]["header"], 
+                                        cookies=TEST_DATAS["RESTFULAPI"]["cookie"])
 
  
 class BasicalDatas(HttpUser):
@@ -195,7 +227,7 @@ class BasicalDatas(HttpUser):
     sock = None
     wait_time = between(0.5, 2) 
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
-    USER_CREDENTIALS = [{'userName': ic['userName'], 'password':ic['password'] } for ic in csv_client.csv_reader_as_json(csv_path=TEST_DATAS["ENV"]["CSV_PATH"]) if "userName" != ic['userName'] ]
+    USER_CREDENTIALS = [{'userName': ic['userName'], 'password':ic['password'] } for ic in csv_client.csv_reader_as_json(csv_path=TEST_DATAS["ACCOUNT"]["CSV_PATH"]) if "userName" != ic['userName'] ]
     host = TEST_DATAS["ENV"]["HOST"]
     tasks = [OverviewStatus]
 

@@ -7,7 +7,7 @@ ENV:
   HOST: "http://182.138.104.162:16480"
   Prometheus_Client: http://182.138.104.162:9091
   CONF_PATH: "/home/InstallationYTung"
-  CSV_PATH: "datasetshub/songshanhu_fake_user.csv"
+
 
 ACCOUNT:
   web_admin: {"userName":"admin","password":"fpS6bZ"}
@@ -17,8 +17,11 @@ ACCOUNT:
   user_id: 1
   currentRole_id: 1
   permissionList: ['SUBMIT_TRAINING_JOB', 'VIEW_ALL_USER_JOB', 'VIEW_AND_MANAGE_ALL_USERS_JOB', 'VIEW_CLUSTER_STATUS', 'MANAGE_USER', 'AI_ARTS_ALL', 'LABELING_IMAGE', 'DISPATCH_LABELING_TASK',  'REVIEW_LABELING_TASK', 'MANAGE_VC', 'MANAGE_JOBS', 'MANAGE_PRIVILEGE_JOB', 'SUBMIT_PRIVILEGE_JOB', 'VIEW_VC']
+  CSV_PATH: "datasetshub/songshanhu_fake_user.csv"
 
 TEST_DATAS:
+  CVAT_API:  "http://192.168.1.185:8018/swagger/index.html#/"
+  QIP_API:   "https://apulis-gitlab.apulis.cn/apulis/aiarts-pro-backend/-/blob/develop/docs/api_2.0.md"
   MODELSETS: ""
   DATASETS: 
     test: ""
@@ -37,6 +40,7 @@ RESTFULAPI:
     mothed: "get" 
     path:   "/custom-user-dashboard-backend/auth/logout"
     Response: 200
+# Test-Overview
   get_verview:
     mothed: "get"
     path:   "/AIarts/OverView"
@@ -89,18 +93,52 @@ RESTFULAPI:
     mothed: "get"
     path:   "/ai_arts/api/jobs?searchWord=&pageNum=1&pageSize=10&status=all&vcName=platform&jobType=all&order=asc&orderBy=jobTime"
     datas:   {}
-  get_vc_usages:
+  get_vc_usages: 
     mothed: "get" 
-    path:   "/endpoints/grafana_zh/d/per-vc-gpu-statistic-zh/mei-ge-vcshe-bei-tong-ji-xin-xi?kiosk=tv"
+    path:   "/endpoints/grafana_zh/api/datasources/proxy/1/api/v1/query_range?query=sum(%20avg%20(k8s_vc_device_total%7Bvc_name%3D%22platform%22%2Cdevice_str%3D%27nvidia.com%2Fgpu%27%7D)%20by(vc_name)%20)&start=1617239240&end=1617260840&step=40"
     datas:  {}
+    referer: "/AIarts/QIP/basicServices/resourceMonitor"
   get_devices_usages:
     mothed: "get"
-    path:   "/endpoints/grafana_zh/d/device-usage-history-zh/she-bei-shi-yong-liang?kiosk=tv"
+    path:   "/endpoints/grafana_zh/api/datasources/proxy/1/api/v1/query_range?query=sum(avg%20(k8s_node_device_total%7Bdevice_str%3D%27nvidia.com%2Fgpu%27%7D)by%20(host_ip)%20)&start=1617239240&end=1617260840&step=40"
     datas:  {}
+    referer: "/AIarts/QIP/basicServices/resourceMonitor"
   create_project:
     mothed: "post"
     path: "/ai_arts/api/projects"
     datas: {"description": "test_project-info","name": "test_project"}
+
+ # Test-Datasets
+
+  create_datasets:
+    mothed: "post"
+    path:    "/dataset_manager/api/cv_datasets"
+    datas:   {"name":"lenet_tomas","annotScene":"image","annotType":"object_detection","cvDatasetFormat":"COCO 1.0"}
+    response:  {"code":0,"msg":"success","data":{"id":97,"createdAt":1617248335629,"updatedAt":1617248335629,"deletedAt":null,"cvDatasetFormat":"COCO 1.0","annotScene":"image","annotType":"object_detection","annotStatus":"","datasetCode":"7e8dee95-6fae-4cef-b3f0-039b4bb3d0ca","name":"lenet_tomas","description":"","version":"0.1","tag":0,"sourceType":"","sourceDetail":null,"storageType":"cluster_fs","storagePath":"dataset-images/dataset-manager/storage/265e225a-2343-4d19-b7bb-c208725a9e71","storageDetail":null,"itemCount":0,"annotCount":0,"isPublished":false,"isLatest":true,"jobStatus":"","labelList":null,"versionCount":""}}
+  upload_datas:
+    mothed:  "post"
+    path:    "/dataset_manager/api/cv_datasets/upload"
+    datas:   {}
+    respose: {"code":0,"msg":"success","data":"dataset-images/dataset-manager/storage/tmp/f1b17ab6-f144-4cba-a623-2c92b9575a9c"}
+  import_images:
+    mothed:  "post"
+    path:    "/dataset_manager/api/cv_datasets/id/97/import_image"
+    datas:   {"cvDatasetId":97,"sourceType":"upload_from_page","dirPath":"dataset-images/dataset-manager/storage/tmp/f1b17ab6-f144-4cba-a623-2c92b9575a9c"}
+    
+  cat_datasets:
+    mothed:  "get"
+    path:    "/dataset_manager/api/cv_datasets/id/97/path_list"
+    datas:   {}
+  add_upload_images:
+    mothed:  "post"
+    path:    "/dataset_manager/api/cv_datasets/upload"
+    refer:   "/AIarts/QIP/dataManage/dataSet/samples/97"
+    datas:   {} 
+  add_submit_images:
+    mothed:  "post"
+    path:    "/dataset_manager/api/cv_datasets/id/97/add_images"
+    datas:   {"cvDatasetId":97,"sourceType":"upload_from_page","dirPath":"dataset-images/dataset-manager/storage/tmp/1facad4b-86f3-4f13-adbd-17104e897368"}
+  
   upload_images:
     mothed: "post"
     path: "/dataset_manager/api/cv_datasets/id/6/import_image_dir"
