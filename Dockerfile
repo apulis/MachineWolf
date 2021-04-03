@@ -12,13 +12,14 @@ ENV PYTHON_HOME  /usr/bin/python3
 
 WORKDIR /home/
 
-# 同步测试库和工具
-COPY docker-build/go1.16.2.linux-amd64.tar.gz  .
+# 如果在国内环境，先下载go安装包
+# COPY docker-build/go1.16.2.linux-amd64.tar.gz  .
 
 RUN sudo cp -a /etc/apt/sources.list /etc/apt/sources.list.bak  \
     && sudo sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list  \
     && sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list  \
-    && apt update    \  
+    && apt update    \ 
+    && wget https://dl.google.com/go/go1.16.3.linux-amd64.tar.gz   \  
     && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.2.linux-amd64.tar.gz  \
     && export PATH=$PATH:/usr/local/go/bin   \
     && go env -w GOPROXY=https://goproxy.cn,direct  \
