@@ -1,8 +1,8 @@
-name: Python package
+name: Build and push images to docker hub
 
 on: [push]
 # schedule:
-#   - cron: '0 22 * * *'
+#   - cron: '0 23 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
