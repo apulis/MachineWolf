@@ -20,7 +20,7 @@ RUN sudo cp -a /etc/apt/sources.list /etc/apt/sources.list.bak  \
     && sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list  \
     && apt update    \ 
     && wget https://dl.google.com/go/go1.16.3.linux-amd64.tar.gz   \  
-    && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.2.linux-amd64.tar.gz  \
+    && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.3.linux-amd64.tar.gz   \
     && export PATH=$PATH:/usr/local/go/bin   \
     && go env -w GOPROXY=https://goproxy.cn,direct  \
     && pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple   \
