@@ -8,10 +8,12 @@
 [![Documentation Status](https://readthedocs.org/projects/nni/badge/?version=latest)](https://achinewolf.readthedocs.io/zh_CN/latest/?badge=latest)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/apulis/MachineWolf)
 [![GitHub release (latest)](https://img.shields.io/github/v/release/apulis/MachineWolf)](https://github.com/apulis/MachineWolf/releases)
+![Issues track](https://img.shields.io/github/issues/apulis/MachineWolf)
+[![Gitter](https://badges.gitter.im/banrieen/MachineWolfHome.svg)](https://gitter.im/banrieen/MachineWolfHome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 <!-- ![GitHub Latest download](https://img.shields.io/github/downloads/apulis/MachineWolf/latest/total?style=plastic) -->
 <!-- [![codeql-analysis Actions Status](https://github.com/apulis/MachineWolf/workflows/codeql-analysis/badge.svg)](https://github.com/apulis/MachineWolf/actions)
 [![nightly-build Actions Status](https://github.com/apulis/MachineWolf/workflows/nightly-build/badge.svg)](https://github.com/apulis/MachineWolf/actions) -->
-![Issues track](https://img.shields.io/github/issues/apulis/MachineWolf)
 
 
 [MachineWolf Doc](README_en_US.md) | [简体中文](https://machinewolf.readthedocs.io/en/latest/)
@@ -172,4 +174,10 @@
 
 ### 社区和联系
 
-[Apulis Aiops Team](http://www.apulis.cn/index.php?s=/sys/cate/5.html)
+欢迎大家把问题、建议提到 github issues
+* [Gitter讨论组](https://gitter.im/banrieen/MachineWolfHome?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+* [#Machinewolf tag on StackOverflow](https://stackoverflow.com/search?q=%23Machinewolf)
+* 微信群
+ 
+* Twitter @MachinWolf
+* QQ群 868444294 
