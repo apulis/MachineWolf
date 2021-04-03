@@ -164,7 +164,7 @@
     2. 调通禅道与测试套件的同步过程调通禅道与测试套件的同步过程
     3. 调通argo与测试套件的同步过程
     4. 补充框架、模型性能工具和脚本 
-    5. 完善容器执行或在k8s中分布式执行方法
+    5. 融合k8s中监控
 
 **版本说明详情请参阅[RELEASE](./RELEASE.md)。**
 
@@ -177,7 +177,5 @@
 欢迎大家把问题、建议提到 github issues
 * [Gitter讨论组](https://gitter.im/banrieen/MachineWolfHome?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 * [#Machinewolf tag on StackOverflow](https://stackoverflow.com/search?q=%23Machinewolf)
-* 微信群
- 
 * Twitter @MachinWolf
 * QQ群 868444294 
