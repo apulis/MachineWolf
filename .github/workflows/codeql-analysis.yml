@@ -13,12 +13,12 @@ name: CodeQL
 
 on:
   push:
-    branches: [ $default-branch, $protected-branches ]
+    branches: [master]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ $default-branch ]
-  # schedule:
-  #   - cron:  '0 23 * * *'
+    branches: [ master ]
+  schedule:
+    - cron:  '0 0 * * *'
 
 jobs:
   analyze:
@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ $detected-codeql-languages ]
+        python-version: [3.8]
         # CodeQL supports [ $supported-codeql-languages ]
         # Learn more:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
@@ -41,7 +41,7 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:
-        languages: ${{ matrix.language }}
+        python-version: ${{ matrix.python-version }}
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
