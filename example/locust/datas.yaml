@@ -3,8 +3,7 @@ PLATFORM_VERSION: "v1.0.0"
 TEST_TAG: "rc0"
 ENV: 
   INFO: "PC dev"
-  WEB_LINK: "https://www.baidu.com/"
-
+  HOST: "https://www.baidu.com"
 
 ACCOUNT:
   admin: {"userName":"admin","password":"71628a98d40b6d01cdb4a3be10545612"}
@@ -20,18 +19,22 @@ RESTFULAPI:
   Token: ""
   Homepage: "/"
   news: 
-    mothed: "post" 
-    path: "http://news.baidu.com/"
+    mothed: "get" 
+    host:  "https://news.baidu.com"
+    path: "/"
   xueshu: 
-    mothed: "post" 
-    path: "https://xueshu.baidu.com/"
+    mothed: "get" 
+    host:   "https://xueshu.baidu.com/"
+    path: "/"
   wenku:
-    mothed: "post"
-    path: "https://wenku.baidu.com/"
+    mothed: "get"
+    host:   "https://wenku.baidu.com/"
+    path: "/"
     datas: []
   live:
-    mothed: "post"
-    path: "https://live.baidu.com/"
+    mothed: "get"
+    host:   "https://live.baidu.com/"
+    path: "/"
     datas: []
 
 

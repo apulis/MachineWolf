@@ -1,7 +1,7 @@
 import locust.stats
 locust.stats.CONSOLE_STATS_INTERVAL_SEC = 3
 
-from locust import TaskSet, task, between, User
+from locust import HttpUser, TaskSet, task, between, User
 from locust.contrib.fasthttp import FastHttpUser
 from locust import events
 import logging
@@ -53,11 +53,12 @@ class SearchQ(TaskSet):
             else:
                 response.raise_for_status()
 
-class SiteUser(FastHttpUser):
+class SiteUser(HttpUser):
     global TEST_DATAS 
     tasks = [SearchQ]
     wait_time = between(0.5, 5)  # 等待时间,单位为s，任务执行间隔时间
     TEST_DATAS = read_test_datas(conf_file=TEST_CONF)
+    host = TEST_DATAS["ENV"]["HOST"]
     def setup(self):
         print('locust setup')
  
