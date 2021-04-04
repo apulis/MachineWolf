@@ -47,13 +47,9 @@ EXPOSE 1099 8088 8089
 # ENTRYPOINT 
 # ENTRYPOINT ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--port 8088 ", "--allow-root", "--NotebookApp.notebook_dir=MachineWolf"]
 # ENTRYPOINT ["jupyter", "lab", "--NotebookApp.token=''",  "--port 8088 ", "--no-browser",  "--ip=0.0.0.0",  "--allow-root",  "--NotebookApp.iopub_msg_rate_limit=1000000.0",  "--NotebookApp.iopub_data_rate_limit=100000000.0",  "--NotebookApp.notebook_dir=MachineWolf"]
-# CMD ["/usr/bin/jupyter", "lab",  "--NotebookApp.token=\'\'",  "--port 8088 ", "--no-browser",  "--ip=\'0.0.0.0\'",  "--allow-root",  "--NotebookApp.iopub_msg_rate_limit=1000000.0",  "--NotebookApp.iopub_data_rate_limit=100000000.0",  "--NotebookApp.notebook_dir=MachineWolf"]
-# CMD ["jupyter lab"  "--NotebookApp.token=\'\'"  "--port 8088 " "--no-browser"  "--ip=\'0.0.0.0\'"  "--allow-root"  "--NotebookApp.iopub_msg_rate_limit=1000000.0"  "--NotebookApp.iopub_data_rate_limit=100000000.0"  "--NotebookApp.notebook_dir=MachineWolf"]
 
-# CMD 
-# /usr/bin/jupyter lab  --NotebookApp.token=''  --port 8088  --no-browser  --ip='0.0.0.0'  --allow-root  --NotebookApp.iopub_msg_rate_limit=1000000.0  --NotebookApp.iopub_data_rate_limit=100000000.0  --NotebookApp.notebook_dir=MachineWolf  &
 # Build  example
-# docker build -f MachineWolf/Dockerfile .  -t  harbor.apulis.cn:8443/testops/machinewolf:latest-E
-# docker push harbor.apulis.cn:8443/testops/machinewolf:latest
+# docker build -f MachineWolf/Dockerfile-opebsuse.dockerfile .  -t  harbor.apulis.cn:8443/testops/machinewolf-opebsuse:latest
+# docker push harbor.apulis.cn:8443/testops/machinewolf-opebsuse:latest
 # Run example
-# docker run -d --name MachineWolf-jupyter -p 8088:8088  harbor.apulis.cn:8443/testops/machinewolf:latest
+# docker run -d --name MachineWolf-jupyter -p 8099:8088  harbor.apulis.cn:8443/testops/machinewolf-opebsuse:latest
